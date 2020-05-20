@@ -1,5 +1,5 @@
 {
-  "name": "peninsula",
+  "name": "peninsula-editor",
   "version": "0.1.0",
   "description": "A wysiwyg, module-based content editor using vue and ckeditor.",
   "main": "index.js",
