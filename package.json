@@ -4,7 +4,7 @@
   "description": "A wysiwyg, module-based content editor using vue and ckeditor.",
   "main": "dist/index.js",
   "scripts": {
-    "test": "Hello World"
+    "prepare": "webpack --config webpack.config.js"
   },
   "repository": {
     "type": "git",
