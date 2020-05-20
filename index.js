@@ -10,17 +10,17 @@
 // Dependencies
 import Vue from 'vue';
 import ImageUploader from 'vue-image-upload-resize';
-import store from './store';
-import adminBarData from './-adminBarData';
-import adminBarMethods from './-adminBarMethods';
-import adminBarComputed from './-adminBarComputed';
-import FrontendNav from './components/FrontendNav.vue';
-import EditingContent from './components/EditingContent.vue';
-import ModulesList from './components/ModulesList.vue';
-import ModulePrompt from './components/ModulePrompt.vue';
-import ModuleSettings from './components/ModuleSettings.vue';
-import ImagePrompt from './components/ImagePrompt.vue';
-import Error from './components/Error.vue';
+import store from './src/store';
+import adminBarData from './src/-adminBarData';
+import adminBarMethods from './src/-adminBarMethods';
+import adminBarComputed from './src/-adminBarComputed';
+import FrontendNav from './src/components/FrontendNav.vue';
+import EditingContent from './src/components/EditingContent.vue';
+import ModulesList from './src/components/ModulesList.vue';
+import ModulePrompt from './src/components/ModulePrompt.vue';
+import ModuleSettings from './src/components/ModuleSettings.vue';
+import ImagePrompt from './src/components/ImagePrompt.vue';
+import Error from './src/components/Error.vue';
 
 Vue.use(ImageUploader);
 const adminBar = document.querySelector('.js-adminBar');
