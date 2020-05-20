@@ -1,0 +1,19 @@
+{
+  "name": "peninsula",
+  "version": "0.1.0",
+  "description": "A wysiwyg, module-based content editor using vue and ckeditor.",
+  "main": "index.js",
+  "scripts": {
+    "test": "Hello World"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/imarc/peninsula.git"
+  },
+  "author": "Tristan Norton",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/imarc/peninsula/issues"
+  },
+  "homepage": "https://github.com/imarc/peninsula#readme"
+}
