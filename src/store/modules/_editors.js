@@ -4,183 +4,183 @@
  * based on attribute
  */
 
-import CodeFlask from 'codeflask';
-import InlineEditor from '@ckeditor/ckeditor5-editor-inline/src/inlineeditor';
-import Autoformat from '@ckeditor/ckeditor5-autoformat/src/autoformat';
-import Essentials from '@ckeditor/ckeditor5-essentials/src/essentials';
-import Bold from '@ckeditor/ckeditor5-basic-styles/src/bold';
-import Italic from '@ckeditor/ckeditor5-basic-styles/src/italic';
-import BlockQuote from '@ckeditor/ckeditor5-block-quote/src/blockquote';
-import Heading from '@ckeditor/ckeditor5-heading/src/heading';
-import Link from '@ckeditor/ckeditor5-link/src/link';
-import List from '@ckeditor/ckeditor5-list/src/list';
-import Table from '@ckeditor/ckeditor5-table/src/table';
-import TableToolbar from '@ckeditor/ckeditor5-table/src/tabletoolbar';
+import CodeFlask from 'codeflask'
+import InlineEditor from '@ckeditor/ckeditor5-editor-inline/src/inlineeditor'
+import Autoformat from '@ckeditor/ckeditor5-autoformat/src/autoformat'
+import Essentials from '@ckeditor/ckeditor5-essentials/src/essentials'
+import Bold from '@ckeditor/ckeditor5-basic-styles/src/bold'
+import Italic from '@ckeditor/ckeditor5-basic-styles/src/italic'
+import BlockQuote from '@ckeditor/ckeditor5-block-quote/src/blockquote'
+import Heading from '@ckeditor/ckeditor5-heading/src/heading'
+import Link from '@ckeditor/ckeditor5-link/src/link'
+import List from '@ckeditor/ckeditor5-list/src/list'
+import Table from '@ckeditor/ckeditor5-table/src/table'
+import TableToolbar from '@ckeditor/ckeditor5-table/src/tabletoolbar'
 
-import Paragraph from '@ckeditor/ckeditor5-paragraph/src/paragraph';
-import Alignment from '@ckeditor/ckeditor5-alignment/src/alignment';
+import Paragraph from '@ckeditor/ckeditor5-paragraph/src/paragraph'
+import Alignment from '@ckeditor/ckeditor5-alignment/src/alignment'
 // eslint-disable-next-line import/no-cycle
-import store from '../index';
+import store from '../index'
 
 /**
  * Optionally store additional custom configuration in window
  * to customize the richtext editor for a specific society.
  */
-const customConfig = window.customConfig || {};
+const customConfig = window.customConfig || {}
 
 const editors = {
-    /**
-     * Apply Simple Text Editing
-     */
-    simpletext(node, commit) {
-        node.addEventListener('click', () => {
-            if (!store.state.adminBarIsOpen) {
-                return true;
-            }
-            store.dispatch('destroyEditors');
+  /**
+   * Apply Simple Text Editing
+   */
+  simpletext (node, commit) {
+    node.addEventListener('click', () => {
+      if (!store.state.adminBarIsOpen) {
+        return true
+      }
+      store.dispatch('destroyEditors')
 
-            // eslint-disable-next-line no-param-reassign
-            node.contentEditable = true;
-            node.focus();
+      // eslint-disable-next-line no-param-reassign
+      node.contentEditable = true
+      node.focus()
 
-            commit('setIsEditing', true);
+      commit('setIsEditing', true)
 
-            return true;
-        });
-    },
+      return true
+    })
+  },
 
-    /**
-     * Apply Rich Text Editing
-     */
-    richtext(node, commit) {
-        // Gracefully fall back to simple if IE
-        if (window.document.documentMode) {
-            this.simpletext(node, commit);
-            return true;
+  /**
+   * Apply Rich Text Editing
+   */
+  richtext (node, commit) {
+    // Gracefully fall back to simple if IE
+    if (window.document.documentMode) {
+      this.simpletext(node, commit)
+      return true
+    }
+
+    node.addEventListener('click', () => {
+      if (node.dataset.editing === 'true' || !store.state.adminBarIsOpen) {
+        return true
+      }
+
+      store.dispatch('destroyEditors')
+
+      InlineEditor.create(node, {
+        plugins: [
+          Essentials,
+          Paragraph,
+          Bold,
+          Italic,
+          Alignment,
+          Autoformat,
+          BlockQuote,
+          Heading,
+          Link,
+          List,
+          Table,
+          TableToolbar
+        ],
+        toolbar: {
+          items: [
+            'heading',
+            '|',
+            'alignment',
+            'bold',
+            'italic',
+            'link',
+            'bulletedList',
+            'numberedList',
+            'blockQuote',
+            'undo',
+            'redo',
+            'insertTable'
+          ]
+        },
+
+        // Society specific config
+        ...customConfig,
+        table: {
+          contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells']
         }
+      })
+        .then(editor => {
+          store.state.CKEditors.push(editor)
 
-        node.addEventListener('click', () => {
-            if (node.dataset.editing === 'true' || !store.state.adminBarIsOpen) {
-                return true;
-            }
+          setTimeout(() => {
+            editor.sourceElement.focus()
+          }, 0)
+        })
+        .catch(error => {
+          console.error(error.stack)
+        })
 
-            store.dispatch('destroyEditors');
+      // eslint-disable-next-line no-param-reassign
+      node.dataset.editing = true
 
-            InlineEditor.create(node, {
-                plugins: [
-                    Essentials,
-                    Paragraph,
-                    Bold,
-                    Italic,
-                    Alignment,
-                    Autoformat,
-                    BlockQuote,
-                    Heading,
-                    Link,
-                    List,
-                    Table,
-                    TableToolbar,
-                ],
-                toolbar: {
-                    items: [
-                        'heading',
-                        '|',
-                        'alignment',
-                        'bold',
-                        'italic',
-                        'link',
-                        'bulletedList',
-                        'numberedList',
-                        'blockQuote',
-                        'undo',
-                        'redo',
-                        'insertTable',
-                    ],
-                },
+      commit('setIsEditing', true)
 
-                // Society specific config
-                ...customConfig,
-                table: {
-                    contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells'],
-                },
-            })
-                .then(editor => {
-                    store.state.CKEditors.push(editor);
+      return true
+    })
 
-                    setTimeout(() => {
-                        editor.sourceElement.focus();
-                    }, 0);
-                })
-                .catch(error => {
-                    console.error(error.stack);
-                });
+    return true
+  },
 
-            // eslint-disable-next-line no-param-reassign
-            node.dataset.editing = true;
+  /**
+   * Apply HTML Editing
+   */
+  html (node, commit) {
+    node.addEventListener('click', () => {
+      if (node.dataset.editing === 'true' || !store.state.adminBarIsOpen) {
+        return true
+      }
 
-            commit('setIsEditing', true);
+      const flask = new CodeFlask(node, {
+        language: 'html'
+      })
 
-            return true;
-        });
+      store.state.HTMLEditors.push(flask)
 
-        return true;
-    },
+      const editorTextArea = node.querySelector('textarea')
 
-    /**
-     * Apply HTML Editing
-     */
-    html(node, commit) {
-        node.addEventListener('click', () => {
-            if (node.dataset.editing === 'true' || !store.state.adminBarIsOpen) {
-                return true;
-            }
+      editorTextArea.focus()
 
-            const flask = new CodeFlask(node, {
-                language: 'html',
-            });
+      editorTextArea.addEventListener('blur', () => {
+        const newCode = flask.getCode()
+        flask.editorRoot.dataset.editing = false
+        flask.editorRoot.innerHTML = newCode
+      })
 
-            store.state.HTMLEditors.push(flask);
+      // eslint-disable-next-line no-param-reassign
+      node.dataset.editing = true
 
-            const editorTextArea = node.querySelector('textarea');
+      commit('setIsEditing', true)
 
-            editorTextArea.focus();
+      return true
+    })
+  },
 
-            editorTextArea.addEventListener('blur', () => {
-                const newCode = flask.getCode();
-                flask.editorRoot.dataset.editing = false;
-                flask.editorRoot.innerHTML = newCode;
-            });
+  /**
+   * Image Upload
+   */
+  image (node, commit) {
+    node.addEventListener('click', event => {
+      if (!store.state.adminBarIsOpen) {
+        return true
+      }
 
-            // eslint-disable-next-line no-param-reassign
-            node.dataset.editing = true;
+      event.preventDefault()
 
-            commit('setIsEditing', true);
+      commit('setPhotoSelection', {
+        isSelecting: true,
+        node
+      })
 
-            return true;
-        });
-    },
+      commit('setIsEditing', true)
 
-    /**
-     * Image Upload
-     */
-    image(node, commit) {
-        node.addEventListener('click', event => {
-            if (!store.state.adminBarIsOpen) {
-                return true;
-            }
+      return true
+    })
+  }
+}
 
-            event.preventDefault();
-
-            commit('setPhotoSelection', {
-                isSelecting: true,
-                node,
-            });
-
-            commit('setIsEditing', true);
-
-            return true;
-        });
-    },
-};
-
-export default editors;
+export default editors

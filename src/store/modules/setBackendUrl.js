@@ -4,7 +4,7 @@
  * @param Object Object of Module Representation
  */
 
-export default function setBackendUrl({ commit }, node) {
-    const url = node.href;
-    commit('setBackendUrl', url);
+export default function setBackendUrl ({ commit }, node) {
+  const url = node.href
+  commit('setBackendUrl', url)
 }

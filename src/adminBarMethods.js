@@ -5,15 +5,15 @@
  * Authors: Tristan Norton
  *
  */
-import store from './store';
+import store from './store'
 
 export default {
-    openAdminBar(event) {
-        event.preventDefault();
-        store.dispatch('setAdminBarIsOpen', true);
-    },
-    closeAdminBar(event) {
-        event.preventDefault();
-        store.dispatch('setAdminBarIsOpen', false);
-    },
-};
+  openAdminBar (event) {
+    event.preventDefault()
+    store.dispatch('setAdminBarIsOpen', true)
+  },
+  closeAdminBar (event) {
+    event.preventDefault()
+    store.dispatch('setAdminBarIsOpen', false)
+  }
+}

@@ -4,10 +4,10 @@
  */
 
 // Dependencies
-import axios from 'axios';
+import axios from 'axios'
 
-export default function getModules({ commit }) {
-    axios.get('/api/v1/cms/modules/').then(response => {
-        commit('setModules', response.data);
-    });
+export default function getModules ({ commit }) {
+  axios.get('/api/v1/cms/modules/').then(response => {
+    commit('setModules', response.data)
+  })
 }

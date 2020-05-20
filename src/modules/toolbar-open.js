@@ -4,10 +4,10 @@
  */
 
 // Dependencies
-import classToggle from './classtoggle';
+import classToggle from './classtoggle'
 
 classToggle({
-    elementClass: '.js-toolbar',
-    triggerClass: '.js-edit',
-    toggleClass: '-open',
-});
+  elementClass: '.js-toolbar',
+  triggerClass: '.js-edit',
+  toggleClass: '-open'
+})

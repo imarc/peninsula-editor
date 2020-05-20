@@ -4,6 +4,6 @@
  * @param String Error Message
  */
 
-export default function throwError({ commit }, error) {
-    commit('setError', error);
+export default function throwError ({ commit }, error) {
+  commit('setError', error)
 }

@@ -4,6 +4,6 @@
  * @param Boolean what to set boolean value for is selecting module
  */
 
-export default function setIsSelectingModule({ commit }, bool) {
-    commit('setIsSelectingModule', bool);
+export default function setIsSelectingModule ({ commit }, bool) {
+  commit('setIsSelectingModule', bool)
 }

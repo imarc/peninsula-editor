@@ -1,4 +1,4 @@
-import { mapState } from 'vuex';
+import { mapState } from 'vuex'
 
 /**
  * Computed State for Admin Bar top level
@@ -9,16 +9,16 @@ import { mapState } from 'vuex';
  */
 
 export default {
-    ...mapState([
-        'isEditing',
-        'editingIsAvailible',
-        'isModuleMode',
-        'isSelectingModule',
-        'isUpdatingModule',
-        'adminBarIsOpen',
-        'collections',
-        'backendUrl',
-        'photoSelection',
-        'error',
-    ]),
-};
+  ...mapState([
+    'isEditing',
+    'editingIsAvailible',
+    'isModuleMode',
+    'isSelectingModule',
+    'isUpdatingModule',
+    'adminBarIsOpen',
+    'collections',
+    'backendUrl',
+    'photoSelection',
+    'error'
+  ])
+}

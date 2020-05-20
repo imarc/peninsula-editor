@@ -4,7 +4,7 @@
  * @param Object Object of Module Representation
  */
 
-export default function setContext({ commit }, module) {
-    commit('setContext', module);
-    commit('setIsModuleMode', true);
+export default function setContext ({ commit }, module) {
+  commit('setContext', module)
+  commit('setIsModuleMode', true)
 }

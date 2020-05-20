@@ -7,5 +7,5 @@
  */
 
 export default {
-    isMacOS: false,
-};
+  isMacOS: false
+}
