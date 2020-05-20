@@ -58,7 +58,7 @@
 </template>
 
 <script>
-import '../../polyfills/append';
+import '../modules/append';
 import { mapState } from 'vuex';
 import { Sortable } from '@shopify/draggable';
 import { startCase } from 'lodash';
