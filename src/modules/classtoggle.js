@@ -36,9 +36,9 @@ export default function expand (passedConfig) {
           if (config.swapText) {
             // eslint-disable-next-line no-param-reassign
             trigger.innerHTML =
-                            trigger.innerHTML !== config.swapText
-                              ? config.swapText
-                              : initialText
+              trigger.innerHTML !== config.swapText
+                ? config.swapText
+                : initialText
           }
         }
       })
