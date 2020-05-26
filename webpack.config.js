@@ -45,8 +45,12 @@ module.exports = {
     filename: 'index.js',
     path: path.resolve(__dirname, 'dist')
   },
+  resolve: {
+    alias: {
+      'vue$': 'vue/dist/vue.esm.js'
+    }
+  },
   plugins: [
-    // make sure to include the plugin for the magic
     new VueLoaderPlugin()
   ]
 }

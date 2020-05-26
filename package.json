@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/imarc/peninsula#readme",
   "dependencies": {
+    "@babel/runtime": "^7.9.6",
     "@ckeditor/ckeditor5-alignment": "^16.0.0",
     "@ckeditor/ckeditor5-autoformat": "^16.0.0",
     "@ckeditor/ckeditor5-basic-styles": "^16.0.0",
@@ -36,6 +37,7 @@
     "@shopify/draggable": "^1.0.0-beta.8",
     "axios": "^0.19.2",
     "codeflask": "^1.4.1",
+    "core-js": "^3.6.5",
     "lodash": "^4.17.15",
     "uuid": "^3.3.3",
     "vue": "^2.6.11",
