@@ -25,7 +25,7 @@ import Error from './components/Error.vue'
 Vue.use(ImageUploader)
 const adminBar = document.querySelector('.js-adminBar')
 
-if (adminBar) {
+export default config => {
   // eslint-disable-next-line no-new
   new Vue({
     el: adminBar,
