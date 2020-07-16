@@ -1,26 +1,26 @@
 <template>
-  <section
-    key="isEditingContent"
-    class="cms-editing-content js-toolbar"
-    :class="{ '-open': adminBarIsOpen }"
-  >
-    <h2 class="title">
-      Editing Page Content
-    </h2>
-    <div class="actions">
-      <a href="#" class="cancel" @click="cancelChanges">
-        Cancel
-      </a>
-      <a
-        href="#"
-        :class="{ '-processing': isSaving }"
-        class="cms- action"
-        @click="saveContent"
-      >
-        Save
-      </a>
-    </div>
-  </section>
+    <section
+        key="isEditingContent"
+        class="cms-editing-content js-toolbar"
+        :class="{ '-open': adminBarIsOpen }"
+    >
+        <h2 class="title">
+            Editing Page Content
+        </h2>
+        <div class="actions">
+            <a href="#" class="cancel" @click="cancelChanges">
+                Cancel
+            </a>
+            <a
+                href="#"
+                :class="{ '-processing': isSaving }"
+                class="cms- action"
+                @click="saveContent"
+            >
+                Save
+            </a>
+        </div>
+    </section>
 </template>
 
 <script>

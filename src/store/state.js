@@ -28,6 +28,8 @@ export default {
   token: null,
   backendUrl: null,
   error: null,
+  highlightedNode: null,
+  editingNode: null,
   photoSelection: {
     isSelecting: false,
     node: null

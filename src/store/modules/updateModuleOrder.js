@@ -11,8 +11,8 @@ export default function openModulesList ({ commit }, orderArray) {
   commit('setIsEditing', true)
 
   /**
-   * Create module data array based on order of module IDs
-   */
+     * Create module data array based on order of module IDs
+     */
   const relatedModuleData = orderArray.map(id => {
     let correspondingModule = {}
 
@@ -26,28 +26,29 @@ export default function openModulesList ({ commit }, orderArray) {
   })
 
   /**
-   * Clean up highlight classes
-   */
+     * Clean up highlight classes
+     */
   context.nestedModules.forEach(module => {
     module.classList.remove('-highlight')
   })
 
   /**
-   * Remove modules from visible dom
-   */
+     * Remove modules from visible dom
+     */
   while (context.node.firstChild) {
     context.node.removeChild(context.node.firstChild)
   }
 
   /**
-   * Reappend same referenced nodes in new order
-   */
+     * Reappend same referenced nodes in new order
+     */
   relatedModuleData.forEach(module => {
     context.node.append(module.node)
   })
 
   /**
-   * Update data representation for current container
-   */
+     * Update data representation for current container
+     */
   commit('setContextModules', relatedModuleData)
+  this.dispatch('updateHighlights')
 }

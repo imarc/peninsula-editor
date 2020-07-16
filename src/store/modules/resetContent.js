@@ -5,14 +5,14 @@
 
 export default function resetContent ({ commit }) {
   /**
-   * Loops through each field and and resets it's innerHTML with the last saved content
-   */
+     * Loops through each field and and resets it's innerHTML with the last saved content
+     */
   this.state.fields.forEach(field => {
     /**
-     * Checks if current field has a key or
-     * collection already assigned to it.
-     * Otherwise, find next parent that has it assigned.
-     */
+         * Checks if current field has a key or
+         * collection already assigned to it.
+         * Otherwise, find next parent that has it assigned.
+         */
     const collectionName =
             typeof field.dataset.collection !== 'undefined'
               ? field.dataset.collection

@@ -1,60 +1,60 @@
 <template>
-  <div class="cms-modules">
-    <a href="#" class="cms-return" @click="navigateUp">
-      Return to
-      <span v-text="parentContextName"></span>
-    </a>
-    <h2 class="title">
-      <span v-text="contextName"></span>
-      Modules
-    </h2>
-    <ul v-if="contextModules">
-      <li
-        v-for="module in contextModules"
-        :key="module.id"
-        :data-value="module.id"
-        @dblclick="setContext(module, $event)"
-      >
-          <div
-            class="cms-module"
-            @mouseover="highlightModule(module, $event)"
-            @mouseleave="dehighlightModule(module, $event)"
-          >
-            <div class="cms-moduleinfo js-dragHandle">
-              <h3 class="title" v-text="module.node.dataset.moduleName"></h3>
-              <p>
-                  [
-                  <span
-                    v-text="applyStartCase(module.node.dataset.module)"
-                  ></span>
-                  ]
-              </p>
-            </div>
-            <div class="actions">
-                <a
-                  v-if="hasNestedModules(module)"
-                  href="#"
-                  class="context"
-                  @click="setContext(module, $event)"
+    <div class="cms-modules">
+        <a href="#" class="cms-return" @click="navigateUp">
+            Return to
+            <span v-text="parentContextName"></span>
+        </a>
+        <h2 class="title">
+            <span v-text="contextName"></span>
+            Modules
+        </h2>
+        <ul v-if="contextModules">
+            <li
+                v-for="module in contextModules"
+                :key="module.id"
+                :data-value="module.id"
+                @dblclick="setContext(module, $event)"
+            >
+                <div
+                    class="cms-module"
+                    @mouseover="highlightModule(module, $event)"
+                    @mouseleave="dehighlightModule"
                 >
-                  Context
-                </a>
-                <a
-                  href="#"
-                  class="settings"
-                  @click="openModuleSettings(module, $event)"
-                >
-                  Settings
-                </a>
-                <a href="#" class="remove" @click="removeModule(module, $event)">
-                  Remove
-                </a>
-            </div>
-          </div>
-      </li>
-    </ul>
-    <a href="#" class="cms-action" @click="openModuleSelect">+ Add a Module</a>
-  </div>
+                    <div class="cms-moduleinfo js-dragHandle">
+                        <h3 class="title" v-text="module.node.dataset.moduleName"></h3>
+                        <p>
+                            [
+                            <span
+                                v-text="applyStartCase(module.node.dataset.module)"
+                            ></span>
+                            ]
+                        </p>
+                    </div>
+                    <div class="actions">
+                        <a
+                            v-if="hasNestedModules(module)"
+                            href="#"
+                            class="context"
+                            @click="setContext(module, $event)"
+                        >
+                            Context
+                        </a>
+                        <a
+                            href="#"
+                            class="settings"
+                            @click="openModuleSettings(module, $event)"
+                        >
+                            Settings
+                        </a>
+                        <a href="#" class="remove" @click="removeModule(module, $event)">
+                            Remove
+                        </a>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <a href="#" class="cms-action" @click="openModuleSelect">+ Add a Module</a>
+    </div>
 </template>
 
 <script>
@@ -65,14 +65,12 @@ import { startCase } from 'lodash'
 import store from '../store/index'
 
 export default {
-
   data () {
     return {
       moduleOrder: [],
       isDragging: false
     }
   },
-
   computed: {
     ...mapState(['context', 'modules']),
     contextModules () {
@@ -97,11 +95,9 @@ export default {
       return this.context.node.dataset.moduleName
     }
   },
-
   mounted () {
     this.initializeDraggable()
   },
-
   methods: {
     navigateUp (event) {
       event.preventDefault()
@@ -130,10 +126,10 @@ export default {
         })
       }
 
-      module.node.classList.add('-highlight')
+      store.dispatch('setHighlightedModule', module.node)
     },
-    dehighlightModule (module) {
-      module.node.classList.remove('-highlight')
+    dehighlightModule () {
+      store.dispatch('setHighlightedModule', null)
     },
     openModuleSelect (event) {
       event.preventDefault()
@@ -186,6 +182,5 @@ export default {
       })
     }
   }
-
 }
 </script>

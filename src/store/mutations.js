@@ -58,8 +58,17 @@ export default {
   setIsUpdatingModule (state, bool) {
     state.isUpdatingModule = bool
   },
+  setEditingNode (state, node) {
+    state.editingNode = node
+  },
+  setHighlightedNode (state, node) {
+    state.highlightedNode = node
+  },
   unsetContext (state) {
     state.context = null
+  },
+  setVueInstance (state, instance) {
+    state.vueInstance = instance
   },
   removeModuleData (state, moduleDataToRemove) {
     state.modules = state.modules.filter(

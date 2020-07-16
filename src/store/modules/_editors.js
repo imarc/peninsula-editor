@@ -30,8 +30,8 @@ const customConfig = window.customConfig || {}
 
 const editors = {
   /**
-   * Apply Simple Text Editing
-   */
+     * Apply Simple Text Editing
+     */
   simpletext (node, commit) {
     node.addEventListener('click', () => {
       if (!store.state.adminBarIsOpen) {
@@ -44,14 +44,15 @@ const editors = {
       node.focus()
 
       commit('setIsEditing', true)
+      commit('setEditingNode', node)
 
       return true
     })
   },
 
   /**
-   * Apply Rich Text Editing
-   */
+     * Apply Rich Text Editing
+     */
   richtext (node, commit) {
     // Gracefully fall back to simple if IE
     if (window.document.documentMode) {
@@ -119,6 +120,7 @@ const editors = {
       node.dataset.editing = true
 
       commit('setIsEditing', true)
+      commit('setEditingNode', node)
 
       return true
     })
@@ -127,8 +129,8 @@ const editors = {
   },
 
   /**
-   * Apply HTML Editing
-   */
+     * Apply HTML Editing
+     */
   html (node, commit) {
     node.addEventListener('click', () => {
       if (node.dataset.editing === 'true' || !store.state.adminBarIsOpen) {
@@ -155,14 +157,15 @@ const editors = {
       node.dataset.editing = true
 
       commit('setIsEditing', true)
+      commit('setEditingNode', node)
 
       return true
     })
   },
 
   /**
-   * Image Upload
-   */
+     * Image Upload
+     */
   image (node, commit) {
     node.addEventListener('click', event => {
       if (!store.state.adminBarIsOpen) {
@@ -177,6 +180,7 @@ const editors = {
       })
 
       commit('setIsEditing', true)
+      commit('setEditingNode', node)
 
       return true
     })

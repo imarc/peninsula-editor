@@ -29,7 +29,10 @@ import resetContent from './modules/resetContent'
 import setAdminBarIsOpen from './modules/setAdminBarIsOpen'
 import getValidation from './modules/getValidation'
 import setBackendUrl from './modules/setBackendUrl'
+import setHighlightedModule from './modules/setHighlightedModule'
+import setVueInstance from './modules/setVueInstance'
 import throwError from './modules/throwError'
+import updateHighlights from './modules/updateHighlights'
 
 export default {
   initialDataConstruct,
@@ -42,6 +45,7 @@ export default {
   destroyEditors,
   setIsModuleMode,
   setIsSelectingModule,
+  setHighlightedModule,
   addModule,
   removeModule,
   closeModulePrompt,
@@ -54,7 +58,9 @@ export default {
   setLatestSavedData,
   resetContent,
   setAdminBarIsOpen,
+  setVueInstance,
   getValidation,
   setBackendUrl,
-  throwError
+  throwError,
+  updateHighlights
 }

@@ -4,7 +4,7 @@
  */
 
 // Dependencies
-import classToggle from './classtoggle'
+import classToggle from '../../modules/classtoggle'
 
 classToggle({
   elementClass: '.js-toolbar',

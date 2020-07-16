@@ -1,57 +1,63 @@
 <template>
-  <section class="cms-prompt">
-    <div class="cms-prompt-info">
-      <h2 class="title">
-        Update Settings for this Module
-      </h2>
-      <section class="cms-attribute-fields">
-        <div class="text">
-          <label for="name">Enter a unique name for this module</label>
-          <input id="name" v-model="moduleAttributeData.name" type="text" />
+    <section class="cms-prompt">
+        <div class="cms-prompt-info">
+            <h2 class="title">
+                Update Settings for this Module
+            </h2>
+            <section class="cms-attribute-fields">
+                <div class="text">
+                    <label for="name">Enter a unique name for this module</label>
+                    <input id="name" v-model="moduleAttributeData.name" type="text" />
+                </div>
+                <span
+                    v-for="(value, key) in availibleModules[currentModuleType].attributes"
+                    :key="key"
+                >
+                    <div
+                        v-if="
+                            isArray(value.options) &&
+                                typeof moduleAttributeData[key] !== 'undefined'
+                        "
+                        class="select"
+                    >
+                        <label for="cardReference">Pick a custom style</label>
+                        <span>
+                            <select
+                                :id="moduleAttributeData[key]"
+                                v-model="moduleAttributeData[key]"
+                                name="cardReference"
+                            >
+                                <option
+                                    v-for="option in value.options"
+                                    :key="option.class"
+                                    :value="option.class"
+                                    v-text="option.label"
+                                ></option>
+                            </select>
+                        </span>
+                    </div>
+                    <div
+                        v-else-if="typeof moduleAttributeData[key] !== 'undefined'"
+                        class="text"
+                    >
+                        <label :for="key" v-text="value.label"></label>
+                        <p
+                            v-if="moduleAttributeData[key].note"
+                            class="note -info"
+                            v-text="moduleAttributeData[key].note"
+                        ></p>
+                        <input :id="key" v-model="moduleAttributeData[key]" type="text" />
+                    </div>
+                </span>
+            </section>
+            <button class="link" @click="updateModuleAttributes">
+                Update Module
+            </button>
+            <a href="#" class="cms-prompt-cancel" @click="closeSettings">
+                Cancel
+            </a>
         </div>
-        <span
-          v-for="(value, key) in availibleModules[currentModuleType].attributes"
-          :key="key"
-        >
-          <div
-            v-if="isArray(value.options) && moduleAttributeData[key]"
-            class="select"
-          >
-            <label for="cardReference">Pick a custom style</label>
-            <span>
-              <select
-                :id="moduleAttributeData[key]"
-                v-model="moduleAttributeData[key]"
-                name="cardReference"
-              >
-                <option
-                  v-for="option in value.options"
-                  :key="option.class"
-                  :value="option.class"
-                  v-text="option.label"
-                ></option>
-              </select>
-            </span>
-          </div>
-          <div v-else-if="moduleAttributeData[key]" class="text">
-            <label :for="key" v-text="value.label"></label>
-            <p
-              v-if="moduleAttributeData[key].note"
-              class="note -info"
-              v-text="moduleAttributeData[key].note"
-            ></p>
-            <input :id="key" v-model="moduleAttributeData[key]" type="text" />
-          </div>
-        </span>
-      </section>
-      <button class="link" @click="updateModuleAttributes">
-        Update Module
-      </button>
-      <a href="#" class="cms-prompt-cancel" @click="closeSettings">
-        Cancel
-      </a>
-    </div>
-  </section>
+    </section>
 </template>
 
 <script>
@@ -63,7 +69,6 @@ import attributeHandlers from '../store/modules/_attributeHandlers'
 import store from '../store/index'
 
 export default {
-
   data () {
     return {
       moduleAttributeData: {
@@ -74,14 +79,12 @@ export default {
       classNode: null
     }
   },
-
   computed: {
     ...mapState(['currentModule', 'availibleModules']),
     currentModuleType () {
       return this.currentModule.node.dataset.module
     }
   },
-
   mounted () {
     this.moduleAttributeData.name = this.currentModule.node.dataset.moduleName
 
@@ -89,9 +92,9 @@ export default {
 
     Object.keys(moduleAttributes).forEach(key => {
       const handler =
-          typeof moduleAttributes[key].handler !== 'undefined'
-            ? moduleAttributes[key].handler
-            : 'default'
+                typeof moduleAttributes[key].handler !== 'undefined'
+                  ? moduleAttributes[key].handler
+                  : 'default'
       try {
         this.moduleAttributeData[key] = attributeGetters[handler](
           this.currentModule.node,
@@ -103,7 +106,6 @@ export default {
       }
     })
   },
-
   methods: {
     applyStartCase (string) {
       return startCase(string)
@@ -111,24 +113,25 @@ export default {
     updateModuleAttributes () {
       this.currentModule.node.dataset.moduleName = this.moduleAttributeData.name
 
-      const moduleAttributes = this.availibleModules[this.currentModuleType].attributes
+      const moduleAttributes = this.availibleModules[this.currentModuleType]
+        .attributes
       const errors = []
 
       /**
-       * Look for additional attributes besides name and apply them
-       */
+             * Look for additional attributes besides name and apply them
+             */
       Object.keys(moduleAttributes).forEach(key => {
         const moduleConfig = moduleAttributes[key]
 
         const handler =
-            typeof moduleConfig.handler !== 'undefined'
-              ? moduleConfig.handler
-              : 'default'
+                    typeof moduleConfig.handler !== 'undefined'
+                      ? moduleConfig.handler
+                      : 'default'
 
         try {
           /**
-           * Check if unique handler has been defined.
-           */
+                     * Check if unique handler has been defined.
+                     */
           attributeHandlers[handler](
             this.currentModule.node,
             this.availibleModules[this.currentModuleType],

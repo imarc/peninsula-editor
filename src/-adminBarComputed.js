@@ -19,6 +19,8 @@ export default {
     'collections',
     'backendUrl',
     'photoSelection',
-    'error'
+    'error',
+    'highlightedNode',
+    'editors'
   ])
 }

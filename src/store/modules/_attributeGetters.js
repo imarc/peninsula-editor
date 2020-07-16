@@ -4,8 +4,8 @@
 
 const attributeHandlers = {
   /**
-   * Default Attribute Getters
-   */
+     * Default Attribute Getters
+     */
   default (node, attributeData, key) {
     let element = {}
 
@@ -15,15 +15,11 @@ const attributeHandlers = {
       element = node.querySelector(`[data-${key}]`)
     }
 
-    if (key === 'href') {
-      return ' '
-    }
-
     return element[key]
   },
   /**
-   * Class Attribute Getters
-   */
+     * Class Attribute Getters
+     */
   class (node, attributeData, key) {
     let classModifiedElement = {}
 
@@ -56,8 +52,8 @@ const attributeHandlers = {
   },
 
   /**
-   * Inline Width Style Getters
-   */
+     * Inline Width Style Getters
+     */
   width (node, attributeData, key) {
     let styleModifiedElement = {}
 

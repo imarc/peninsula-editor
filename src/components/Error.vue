@@ -1,8 +1,8 @@
 <template>
-  <section class="cms-islet-error">
-    <p v-text="error" />
-    <button class="cms-close" @click="closeError" />
-  </section>
+    <section class="cms-islet-error">
+        <p v-text="error" />
+        <button class="cms-close" @click="closeError" />
+    </section>
 </template>
 
 <script>

@@ -12,8 +12,8 @@ const cssPropertyValueSupported = function (prop, value) {
 
 const attributeHandlers = {
   /**
-   * Default Attribute Handler
-   */
+     * Default Attribute Handler
+     */
   default (node, selectedModule, value, key) {
     let attributeModifiedElement = {}
 
@@ -29,18 +29,14 @@ const attributeHandlers = {
       )
     }
 
-    if (key === 'href') {
-      value = ' '
-    }
-
     if (attributeModifiedElement) {
       attributeModifiedElement[key] = value || ''
     }
   },
 
   /**
-   * Class Attribute Handler
-   */
+     * Class Attribute Handler
+     */
   class (node, selectedModule, value, key) {
     let classModifiedElement = {}
 
@@ -64,8 +60,8 @@ const attributeHandlers = {
   },
 
   /**
-   * Inline Width Handler
-   */
+     * Inline Width Handler
+     */
   width (node, selectedModule, value, key) {
     let styleModifiedElement = {}
 
