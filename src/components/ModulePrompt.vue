@@ -75,7 +75,22 @@
                             </div>
                           </transition>
                         </div>
-                        <div v-else>
+                        <div v-else-if="key === 'download' && typeof moduleAttributeData.download !== 'undefined'">
+                          <label :for="key" v-text="value.label"></label>
+                          <p
+                              v-if="selectedModule.attributes[key].note"
+                              class="note -info"
+                              v-text="selectedModule.attributes[key].note"
+                          ></p>
+                          <input
+                              :id="key"
+                              v-model="moduleAttributeData[key]"
+                              type="text"
+                              v-else
+                              :placeholder="value.placeholder ? value.placeholder : ''"
+                          />
+                        </div>
+                        <div v-else-if="key !== 'download'">
                           <label :for="key" v-text="value.label"></label>
                           <p
                               v-if="selectedModule.attributes[key].note"
@@ -198,9 +213,7 @@ export default {
             'Content-Type': 'text/plain'
           }
         })
-      this.selectedModule.attributes.download = {
-        label: 'Filename'
-      }
+
       this.moduleAttributeData.href = response.headers.location
       this.moduleAttributeData.download = file.name
       this.fileFeedback = null
