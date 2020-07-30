@@ -4,6 +4,6 @@
  * @param Boolean what to set boolean value to for editing
  */
 
-export default function setIsEditing({ commit }, bool) {
-    commit('setIsEditing', bool);
+export default function setIsEditing ({ commit }, bool) {
+  commit('setIsEditing', bool)
 }

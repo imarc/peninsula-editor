@@ -50,18 +50,46 @@
                         </span>
                     </div>
                     <div v-else class="text">
-                        <label :for="key" v-text="value.label"></label>
-                        <p
-                            v-if="selectedModule.attributes[key].note"
-                            class="note -info"
-                            v-text="selectedModule.attributes[key].note"
-                        ></p>
-                        <input
-                            :id="key"
-                            v-model="moduleAttributeData[key]"
-                            type="text"
-                            :placeholder="value.placeholder ? value.placeholder : ''"
-                        />
+                        <div
+                          v-if="key === 'href'"
+                          @drop.prevent="dropAddFile"
+                          @dragover.prevent="setFileFeedback"
+                          @dragleave="removeFileFeedback"
+                          class="file-upload"
+                        >
+                          <label :for="key" v-text="value.label"></label>
+                          <p
+                              v-if="selectedModule.attributes[key].note"
+                              class="note -info"
+                          >
+                            <span v-text="selectedModule.attributes[key].note"></span> <a href="#" @click="manualAddFile">Or click here to upload.</a></p>
+                          <input
+                              :id="key"
+                              v-model="moduleAttributeData[key]"
+                              type="text"
+                              :placeholder="value.placeholder ? value.placeholder : ''"
+                          />
+                          <transition name="fade-in">
+                            <div class="file-feedback" v-if="fileFeedback">
+                              <p class="message" v-text="fileFeedback"></p>
+                            </div>
+                          </transition>
+                        </div>
+                        <div v-else>
+                          <label :for="key" v-text="value.label"></label>
+                          <p
+                              v-if="selectedModule.attributes[key].note"
+                              class="note -info"
+                              v-text="selectedModule.attributes[key].note"
+                          ></p>
+                          <input
+                              :id="key"
+                              v-model="moduleAttributeData[key]"
+                              type="text"
+                              v-else
+                              :placeholder="value.placeholder ? value.placeholder : ''"
+                          />
+                        </div>
                     </div>
                 </span>
             </section>
@@ -88,6 +116,7 @@
 <script>
 import { mapState } from 'vuex'
 import { isArray } from 'lodash'
+import axios from 'axios'
 import store from '../store/index'
 
 export default {
@@ -97,11 +126,12 @@ export default {
       moduleAttributeData: {
         name: null
       },
-      moduleIsSelected: false
+      moduleIsSelected: false,
+      fileFeedback: null
     }
   },
   computed: {
-    ...mapState(['availibleModules', 'context']),
+    ...mapState(['availibleModules', 'context', 'token']),
     allowedModules () {
       const allowedModules = {}
       const contextModuleName = this.context.node.dataset.module
@@ -156,6 +186,56 @@ export default {
     },
     isArray (value) {
       return isArray(value)
+    },
+    async uploadFile (file) {
+      this.fileFeedback = 'Uploading'
+      const dataURI = await this.toBase64(file)
+
+      const response = await axios
+        .post('/api/v1/cms/files/', dataURI, {
+          headers: {
+            'X-CSRF-Token': this.token,
+            'Content-Type': 'text/plain'
+          }
+        })
+      this.selectedModule.attributes.download = {
+        label: 'Filename'
+      }
+      this.moduleAttributeData.href = response.headers.location
+      this.moduleAttributeData.download = file.name
+      this.fileFeedback = null
+      this.$forceUpdate()
+    },
+    manualAddFile (event) {
+      event.preventDefault()
+
+      const input = document.createElement('input')
+      input.type = 'file'
+      input.click()
+
+      input.onchange = e => {
+        const [file] = e.target.files
+        this.uploadFile(file)
+      }
+    },
+    dropAddFile (event) {
+      const [file] = event.dataTransfer.files
+      this.uploadFile(file)
+    },
+    toBase64 (file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader()
+        reader.readAsDataURL(file)
+        reader.onload = () => {
+          resolve(reader.result)
+        }
+      })
+    },
+    setFileFeedback () {
+      this.fileFeedback = 'Upload File'
+    },
+    removeFileFeedback () {
+      this.fileFeedback = null
     }
   }
 }

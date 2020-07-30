@@ -40,13 +40,36 @@
                         v-else-if="typeof moduleAttributeData[key] !== 'undefined'"
                         class="text"
                     >
-                        <label :for="key" v-text="value.label"></label>
-                        <p
-                            v-if="moduleAttributeData[key].note"
-                            class="note -info"
-                            v-text="moduleAttributeData[key].note"
-                        ></p>
-                        <input :id="key" v-model="moduleAttributeData[key]" type="text" />
+                        <div
+                          v-if="key === 'href'"
+                          @drop.prevent="dropAddFile"
+                          @dragover.prevent="setFileFeedback"
+                          @dragleave="removeFileFeedback"
+                          class="file-upload"
+                        >
+                          <label :for="key" v-text="value.label"></label>
+                          <p
+                              v-if="baseModuleData.attributes[key].note"
+                              class="note -info"
+                          >
+                            <span v-text="baseModuleData.attributes[key].note"></span> <a href="#" @click="manualAddFile">Or click here to upload.</a>
+                          </p>
+                          <input :id="key" v-model="moduleAttributeData[key]" type="text" />
+                          <transition name="fade-in">
+                            <div class="file-feedback" v-if="fileFeedback">
+                              <p class="message" v-text="fileFeedback"></p>
+                            </div>
+                          </transition>
+                        </div>
+                        <div v-else>
+                          <label :for="key" v-text="value.label"></label>
+                          <p
+                              v-if="baseModuleData.attributes[key].note"
+                              class="note -info"
+                              v-text="baseModuleData.attributes[key].note"
+                          ></p>
+                          <input :id="key" v-model="moduleAttributeData[key]" type="text" />
+                        </div>
                     </div>
                 </span>
             </section>
@@ -63,6 +86,7 @@
 <script>
 import { mapState } from 'vuex'
 import { startCase, isArray } from 'lodash'
+import axios from 'axios'
 import attributeGetters from '../store/modules/_attributeGetters'
 import attributeHandlers from '../store/modules/_attributeHandlers'
 
@@ -76,13 +100,17 @@ export default {
       },
       customClass: null,
       initialClass: null,
-      classNode: null
+      classNode: null,
+      fileFeedback: null
     }
   },
   computed: {
-    ...mapState(['currentModule', 'availibleModules']),
+    ...mapState(['currentModule', 'availibleModules', 'token']),
     currentModuleType () {
       return this.currentModule.node.dataset.module
+    },
+    baseModuleData () {
+      return this.availibleModules[this.currentModuleType]
     }
   },
   mounted () {
@@ -130,8 +158,8 @@ export default {
 
         try {
           /**
-                     * Check if unique handler has been defined.
-                     */
+           * Check if unique handler has been defined.
+           */
           attributeHandlers[handler](
             this.currentModule.node,
             this.availibleModules[this.currentModuleType],
@@ -160,6 +188,54 @@ export default {
     },
     isArray (value) {
       return isArray(value)
+    },
+    async uploadFile (file) {
+      this.fileFeedback = 'Uploading'
+      const dataURI = await this.toBase64(file)
+
+      const response = await axios
+        .post('/api/v1/cms/files/', dataURI, {
+          headers: {
+            'X-CSRF-Token': this.token,
+            'Content-Type': 'text/plain'
+          }
+        })
+
+      this.moduleAttributeData.href = response.headers.location
+      this.moduleAttributeData.download = file.name
+      this.fileFeedback = null
+      this.$forceUpdate()
+    },
+    manualAddFile (event) {
+      event.preventDefault()
+
+      const input = document.createElement('input')
+      input.type = 'file'
+      input.click()
+
+      input.onchange = e => {
+        const [file] = e.target.files
+        this.uploadFile(file)
+      }
+    },
+    dropAddFile (event) {
+      const [file] = event.dataTransfer.files
+      this.uploadFile(file)
+    },
+    toBase64 (file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader()
+        reader.readAsDataURL(file)
+        reader.onload = () => {
+          resolve(reader.result)
+        }
+      })
+    },
+    setFileFeedback () {
+      this.fileFeedback = 'Upload File'
+    },
+    removeFileFeedback () {
+      this.fileFeedback = null
     }
   }
 }

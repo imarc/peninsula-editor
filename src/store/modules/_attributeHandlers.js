@@ -12,8 +12,8 @@ const cssPropertyValueSupported = function (prop, value) {
 
 const attributeHandlers = {
   /**
-     * Default Attribute Handler
-     */
+   * Default Attribute Handler
+   */
   default (node, selectedModule, value, key) {
     let attributeModifiedElement = {}
 
@@ -35,8 +35,8 @@ const attributeHandlers = {
   },
 
   /**
-     * Class Attribute Handler
-     */
+   * Class Attribute Handler
+   */
   class (node, selectedModule, value, key) {
     let classModifiedElement = {}
 
@@ -52,6 +52,12 @@ const attributeHandlers = {
       )
     }
 
+    if (!value) {
+      throw new Error(
+        'Please select a style you would like'
+      )
+    }
+
     selectedModule.attributes[key].options.forEach(option => {
       classModifiedElement.classList.remove(option.class)
     })
@@ -60,8 +66,8 @@ const attributeHandlers = {
   },
 
   /**
-     * Inline Width Handler
-     */
+   * Inline Width Handler
+   */
   width (node, selectedModule, value, key) {
     let styleModifiedElement = {}
 
