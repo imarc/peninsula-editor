@@ -8,7 +8,7 @@ import { mapState } from 'vuex'
  *
  */
 
-export default {
+const computed = {
   ...mapState([
     'isEditing',
     'editingIsAvailible',
@@ -24,3 +24,5 @@ export default {
     'editors'
   ])
 }
+
+export default computed

@@ -8,7 +8,7 @@
  */
 
 // Dependencies
-import Vue from 'vue'
+import { createApp } from 'vue'
 import ImageUploader from 'vue-image-upload-resize'
 import store from './store'
 import adminBarData from './-adminBarData'
@@ -24,13 +24,11 @@ import EditorHighlight from './components/EditorHighlight.vue'
 import ImagePrompt from './components/ImagePrompt.vue'
 import Error from './components/Error.vue'
 
-Vue.use(ImageUploader)
 const adminBar = document.querySelector('.js-adminBar')
 
 if (adminBar) {
   // eslint-disable-next-line no-new
-  new Vue({
-    el: adminBar,
+  createApp({
     components: {
       FrontendNav,
       EditingContent,
@@ -66,7 +64,9 @@ if (adminBar) {
         )
       }
     },
-    methods: adminBarMethods,
-    store
+    methods: adminBarMethods
   })
+    .use(ImageUploader)
+    .use(store)
+    .mount(adminBar)
 }
