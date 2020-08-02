@@ -161,15 +161,15 @@ export default {
       const errors = []
 
       /**
-             * Look for additional attributes besides name and apply them
-             */
+       * Look for additional attributes besides name and apply them
+       */
       Object.keys(moduleAttributes).forEach(key => {
         const moduleConfig = moduleAttributes[key]
 
         const handler =
-                    typeof moduleConfig.handler !== 'undefined'
-                      ? moduleConfig.handler
-                      : 'default'
+          typeof moduleConfig.handler !== 'undefined'
+            ? moduleConfig.handler
+            : 'default'
 
         try {
           /**

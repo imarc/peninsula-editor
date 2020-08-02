@@ -4,15 +4,14 @@
 
 export default function destroyEditors () {
   /**
-     * Scans DOM for all simple editor instances
-     */
+   * Scans DOM for all simple editor instances
+   */
   const simpleEditors = [...document.querySelectorAll('[data-editor="simpletext"]')]
   const richTextNodes = [...document.querySelectorAll('[data-editor="richtext"]')]
 
   /**
-     * Destory Everything
-     */
-
+   * Destory Everything
+   */
   this.state.CKEditors.forEach(editor => {
     editor.destroy()
     this.state.CKEditors = this.state.CKEditors.filter(
