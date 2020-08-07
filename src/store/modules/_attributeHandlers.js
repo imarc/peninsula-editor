@@ -29,8 +29,8 @@ const attributeHandlers = {
       )
     }
 
-    if (attributeModifiedElement) {
-      attributeModifiedElement[key] = value || ''
+    if (attributeModifiedElement && value) {
+      attributeModifiedElement[key] = value
     }
   },
 

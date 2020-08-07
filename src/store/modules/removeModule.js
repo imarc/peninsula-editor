@@ -29,4 +29,5 @@ export default function removeModule ({ commit }, module) {
      */
   commit('removeModuleData', moduleDataToRemove)
   this.dispatch('updateHighlights')
+  this.dispatch('setHighlightedModule', null)
 }
