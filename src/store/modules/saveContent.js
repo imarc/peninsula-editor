@@ -24,5 +24,6 @@ export default function saveContent ({ commit }) {
   Promise.all(promises).then(() => {
     this.dispatch('setIsEditing', false)
     commit('setIsSaving', false)
+    commit('setEditingNode', null)
   })
 }

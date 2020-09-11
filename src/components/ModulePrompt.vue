@@ -101,7 +101,6 @@
                               :id="key"
                               v-model="moduleAttributeData[key]"
                               type="text"
-                              v-else
                               :placeholder="value.placeholder ? value.placeholder : ''"
                           />
                         </div>
