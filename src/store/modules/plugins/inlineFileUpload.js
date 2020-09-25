@@ -36,7 +36,7 @@ export default class FileUploadInline extends Plugin {
 
       this.view.on('execute', this.setUploadUiCoords.bind(this))
       this.confirmEl.addEventListener('click', this.uploadConfirm.bind(this))
-      this.cancelEl.addEventListener('click', this.closeFileUpload)
+      this.cancelEl.addEventListener('click', this.closeFileUpload.bind(this))
 
       this.fileUpload.onchange = () => {
         this.setFileIsSelected()
@@ -124,6 +124,7 @@ export default class FileUploadInline extends Plugin {
    * @function closeFileUpload
    */
   closeFileUpload () {
+    console.log(this)
     const { style } = this.fileUi
     this.confirmEl.classList.remove('-active')
     this.fileUpload.value = ''
