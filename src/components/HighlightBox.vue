@@ -41,11 +41,10 @@ export default {
         const rect = this.node.node.getBoundingClientRect()
         const left = window.pageXOffset || document.documentElement.scrollLeft
         const top = window.pageYOffset || document.documentElement.scrollTop
-        const offset = window.innerWidth > 1560 ? 160 : 320
 
         requestAnimationFrame(() => {
           this.top = rect.top + top
-          this.left = rect.left + left - offset
+          this.left = rect.left + left
           this.width = rect.width
           this.height = rect.height
 
