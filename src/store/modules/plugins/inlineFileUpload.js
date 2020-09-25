@@ -124,7 +124,6 @@ export default class FileUploadInline extends Plugin {
    * @function closeFileUpload
    */
   closeFileUpload () {
-    console.log(this)
     const { style } = this.fileUi
     this.confirmEl.classList.remove('-active')
     this.fileUpload.value = ''
