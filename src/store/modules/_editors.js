@@ -67,6 +67,16 @@ const editors = {
 
       store.dispatch('destroyEditors')
 
+      const appliedAttributes = {}
+      const downloadNodes = [...node.querySelectorAll('a[download]')]
+
+      if (downloadNodes.length) {
+        downloadNodes.forEach(node => {
+          const path = node.getAttribute('href')
+          appliedAttributes[path] = node.download
+        })
+      }
+
       InlineEditor.create(node, {
         plugins: [
           Essentials,
@@ -109,6 +119,8 @@ const editors = {
       })
         .then(editor => {
           store.state.CKEditors.push(editor)
+
+          editor.appliedAttributes = appliedAttributes
 
           setTimeout(() => {
             editor.sourceElement.focus()

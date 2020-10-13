@@ -4,7 +4,7 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const { styles } = require('@ckeditor/ckeditor5-dev-utils')
 
 module.exports = {
-  mode: 'production',
+  mode: 'development',
   module: {
     rules: [
       {

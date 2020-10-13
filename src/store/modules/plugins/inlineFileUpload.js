@@ -86,14 +86,21 @@ export default class FileUploadInline extends Plugin {
    * @function uploadConfirm
    */
   async uploadConfirm () {
+    if (typeof this.editor.appliedAttributes === 'undefined') {
+      this.editor.appliedAttributes = {}
+    }
+
     const [file] = this.fileUpload.files
     const dataURI = await this.toBase64(file)
 
     const location = await this.uploadFile(dataURI)
 
     this.editor.execute('link', location)
-    const newLink = this.editor.sourceElement.querySelector('.ck-link_selected')
-    newLink.download = file.name
+
+    const newAnchor = document.querySelector(`a[href="${location}"]`)
+    newAnchor.download = file.name
+    this.editor.appliedAttributes[location] = file.name
+
     this.closeFileUpload()
   }
 
@@ -116,7 +123,6 @@ export default class FileUploadInline extends Plugin {
    * @function setFileIsSelected
    */
   setFileIsSelected () {
-    console.log(this.editor.getData())
     this.confirmEl.classList.add('-active')
   }
 

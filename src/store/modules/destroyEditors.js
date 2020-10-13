@@ -15,9 +15,19 @@ export default function destroyEditors () {
 
   this.state.CKEditors.forEach(editor => {
     editor.destroy()
+
     this.state.CKEditors = this.state.CKEditors.filter(
       CKEditor => CKEditor !== editor
     )
+
+    if (typeof editor.appliedAttributes !== 'undefined') {
+      setTimeout(() => {
+        Object.keys(editor.appliedAttributes).forEach(key => {
+          const node = document.querySelector(`a[href="${key}"]`)
+          node.download = editor.appliedAttributes[key]
+        })
+      }, 100)
+    }
   })
 
   this.state.HTMLEditors.forEach(editor => {

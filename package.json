@@ -28,6 +28,7 @@
     "@ckeditor/ckeditor5-dev-webpack-plugin": "^8.0.6",
     "@ckeditor/ckeditor5-editor-balloon": "^22.0.0",
     "@ckeditor/ckeditor5-editor-inline": "^22.0.0",
+    "@ckeditor/ckeditor5-engine": "^22.0.0",
     "@ckeditor/ckeditor5-essentials": "^22.0.0",
     "@ckeditor/ckeditor5-heading": "^22.0.0",
     "@ckeditor/ckeditor5-image": "^22.0.0",
@@ -49,6 +50,7 @@
     "vuex": "^3.4.0"
   },
   "devDependencies": {
+    "@ckeditor/ckeditor5-inspector": "^2.2.0",
     "@vue/eslint-config-standard": "^5.1.2",
     "babel-eslint": "^10.0.3",
     "eslint": "^6.7.2",
