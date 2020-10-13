@@ -1,6 +1,6 @@
 {
   "name": "peninsula-editor",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "A wysiwyg, module-based content editor using vue and ckeditor.",
   "main": "dist/index.js",
   "scripts": {
@@ -28,7 +28,6 @@
     "@ckeditor/ckeditor5-dev-webpack-plugin": "^8.0.6",
     "@ckeditor/ckeditor5-editor-balloon": "^22.0.0",
     "@ckeditor/ckeditor5-editor-inline": "^22.0.0",
-    "@ckeditor/ckeditor5-engine": "^22.0.0",
     "@ckeditor/ckeditor5-essentials": "^22.0.0",
     "@ckeditor/ckeditor5-heading": "^22.0.0",
     "@ckeditor/ckeditor5-image": "^22.0.0",
