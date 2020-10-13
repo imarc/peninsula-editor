@@ -24,7 +24,9 @@ export default function destroyEditors () {
       setTimeout(() => {
         Object.keys(editor.appliedAttributes).forEach(key => {
           const node = document.querySelector(`a[href="${key}"]`)
-          node.download = editor.appliedAttributes[key]
+          if (node) {
+            node.download = editor.appliedAttributes[key]
+          }
         })
       }, 100)
     }
