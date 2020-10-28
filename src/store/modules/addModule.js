@@ -9,11 +9,12 @@ import { startCase } from 'lodash'
 // eslint-disable-next-line import/no-cycle
 import editorOptions from './_editors'
 import attributeHandlers from './_attributeHandlers'
+import renderData from '../../modules/renderData'
 
-export default function addModule ({ commit }, moduleData) {
+export default async function addModule ({ commit }, moduleData) {
   /**
-     * Parses template as html and creates reference to module node
-     */
+   * Parses template as html and creates reference to module node
+   */
   const domparser = new DOMParser()
 
   const moduleDocument = domparser.parseFromString(
@@ -23,15 +24,15 @@ export default function addModule ({ commit }, moduleData) {
   const [node] = moduleDocument.body.children
 
   /**
-     * Set module attributes
-     */
+   * Set module attributes
+   */
   node.dataset.moduleName =
         moduleData.attributes.name || startCase(moduleData.module.key)
   node.dataset.module = moduleData.module.key
 
   /**
-     * Look for additional attributes besides name and apply them
-     */
+   * Look for additional attributes besides name and apply them
+   */
   const errors = []
 
   Object.keys(moduleData.module.attributes).forEach(key => {
@@ -44,8 +45,8 @@ export default function addModule ({ commit }, moduleData) {
 
     try {
       /**
-             * Check if unique handler has been defined.
-             */
+       * Check if unique handler has been defined.
+       */
       attributeHandlers[handler](
         node,
         moduleData.module,
@@ -59,32 +60,47 @@ export default function addModule ({ commit }, moduleData) {
   })
 
   /**
-     * If any errors are thrown on attribute validation, stop module population.
-     */
+   * Set Parameters if they Exist
+   */
+  Object.keys(moduleData.module.parameters).forEach(key => {
+    node.setAttribute(`data-parameter-${key}`, moduleData.parameters[key])
+  })
+
+  /**
+   * Render Dynamic Data
+   */
+  if (typeof moduleData.module.data !== 'undefined') {
+    node.dataset.endpoint = moduleData.module.data
+
+    await renderData(node)
+  }
+
+  /**
+   * If any errors are thrown on attribute validation, stop module population.
+   */
   if (errors.length > 0) {
     return false
   }
 
   /**
-     * Clear any error if valid.
-     */
-
+   * Clear any error if valid.
+   */
   this.dispatch('throwError', null)
 
   /**
-     * Update state with new module(s)
-     */
+   * Update state with new module(s)
+   */
   commit('addModuleToContext', node)
   this.dispatch('moduleCollect', node)
 
   /**
-     * If valid, flag that editing has occured.
-     */
+   * If valid, flag that editing has occured.
+   */
   commit('setIsEditing', true)
 
   /**
-     * Applies editors if data-editor attributes exist
-     */
+   * Applies editors if data-editor attributes exist
+   */
   if (node.dataset.editor) {
     editorOptions[node.dataset.editor](node, commit)
 
@@ -102,9 +118,9 @@ export default function addModule ({ commit }, moduleData) {
   }
 
   /**
-     * Populates node to current container,
-     * closes prompt.
-     */
+   * Populates node to current container,
+   * closes prompt.
+   */
   this.state.context.node.append(node)
   commit('setIsSelectingModule', false)
   this.dispatch('updateHighlights')

@@ -106,6 +106,54 @@
                         </div>
                     </div>
                 </span>
+                <span v-if="typeof selectedModule.parameters !== 'undefined'">
+                  <span v-for="(value, key) in selectedModule.parameters" :key="key">
+                      <div v-if="isArray(value.options)" class="select">
+                          <label for="cardReference" v-text="value.label"></label>
+                          <p
+                              v-if="selectedModule.parameters[key].note"
+                              class="note -info"
+                              v-text="selectedModule.parameters[key].note"
+                          ></p>
+                          <span>
+                              <select
+                                  :id="moduleParameterData[key]"
+                                  v-model="moduleParameterData[key]"
+                                  name="cardReference"
+                              >
+                                  <option
+                                      v-for="option in value.options"
+                                      :key="option.class"
+                                      :value="option.class"
+                                      v-text="option.label"
+                                  ></option>
+                              </select>
+                          </span>
+                      </div>
+                      <div v-if="isObject(value.options)" class="select">
+                          <label for="cardReference" v-text="value.label"></label>
+                          <p
+                              v-if="selectedModule.parameters[key].note"
+                              class="note -info"
+                              v-text="selectedModule.parameters[key].note"
+                          ></p>
+                          <span>
+                              <select
+                                  :id="moduleParameterData[key]"
+                                  v-model="moduleParameterData[key]"
+                                  name="cardReference"
+                              >
+                                  <option
+                                      v-for="(parameterOption, parameterKey) in value.options"
+                                      :key="parameterKey"
+                                      :value="parameterKey"
+                                      v-text="parameterOption"
+                                  ></option>
+                              </select>
+                          </span>
+                      </div>
+                  </span>
+                </span>
             </section>
             <button
                 v-if="moduleIsSelected"
@@ -129,7 +177,7 @@
 
 <script>
 import { mapState } from 'vuex'
-import { isArray } from 'lodash'
+import { isArray, isObject } from 'lodash'
 import axios from 'axios'
 import store from '../store/index'
 
@@ -140,6 +188,7 @@ export default {
       moduleAttributeData: {
         name: null
       },
+      moduleParameterData: {},
       moduleIsSelected: false,
       fileFeedback: null
     }
@@ -189,7 +238,8 @@ export default {
     populateModule () {
       const moduleData = {
         module: this.selectedModule,
-        attributes: this.moduleAttributeData
+        attributes: this.moduleAttributeData,
+        parameters: this.moduleParameterData
       }
 
       store.dispatch('addModule', moduleData)
@@ -200,6 +250,9 @@ export default {
     },
     isArray (value) {
       return isArray(value)
+    },
+    isObject (value) {
+      return isObject(value)
     },
     async uploadFile (file) {
       this.fileFeedback = 'Uploading'
