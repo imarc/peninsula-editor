@@ -87,6 +87,7 @@
                         </div>
                     </div>
                 </span>
+                <span v-if="typeof availibleModules[currentModuleType].parameters !== 'undefined'">
                   <span v-for="(value, key) in availibleModules[currentModuleType].parameters" :key="key">
                       <div v-if="isArray(value.options)" class="select">
                           <label for="cardReference" v-text="value.label"></label>
@@ -133,6 +134,7 @@
                           </span>
                       </div>
                   </span>
+                </span>
             </section>
             <button class="link" @click="updateModuleAttributes">
                 Update Module
