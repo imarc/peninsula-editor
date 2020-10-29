@@ -9,7 +9,7 @@ import { startCase } from 'lodash'
 // eslint-disable-next-line import/no-cycle
 import editorOptions from './_editors'
 import attributeHandlers from './_attributeHandlers'
-import renderData from '../../modules/renderData'
+import { renderData } from '../../modules/renderData'
 
 export default async function addModule ({ commit }, moduleData) {
   /**

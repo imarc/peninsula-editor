@@ -1,5 +1,6 @@
 import axios from 'axios'
 import Twig from 'twig'
+import queryString from 'query-string'
 
 function getParameters (dataset) {
   const obj = {}
@@ -16,16 +17,23 @@ function getParameters (dataset) {
 
 async function renderData (moduleNode) {
   const { endpoint } = moduleNode.dataset
-  const params = getParameters(moduleNode.dataset)
+  const moduleParams = getParameters(moduleNode.dataset)
   const twigTemplate = typeof moduleNode.dataset.template !== 'undefined'
     ? moduleNode.dataset.template
     : moduleNode.innerHTML
+  const baseEndpointUrl = endpoint.split('?')[0]
+  const existingParams = queryString.parse(endpoint.split('?')[1])
 
   if (typeof moduleNode.dataset.template === 'undefined') {
     moduleNode.dataset.template = moduleNode.innerHTML
   }
 
-  const data = await axios.get(endpoint, { params }).then(res => res.data.data)
+  const data = await axios.get(baseEndpointUrl, {
+    params: {
+      ...moduleParams,
+      ...existingParams
+    }
+  }).then(res => res.data.data)
 
   const template = Twig.twig({
     data: twigTemplate
@@ -34,4 +42,4 @@ async function renderData (moduleNode) {
   moduleNode.innerHTML = template
 }
 
-export default renderData
+export { getParameters, renderData }

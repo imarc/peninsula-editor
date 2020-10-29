@@ -87,6 +87,52 @@
                         </div>
                     </div>
                 </span>
+                  <span v-for="(value, key) in availibleModules[currentModuleType].parameters" :key="key">
+                      <div v-if="isArray(value.options)" class="select">
+                          <label for="cardReference" v-text="value.label"></label>
+                          <p
+                              v-if="baseModuleData.parameters[key].note"
+                              class="note -info"
+                              v-text="baseModuleData.parameters[key].note"
+                          ></p>
+                          <span>
+                              <select
+                                  :id="moduleParameterData[key]"
+                                  v-model="moduleParameterData[key]"
+                                  name="cardReference"
+                              >
+                                  <option
+                                      v-for="option in value.options"
+                                      :key="option.class"
+                                      :value="option.class"
+                                      v-text="option.label"
+                                  ></option>
+                              </select>
+                          </span>
+                      </div>
+                      <div v-if="isObject(value.options)" class="select">
+                          <label for="cardReference" v-text="value.label"></label>
+                          <p
+                              v-if="baseModuleData.parameters[key].note"
+                              class="note -info"
+                              v-text="baseModuleData.parameters[key].note"
+                          ></p>
+                          <span>
+                              <select
+                                  :id="moduleParameterData[key]"
+                                  v-model="moduleParameterData[key]"
+                                  name="cardReference"
+                              >
+                                  <option
+                                      v-for="(parameterOption, parameterKey) in value.options"
+                                      :key="parameterKey"
+                                      :value="parameterKey"
+                                      v-text="parameterOption"
+                                  ></option>
+                              </select>
+                          </span>
+                      </div>
+                  </span>
             </section>
             <button class="link" @click="updateModuleAttributes">
                 Update Module
@@ -100,10 +146,11 @@
 
 <script>
 import { mapState } from 'vuex'
-import { startCase, isArray } from 'lodash'
+import { startCase, isArray, isObject } from 'lodash'
 import axios from 'axios'
 import attributeGetters from '../store/modules/_attributeGetters'
 import attributeHandlers from '../store/modules/_attributeHandlers'
+import { getParameters, renderData } from '../modules/renderData'
 
 import store from '../store/index'
 
@@ -113,6 +160,7 @@ export default {
       moduleAttributeData: {
         name: null
       },
+      moduleParameterData: {},
       customClass: null,
       initialClass: null,
       classNode: null,
@@ -148,6 +196,11 @@ export default {
         store.dispatch('throwError', `${error}`)
       }
     })
+
+    const parameterObj = getParameters(this.currentModule.node.dataset)
+    Object.keys(parameterObj).forEach(key => {
+      this.moduleParameterData[key] = parameterObj[key]
+    })
   },
   methods: {
     applyStartCase (string) {
@@ -161,8 +214,8 @@ export default {
       const errors = []
 
       /**
-             * Look for additional attributes besides name and apply them
-             */
+       * Look for additional attributes besides name and apply them
+       */
       Object.keys(moduleAttributes).forEach(key => {
         const moduleConfig = moduleAttributes[key]
 
@@ -191,6 +244,12 @@ export default {
         return false
       }
 
+      Object.keys(this.moduleParameterData).forEach(key => {
+        this.currentModule.node.setAttribute(`data-parameter-${key}`, this.moduleParameterData[key])
+      })
+
+      renderData(this.currentModule.node)
+
       store.dispatch('setIsEditing', true)
       store.dispatch('closeModuleSettings')
       store.dispatch('resetListContext')
@@ -203,6 +262,9 @@ export default {
     },
     isArray (value) {
       return isArray(value)
+    },
+    isObject (value) {
+      return isObject(value)
     },
     async uploadFile (file) {
       this.fileFeedback = 'Uploading'
