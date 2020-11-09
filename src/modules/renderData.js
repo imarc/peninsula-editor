@@ -16,17 +16,20 @@ function getParameters (dataset) {
 }
 
 async function renderData (moduleNode) {
+  const domparser = new window.DOMParser()
   const { endpoint } = moduleNode.dataset
   const moduleParams = getParameters(moduleNode.dataset)
-  const twigTemplate = typeof moduleNode.dataset.template !== 'undefined'
-    ? moduleNode.dataset.template
-    : moduleNode.innerHTML
+
+  const moduleData = await axios.get('/api/v1/cms/modules/')
+    .then(response => {
+      return response.data[moduleNode.dataset.module]
+    })
+  const parsedDocument = domparser.parseFromString(moduleData.template, 'text/html')
+  const [element] = parsedDocument.body.children
+  const twigTemplate = element.innerHTML
+
   const baseEndpointUrl = endpoint.split('?')[0]
   const existingParams = queryString.parse(endpoint.split('?')[1])
-
-  if (typeof moduleNode.dataset.template === 'undefined') {
-    moduleNode.dataset.template = moduleNode.innerHTML
-  }
 
   const data = await axios.get(baseEndpointUrl, {
     params: {
