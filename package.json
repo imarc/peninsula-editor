@@ -1,6 +1,6 @@
 {
   "name": "peninsula-editor",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A wysiwyg, module-based content editor using vue and ckeditor.",
   "main": "dist/index.js",
   "scripts": {
