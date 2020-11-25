@@ -62,9 +62,11 @@ export default async function addModule ({ commit }, moduleData) {
   /**
    * Set Parameters if they Exist
    */
-  Object.keys(moduleData.module.parameters).forEach(key => {
-    node.setAttribute(`data-parameter-${key}`, moduleData.parameters[key])
-  })
+  if (typeof moduleData.module.parameters !== 'undefined') {
+    Object.keys(moduleData.module.parameters).forEach(key => {
+      node.setAttribute(`data-parameter-${key}`, moduleData.parameters[key])
+    })
+  }
 
   /**
    * Render Dynamic Data

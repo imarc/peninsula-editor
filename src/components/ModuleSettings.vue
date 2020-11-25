@@ -246,11 +246,13 @@ export default {
         return false
       }
 
-      Object.keys(this.moduleParameterData).forEach(key => {
-        this.currentModule.node.setAttribute(`data-parameter-${key}`, this.moduleParameterData[key])
-      })
+      if (typeof this.availibleModules[this.currentModuleType].parameters !== 'undefined') {
+        Object.keys(this.moduleParameterData).forEach(key => {
+          this.currentModule.node.setAttribute(`data-parameter-${key}`, this.moduleParameterData[key])
+        })
 
-      renderData(this.currentModule.node)
+        renderData(this.currentModule.node)
+      }
 
       store.dispatch('setIsEditing', true)
       store.dispatch('closeModuleSettings')
