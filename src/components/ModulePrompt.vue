@@ -123,14 +123,14 @@
                               >
                                   <option
                                       v-for="option in value.options"
-                                      :key="option.class"
-                                      :value="option.class"
-                                      v-text="option.label"
+                                      :key="option"
+                                      :value="option"
+                                      v-text="option"
                                   ></option>
                               </select>
                           </span>
                       </div>
-                      <div v-if="isObject(value.options)" class="select">
+                      <div v-if="!isArray(value.options)" class="select">
                           <label for="cardReference" v-text="value.label"></label>
                           <p
                               v-if="selectedModule.parameters[key].note"
@@ -171,6 +171,11 @@
             >
                 Cancel
             </a>
+            <transition name="fade-in">
+                <div v-if="isLoading" class="cms-loading-indicator -fetch">
+                    <img src="/media/cms/icons/ovalblack.svg" alt="" />
+                </div>
+            </transition>
         </div>
     </section>
 </template>
@@ -190,7 +195,8 @@ export default {
       },
       moduleParameterData: {},
       moduleIsSelected: false,
-      fileFeedback: null
+      fileFeedback: null,
+      isLoading: false
     }
   },
   computed: {
@@ -236,6 +242,7 @@ export default {
       this.moduleIsSelected = true
     },
     populateModule () {
+      this.isLoading = true
       const moduleData = {
         module: this.selectedModule,
         attributes: this.moduleAttributeData,
@@ -243,6 +250,10 @@ export default {
       }
 
       store.dispatch('addModule', moduleData)
+        .then(() => {
+          console.log(this.isLoading)
+          this.isLoading = false
+        })
     },
     closeModulePrompt (event) {
       event.preventDefault()

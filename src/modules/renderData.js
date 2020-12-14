@@ -38,6 +38,10 @@ async function renderData (moduleNode) {
     }
   }).then(res => res.data.data)
 
+  if (data.length < 1) {
+    throw new Error('Could not find any items! Try refining the module template\'s settings')
+  }
+
   const template = Twig.twig({
     data: twigTemplate
   }).render({ data })

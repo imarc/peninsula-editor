@@ -104,14 +104,14 @@
                               >
                                   <option
                                       v-for="option in value.options"
-                                      :key="option.class"
-                                      :value="option.class"
-                                      v-text="option.label"
+                                      :key="option"
+                                      :value="option"
+                                      v-text="option"
                                   ></option>
                               </select>
                           </span>
                       </div>
-                      <div v-if="isObject(value.options)" class="select">
+                      <div v-if="!isArray(value.options)" class="select">
                           <label for="cardReference" v-text="value.label"></label>
                           <p
                               v-if="baseModuleData.parameters[key].note"
