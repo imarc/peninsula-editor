@@ -74,12 +74,7 @@ export default async function addModule ({ commit }, moduleData) {
   if (typeof moduleData.module.data !== 'undefined') {
     node.dataset.endpoint = moduleData.module.data
 
-    try {
-      await renderData(node)
-    } catch (error) {
-      this.dispatch('throwError', error)
-      errors.push(error)
-    }
+    await renderData(node)
   }
 
   /**

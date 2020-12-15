@@ -89,7 +89,7 @@
                 </span>
                 <span v-if="typeof availibleModules[currentModuleType].parameters !== 'undefined'">
                   <span v-for="(value, key) in availibleModules[currentModuleType].parameters" :key="key">
-                      <div v-if="isArray(value.options)" class="select">
+                      <div class="select">
                           <label for="cardReference" v-text="value.label"></label>
                           <p
                               v-if="baseModuleData.parameters[key].note"
@@ -104,31 +104,9 @@
                               >
                                   <option
                                       v-for="option in value.options"
-                                      :key="option"
-                                      :value="option"
-                                      v-text="option"
-                                  ></option>
-                              </select>
-                          </span>
-                      </div>
-                      <div v-if="!isArray(value.options)" class="select">
-                          <label for="cardReference" v-text="value.label"></label>
-                          <p
-                              v-if="baseModuleData.parameters[key].note"
-                              class="note -info"
-                              v-text="baseModuleData.parameters[key].note"
-                          ></p>
-                          <span>
-                              <select
-                                  :id="moduleParameterData[key]"
-                                  v-model="moduleParameterData[key]"
-                                  name="cardReference"
-                              >
-                                  <option
-                                      v-for="(parameterOption, parameterKey) in value.options"
-                                      :key="parameterKey"
-                                      :value="parameterKey"
-                                      v-text="parameterOption"
+                                      :key="option.value"
+                                      :value="option.value"
+                                      v-text="option.label"
                                   ></option>
                               </select>
                           </span>
