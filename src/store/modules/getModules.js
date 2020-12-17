@@ -35,7 +35,7 @@ export default function getModules ({ commit }) {
             response.data[key].parameters[parameterKey].options = staticArray
           }
 
-          if (options.indexOf('url(') === 0) {
+          if (typeof options !== 'undefined' && options.indexOf('url(') === 0) {
             const requestUrl = options.match(/'((?:\\.|[^'\\])*)'/)[1]
 
             const fetchedOptions = await axios.get(requestUrl).then(res => res.data)
