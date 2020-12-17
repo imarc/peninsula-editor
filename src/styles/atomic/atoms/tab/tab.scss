@@ -1,0 +1,22 @@
+.cms-tab {
+    padding: 1rem 2rem;
+    border: 0;
+    color: $brand-greeny-blue;
+    background-color: transparent;
+    font-weight: 500;
+    border-top: 5px solid  transparent;
+    cursor: pointer;
+    transition: border-top 250ms $easing, color 250ms $easing;
+
+    &:hover,
+    &:focus {
+        border-top: 5px solid  $brand-deep-lavender;
+        color: $black;
+    }
+
+    &.-active {
+        border-top: 5px solid  $brand-deep-lavender;
+        background-color: #fff;
+        color: $black;
+    }
+}

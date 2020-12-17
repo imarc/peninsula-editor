@@ -1,0 +1,19 @@
+.cms-dashboard { 
+    padding: 4rem;
+    column-count: 1;
+    column-gap: 3.1em;
+    max-width: 1600px;
+
+    .cms-widget {
+        margin-bottom: 3.1rem;
+    }
+
+    & > * {
+        column-break-inside : avoid;
+        display: inline-block;
+    }
+  
+    @include breakpoint(lg) {
+        column-count: 2;
+    }
+}

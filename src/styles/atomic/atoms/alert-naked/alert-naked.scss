@@ -1,0 +1,14 @@
+.alert-naked {
+    &.error p::before {
+        @extend %fa-icon;
+        @extend .fas;
+        content: fa-content($fa-var-exclamation-circle);
+        color: $error;
+        margin-right: .5rem;
+    }
+
+    &.info {
+        color: $color-utilitylink;
+        font-size: .875rem;
+    }
+}

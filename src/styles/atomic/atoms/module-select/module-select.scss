@@ -1,0 +1,41 @@
+.cms-module-select {
+    display: inline-flex;
+    flex-direction: column;
+    border-radius: 1.5rem;
+    background-color: #f6f6f6;
+    border: 2px solid #ececec;
+    padding: 1rem;
+    padding-bottom: .6rem;
+    transition: background-color 250ms $easing, border 250ms $easing;
+    text-align: left;
+    img {
+        margin-bottom: 19px;
+    }
+    .title {
+        text-transform: uppercase;
+        font-size: .75rem;
+        color: $brand-greeny-blue;
+        font-weight: 700;
+        justify-self: flex-end;
+        transition: color 250ms $easing;
+        text-align: left;
+        margin-top: 0;
+        line-height: 1;
+        margin-bottom: .4rem; 
+        text-align: center;
+    }
+    .description {
+        margin-bottom: 0;
+        font-size: .75rem;
+        line-height: 1.5;
+        text-align: center;
+    }
+
+    &:hover {
+        background-color: #e8faff;
+        border: 2px solid $brand-pale-teal;
+        .title {
+            color: $brand-greyish-brown;
+        }
+    }
+}

@@ -1,0 +1,90 @@
+.cms-module {
+    background-color: $brand-greeny-blue;
+    padding: 1rem;
+    padding-left: 1.8rem;
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    align-items: center;
+
+    .title {
+        font-size: 1rem;
+        line-height: 1;
+    }
+    p {
+        font-size: .75rem;
+        line-height: 1.2;
+        margin-bottom: 0;
+    }
+
+    .title,
+    p {
+        color: #fff;
+    }
+
+    .settings,
+    .remove,
+    .context {
+        font-size: 0;
+        line-height: 0;
+    }
+
+    .actions a:hover::before,
+    .actions a:focus::before {
+        color: $brand-denim;
+    }
+
+    .cms-moduleinfo {
+        flex-grow: 1;
+        position: relative;
+        cursor: grab;
+    }
+
+    .cms-moduleinfo::before {
+        content: '';
+        display: block;
+        position: absolute;
+        top: 0;
+        left: -3rem;
+        height: 100%;
+        width: 3rem;
+    }
+
+    .settings::before {
+        content: fa-content($fa-var-cog);
+    }
+
+    .remove::before {
+        content: fa-content($fa-var-trash-alt);
+    }
+
+    .context::before {
+        content: fa-content($fa-var-th-large);
+    }
+
+    .actions a:last-child {
+        margin-right: 0;
+    }
+
+    .settings::before,
+    .remove::before,
+    .context::before {
+        @extend %fa-icon;
+        @extend .fas;
+        color: #fff;
+        font-size: 1rem;
+    }
+
+    &::before {
+        @extend %fa-icon;
+        @extend .far;
+        content: fa-content($fa-var-ellipsis-v);
+        position: absolute;
+        left: .6rem;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #fff;
+        font-size: 1rem;
+        opacity: .5;
+    }
+}

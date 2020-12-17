@@ -1,0 +1,41 @@
+.cms-modules {
+    & > .title {
+        color: $brand-pale-teal;
+        font-size: 1.125rem;
+        text-transform: none;
+        font-weight: 600;
+        margin-bottom: 1.55rem;
+        line-height: 1.3;
+    }
+    ul {
+        padding-left: 0;
+    }
+    li {
+        opacity: 1;
+        transition: opacity 250ms $easing;
+    }
+    li::before {
+        display: none;
+    }
+    .cms-module {
+        min-width: 234px;
+    }
+    .cms-return {
+        color: #fff;
+        display: inherit;
+        line-height: 1.3;
+        margin-bottom: .7rem;
+    }
+    .cms-return:hover,
+    .cms-return:focus {
+        color: $brand-pale-teal;
+    }
+    .draggable-source--is-dragging > * {
+        opacity: 0;
+    }
+    .draggable-source--is-dragging {
+        background-color: transparent;
+        box-shadow: inset 0px 0px 0px 2px $brand-pale-teal;
+        box-sizing: border-box;
+    }
+}

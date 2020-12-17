@@ -1,0 +1,30 @@
+.cms-recordlist {
+    &.-reordering .cms-select {
+        position: relative;
+        cursor: grab;
+    }
+    &.-reordering .cms-select input {
+        opacity: 0;
+        pointer-events: none;
+        height: 0;
+        width: 0;
+    }
+    &.-reordering .cms-select::before {
+        @extend %fa-icon;
+        @extend .fas;
+        content: fa-content($fa-var-grip-horizontal);
+        font-size: .8rem;
+        color: $gray;
+    }
+    .draggable-mirror {
+        background: #fff;
+        min-width: 1000px;
+        box-shadow: 0 0 10px rgba(#000, .2);
+    }
+    .draggable-mirror {
+        background: #fff;
+        min-width: 1000px;
+        box-shadow: 0 0 10px rgba(#000, .2);
+        padding: 0;
+    }
+}

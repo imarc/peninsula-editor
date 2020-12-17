@@ -1,0 +1,12 @@
+.cms-settings {
+    @include frontendIconButton;
+
+    position: fixed;
+
+    bottom: 3.2rem;
+    left: 2rem;
+
+    &::before {
+        content: fa-content($fa-var-cog);
+    }
+}

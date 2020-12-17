@@ -1,0 +1,24 @@
+a {
+  text-decoration: none;
+  color: $color-action;
+  transition: color 125ms $easing;
+  font-weight: 600;
+}
+
+a:hover,
+a:focus,
+button.link:hover,
+button.link:focus {
+  color: $color-action-hover;
+}
+
+button.link {
+  text-decoration: none;
+  background-color: transparent;
+  color: $color-action;
+  transition: color 125ms $easing;
+  font-weight: 600;
+  padding: 0;
+  border: 0;
+  cursor: pointer;
+}

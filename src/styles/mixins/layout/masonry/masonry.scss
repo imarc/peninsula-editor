@@ -1,0 +1,18 @@
+///
+/// Resets for a masonry grid.
+/// Requires inclusion of masonry JS module
+/// Found in scripts/modules/masonry.js
+///
+
+@mixin masonry {
+    .js-gridItem {
+        width: 100%;
+        margin-bottom: 2rem;
+    }
+
+    @include breakpoint(lg) {
+        .js-gridItem {
+            width: calc(50% - 14px);
+        }
+    }
+}

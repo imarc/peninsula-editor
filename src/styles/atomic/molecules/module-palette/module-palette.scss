@@ -1,0 +1,19 @@
+.cms-module-palette {
+    @include tilesThree($gutter: 2rem);
+    overflow-y: scroll;
+    margin-right: calc(-1 * (2rem / 2 + 1px));
+    height: calc(100% - 100px);
+    .cms-module-select {
+        margin-bottom: 2rem;
+    }
+}
+
+.cms-module-palette-wrapper {
+    overflow: hidden;
+}
+
+body.-mac {
+    .cms-module-palette {
+        margin-right: calc(-1 * (2rem / 2));
+    }
+}

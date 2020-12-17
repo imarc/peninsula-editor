@@ -1,0 +1,111 @@
+// For styling different feedback messages. Convention is that these should be dropped anywhere and fit neatly within reason.
+// Author: Imarc
+.message {
+    display: flex;
+    flex-direction: row;
+    padding: 2rem;
+
+    & > *:last-child {
+        margin-bottom: 0;
+    }
+
+    header::before {
+        @extend %fa-icon;
+        @extend .fas;
+        display: block;
+        font-size: 2rem;
+        margin-bottom: 0rem;
+    }
+
+    header {
+        margin-right: 1rem;
+    }
+
+    .description > *:last-child {
+        margin-bottom: 0;
+    }
+
+    .title {
+        font-size: 1.1rem;
+    }
+
+    &.-info {
+        background-color: lighten($info, 50%);
+        border: 2px solid $info;
+    }
+    &.-info header {
+        color: $info;
+    }
+    &.-info header::before {
+        content: fa-content($fa-var-info-circle);
+    }
+
+    &.-error {
+        background-color: lighten($error, 38%);
+        border: 2px solid $error;
+    }
+    &.-error header {
+        color: $error;
+    }
+    &.-error header::before {
+        content: fa-content($fa-var-times-octagon);
+    }
+
+    &.-warning {
+        background-color: lighten($warning, 38%);
+        border: 2px solid $warning;
+    }
+    &.-warning header {
+        color: $warning;
+    }
+    &.-warning header::before {
+        content: fa-content($fa-var-exclamation-triangle);
+    }
+
+    &.-success {
+        background-color: lighten($success, 50%);
+        border: 2px solid $success;
+    }
+    &.-success header {
+        color: $success;
+    }
+    &.-success header::before {
+        content: fa-content($fa-var-check-circle);
+    }
+
+    &.-emphasize {
+        text-align: center;
+        flex-direction: column;
+        padding: 0;
+    }
+
+    &.-emphasize header {
+        color: #fff;
+        padding: 1.7rem;
+        margin-right: 0;
+    }
+
+    &.-emphasize .title {
+        display: block;
+    }
+    &.-emphasize header::before {
+        margin-bottom: .9em;
+    }
+
+    &.-emphasize .description {
+        padding: 2rem;
+        font-size: .8rem;
+    }
+
+    &.-emphasize.-error header {
+        background-color: $error;
+    }
+
+    &.-emphasize.-success header {
+        background-color: $success;
+    }
+
+    &.-emphasize.-info header {
+        background-color: $info;
+    }
+}

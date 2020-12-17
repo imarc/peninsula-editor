@@ -1,0 +1,33 @@
+.cms-profile {
+    padding: 2rem;
+    padding-bottom: 1.7rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: #27323c;
+    color: #fff;
+
+    .cms-name {
+        margin-bottom: 0;
+        margin-bottom: .3rem;
+    }
+    .cms-avatar {
+        margin-right: 1rem;
+    }
+    & > div {
+        line-height: 1;
+    }
+
+    a {
+        font-size: .75rem;
+        font-weight: 400;
+        margin-right: 1rem;
+        margin-bottom: .3rem;
+        display: inline-block;
+        color: #fff;
+    }
+
+    a:hover {
+        color: $brand-pale-teal;
+    }
+}

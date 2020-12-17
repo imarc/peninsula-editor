@@ -1,0 +1,13 @@
+.cms-recordsettings {
+    background: none;
+    border: none;
+    font-size: 0;
+    padding: 0;
+    &::before {
+        @extend %fa-icon;
+        @extend .fas;
+        content: fa-content($fa-var-cog);
+        color: $gray;
+        font-size: .875rem;
+    }
+}

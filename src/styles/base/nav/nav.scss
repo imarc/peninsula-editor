@@ -1,0 +1,35 @@
+nav {
+    margin-bottom: 2rem;
+
+    .back {
+        display: none;
+    }
+
+    ul {
+        @include ulreset;
+        list-style-type: none;
+        padding-left: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: row;
+    }
+    li {
+        flex-grow: 1;
+        margin-bottom: 0;
+        text-align: center;
+        display: block;
+    }
+    a {
+        width: 100%;
+        padding: .5rem 1rem;
+        font-weight: 400;
+        background-color: $darkgray;
+        color: #fff;
+        transition: background 250ms $easing, color 250ms $easing;
+        display: block;
+    }
+    a:hover {
+        background-color: $lightgray;
+        color: $black;
+    }
+}

@@ -1,0 +1,42 @@
+.cms-toolbar {
+    padding-left: 5px;
+    position: relative;
+
+    .cms-actionbar {
+        margin-bottom: 0;
+    }
+    .cms-title {
+        font-size: 1rem;
+        padding: 1.3rem 2rem;
+        color: #fff;
+        font-weight: 600;
+    }
+    .cms-navsecondary {
+        padding-bottom: 1rem;
+    }
+    .cms-action {
+        background: none;
+        border-radius: 0;
+        border: 2px solid $brand-greeny-blue;
+        color: #fff;
+        font-weight: 600;
+        padding: calc(0.55rem - 2px) calc(1rem - 2px);
+        background-color: transparent;
+        margin: 0 auto;
+    }
+    .cms-action.-close {
+        position: absolute;
+        bottom: 2.5rem;
+        left: 50%;
+        transform: translateX(-50%);
+        white-space: nowrap;
+    }
+    .cms-action:hover,
+    .cms-action:focus {
+        background-color: $brand-greeny-blue;
+    }
+    .cms-action:hover::after,
+    .cms-action:focus::after {
+        display: none;
+    }
+}

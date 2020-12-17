@@ -1,0 +1,14 @@
+.cms-return {
+    padding-left: 1rem;
+    position: relative;
+    &::before {
+        @extend %fa-icon;
+        @extend .far;
+        position: absolute;
+        top: 2px;
+        left: 0;
+        content: fa-content($fa-var-angle-left);
+        font-size: 1rem;
+        margin-right: .5rem;
+    }
+}

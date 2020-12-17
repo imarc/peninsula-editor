@@ -1,0 +1,9 @@
+.flatpickr-month,
+.flatpickr-months,
+.flatpickr-weekdays,
+span.flatpickr-weekday,
+.flatpickr-current-month .flatpickr-monthDropdown-months,
+.flatpickr-current-month .flatpickr-monthDropdown-months .flatpickr-monthDropdown-month
+ {
+    background: $color-action !important;
+}

@@ -1,0 +1,109 @@
+///
+/// Flex based layout for arranging content with aside. 
+///
+
+@mixin contentWithAside($asideMobileExpand: false, $asideWidth: 240px, $flipped: false) {
+    .page-content {
+        @include container;
+    }
+    .page-content > header {
+        width: 100%;
+        order: 1;
+        margin-bottom: 2rem;
+    }
+
+    .page-content > aside {
+        width: 100%;
+        height: 50px;
+        margin-bottom: 2rem;
+        overflow: hidden;
+        order: 2;
+    }
+    @if $asideMobileExpand {
+        .page-content > aside {
+            height: auto;
+        }
+    }
+    .js-asideTrigger {
+        width: 100%;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 2rem;
+        border: 1px solid $color-action;
+        background-color: transparent;
+        color: $color-action;
+    }
+    .js-aside.-opened {
+        height: auto;
+    }
+    .js-asideTrigger::after {
+        @extend %fa-icon;
+        @extend .far;
+        content: fa-content($fa-var-angle-down);
+        margin-left: .5rem;
+    }
+
+    .page-content > main {
+        width: 100%; 
+        order: 3;
+    }
+
+    .page-content > aside {
+        margin-bottom: 2rem;
+    }
+
+    .page-content > .preamble {
+        order: 2;
+        width: 100%;
+    }
+
+    .page-content aside .navigation ul {
+        @include basicColumnLayout($padding: 0, $alignment: stretch, $childSpacing: 0);
+    }
+
+    @include breakpoint(lg) {
+        .page-content > header {
+            order: 1;
+            margin-bottom: 4rem;
+        }
+        @if $flipped {
+            .page-content > aside {
+                width: $asideWidth;
+                min-width: $asideWidth;
+                height: auto;
+                overflow: visible;
+                margin-left: 4rem;
+                margin-bottom: 0;
+                order: 3;
+            }
+        } @else {
+            .page-content > aside {
+                width: $asideWidth;
+                min-width: $asideWidth;
+                height: auto;
+                overflow: visible;
+                margin-right: 4rem;
+                margin-left: 0;
+                margin-bottom: 0;
+                order: 2;
+            }
+        }
+        .js-asideTrigger {
+            display: none;
+        }
+
+        @if $flipped {
+            .page-content > main {
+                width: calc(100% - (#{$asideWidth} + 4rem)); 
+                order: 2;
+            }
+        } @else {
+            .page-content > main {
+                width: calc(100% - (#{$asideWidth} + 4rem)); 
+                order: 3;
+            }
+        }
+    }
+}

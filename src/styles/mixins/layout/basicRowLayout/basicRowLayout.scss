@@ -1,0 +1,31 @@
+///
+/// Flex based layout for arranging immediate children into a row
+///
+/// @param {measure}   $padding     [30px] - padding of entire layout
+/// @param {alignment} $alignment [center]  - Uses flex "align-items"
+///
+
+@mixin basicRowLayout($padding: 30px, $alignment: center, $childSpacing: 30px) {
+    display: flex;
+    flex-direction: column;
+    align-items: $alignment;
+    
+    margin-left: calc(-#{$childSpacing} / 2);
+    margin-right: calc(-#{$childSpacing} / 2);
+
+    padding: $padding;
+
+    & > * {
+        width: calc(100% - #{$childSpacing});
+        margin-bottom: $childSpacing;
+    }
+  
+    @include breakpoint(lg) {
+        flex-direction: row;
+
+        & > * {
+            margin: 0 calc(#{$childSpacing} / 2);
+            flex: 1 1 0;
+        }
+    }
+}

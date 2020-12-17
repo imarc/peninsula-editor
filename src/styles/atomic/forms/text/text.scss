@@ -1,0 +1,65 @@
+.text {
+    &.-phone input {
+        max-width: 130px;
+    }
+    &.-extension input {
+        max-width: 90px;
+    }
+    &.-postalCode input {
+        max-width: 120px;
+    }
+    &.-date input {
+        max-width: 130px;
+    }
+    &.-immutable {
+        label {
+            @include eyebrow;
+            margin-bottom: .3rem;
+        }
+        p {
+          line-height: 1.5;
+          margin-bottom: 0;
+        }
+    }
+    &.-fullDescription textarea {
+        height: 24em;
+    }
+    &.-search {
+        position: relative;
+        input {
+            padding-right: 3rem;
+            border: none;
+            border-bottom: 2px solid $gray;
+        }
+        input:focus {
+            border-bottom: 2px solid $brand-dark;
+        }
+        .search {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            right: 5px;
+            background: transparent;
+            border: none;
+            font-size: 0;
+        }
+        .search::before {
+            @extend %fa-icon;
+            @extend .fas;
+            content: fa-content($fa-var-search);
+            font-size: 1rem;
+            color: $brand-greeny-blue;
+        }
+    }
+    
+    textarea {
+        line-height: 1.5;
+    }
+}
+
+.text .hidden {
+    visibility: hidden;
+    height: 0;
+    padding: 0;
+    border: none;
+}

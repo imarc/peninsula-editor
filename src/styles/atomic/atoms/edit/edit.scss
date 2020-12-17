@@ -1,0 +1,12 @@
+.cms-edit {
+    @include frontendIconButton;
+
+    position: fixed;
+
+    bottom: 7.2rem;
+    left: 2rem;
+
+    &::before {
+        content: fa-content($fa-var-pencil-alt);
+    }
+}

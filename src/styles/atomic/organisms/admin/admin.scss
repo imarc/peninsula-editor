@@ -1,0 +1,15 @@
+.cms-admin {
+    font-family: 'Poppins', sans-serif !important;
+    margin-bottom: 0;
+    display: none;
+
+    .title,
+    h1, h2, h3, h4, h5,
+    p, ul, li, a, input {
+        font-family: 'Poppins', sans-serif !important;
+    }
+  
+    @include breakpoint(lg) {
+        display: block;
+    }
+}

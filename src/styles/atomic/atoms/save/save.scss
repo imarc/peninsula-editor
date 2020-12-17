@@ -1,0 +1,26 @@
+.cms-save {
+    background-color: $gray;
+    border: none;
+    color: $black;
+    font-weight: 500;
+    padding: .5rem 0;
+    transition: background 250ms $easing;
+    &[href] {
+        cursor: pointer;
+    }
+	&[href]:hover,
+    &[href]:focus {
+        background-color: #babbb2;
+    }
+    &:not([href]),
+    &:not([href])::before {
+        color: #babbb2;
+    }
+    &::before {
+        @extend %fa-icon;
+        @extend .fas;
+        content: fa-content($fa-var-check);
+        color: $success;
+        margin-right: .4em;
+    }
+}

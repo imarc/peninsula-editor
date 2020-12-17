@@ -1,0 +1,24 @@
+.image-field {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 2rem;
+    padding: 1rem;
+    background-color: rgba($color-background, .1);
+
+    img {
+        display: inline-block;
+        margin-top: 1rem;
+    }
+    & > input {
+        margin-bottom: 1rem;
+        width: 100%;
+    }
+    a {
+        line-height: 1.1;
+    }
+
+    .remove {
+        font-weight: 700;
+        font-size: 1rem;
+    }
+}

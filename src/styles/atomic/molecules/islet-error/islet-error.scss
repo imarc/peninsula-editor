@@ -1,0 +1,26 @@
+.cms-islet-error {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    margin: 0 auto;
+    background-color: lighten($error, 15%);
+    z-index: 10;
+    padding: 1rem;
+    padding-right: 3rem;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    transform-origin: center;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
+
+    p {
+        margin-bottom: 0;
+    }
+
+    .cms-close {
+        position: absolute;
+        right: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
+        opacity: .5;
+    }
+}

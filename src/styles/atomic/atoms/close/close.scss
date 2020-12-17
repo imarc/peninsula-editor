@@ -1,0 +1,10 @@
+.cms-close {
+    background: none;
+    border: none;
+
+    &::before {
+        @extend %fa-icon;
+        @extend .fal;
+        content: fa-content($fa-var-times);
+    }
+}

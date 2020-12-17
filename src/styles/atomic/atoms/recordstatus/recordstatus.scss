@@ -1,0 +1,26 @@
+.cms-status {
+    color: #9d9d9d;
+    text-transform: uppercase;
+    font-weight: 800;
+    font-size: .75rem;
+    &.-active::before {
+        color: $success;
+    }
+    &.-inactive::before {
+        color: $error;
+    }
+    &::before {
+        content: '⬤';
+        font-size: .6em;
+        line-height: 0;
+        vertical-align: 3px;
+        margin-right: .6em;
+    }
+}
+
+
+
+.cms-recordstatus {
+    font-size: .75rem;
+    vertical-align: middle;
+}

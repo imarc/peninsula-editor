@@ -1,0 +1,13 @@
+@mixin container($gutter: 40px, $siteWidth: $siteWidth) {
+    padding-left: calc(
+        (100vw - #{$siteWidth}) / 
+        2
+    );
+    padding-right: calc(
+        (100vw - #{$siteWidth}) / 
+        2
+    );
+
+    max-width: calc(100vw - #{$gutter});
+    margin: 0 auto;
+}

@@ -1,0 +1,10 @@
+.inline-group {
+    margin-bottom: 0;
+    & > * {
+        display: inline-block;
+        margin-right: .5rem;
+    }
+    & > *:last-child {
+        margin-right: 0;
+    }
+}

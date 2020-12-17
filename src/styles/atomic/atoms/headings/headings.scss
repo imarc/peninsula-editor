@@ -1,0 +1,54 @@
+.cms-title {
+    margin: 0;
+}
+
+h1.cms-title {
+    font-size: 2rem;
+    line-height: 1.0625;
+    font-weight: 700;
+    
+    @include breakpoint(md) {
+        font-size: 3rem;
+    }
+}
+
+h2.cms-title {
+    font-size: 1.7rem;
+    line-height: 1.1875;
+    font-weight: 700;
+    
+    @include breakpoint(md) {
+        font-size: 2rem;
+    }
+}
+
+h3.cms-title {
+    font-size: 1.5rem;
+    line-height: 1.2665;
+    font-weight: 600;
+    
+    @include breakpoint(md) {
+        font-size: 1.875rem;
+    }
+}
+
+h4.cms-title {
+    font-size: 2rem;
+    line-height: 1.4165;
+    font-weight: 500;
+    
+    @include breakpoint(md) {
+        font-size: 1.5rem;
+    }
+}
+
+h5.cms-title {
+    font-size: 1.25rem;
+    line-height: 1.3;
+    font-weight: 500;
+    
+    
+    @include breakpoint(md) {
+        font-size: 1.25rem;
+    }
+}

@@ -1,0 +1,61 @@
+.cms-frontend-admin {
+    @include breakpoint(lg) {
+        width: 320px;
+        position: fixed;
+        background-color: $brand-dark;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        z-index: 6;
+        transition: transform 125ms $easing;
+        transform: translateX(-100%);
+        margin-bottom: 0;
+        overflow: hidden;
+
+        &.-open {
+            transform: translateX(0);
+        }
+        &.-open::before {
+            transform: translateX(0);
+        }
+
+        .cms-toolbar {
+            display: flex;
+            height: 100%;
+            flex-direction: column;
+            margin-bottom: 0;
+            overflow-y: scroll;
+            margin-right: -17px;
+        }
+
+        &.-mac .cms-toolbar {
+            margin-right: 0;
+        }
+        
+
+        .cms-toolbar main {
+            position: relative;
+            padding: 2rem;
+            padding-bottom: 7rem;
+        }
+
+        &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 5px;
+            z-index: 1;
+            transition: transform 1000ms $easing;
+            transform: translateX(-100%);
+            background: repeating-linear-gradient(
+                -35deg,
+                #e2e428,
+                #e2e428 4px,
+                $brand-dark 4px,
+                $brand-dark 8px
+                );
+        }
+    }
+}

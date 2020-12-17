@@ -1,0 +1,244 @@
+button,
+input,
+optgroup,
+select,
+textarea {
+  font-feature-settings: 'lnum' 1;
+  font: inherit;
+  margin: 0;
+  & + .error p::before {
+    @extend %fa-icon;
+    @extend .fas;
+    content: fa-content($fa-var-exclamation-circle);
+    color: $error;
+    margin-right: .5rem;
+  }
+  & + .error p::before,
+  & + .error li::before {
+      @extend %fa-icon;
+      @extend .fas;
+      content: fa-content($fa-var-exclamation-circle);
+      color: $error;
+      margin-right: .5rem;
+  }
+  & + .error li::before {
+      top: 2px;
+      left: 0;
+      margin-right: .5rem;
+  }
+  & + .error li {
+      padding-left: 1.5rem;
+      display: inline;
+      margin-right: 1rem;
+      position: relative;
+  }
+  & + .error ul {
+      margin-top: 0;
+      padding-left: 0;
+  }
+}
+
+label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.85rem;
+  line-height: 1rem;
+}
+
+fieldset > legend {
+  font-size: 1.7rem;
+  border-bottom: 1px solid $color-border;
+  width: 100%;
+  @include breakpoint(lg) {
+    font-size: 2.25rem;
+  }
+}
+
+.no-pointer {
+  pointer-events: none;
+}
+
+.field-collapse {
+  overflow: hidden;
+  height: 0;
+}
+
+.field-collapse.-expanded {
+  height: auto;
+}
+
+legend + .note {
+  margin-top: -.5rem;
+  margin-bottom: 2rem;
+}
+
+label + .note {
+  margin-top: -.5rem;
+  margin-bottom: 1rem;
+}
+
+fieldset > * {
+  margin-bottom: 1rem;
+}
+
+fieldset > *:last-child {
+  margin-bottom: 0;
+}
+
+label.required::after {
+  content: '*';
+  color: $error;
+  margin-left: 3px;
+  font-weight: 900;
+}
+
+form > * {
+  margin-bottom: 2.1rem;
+}
+
+form > *:last-child {
+  margin-bottom: 0;
+}
+
+
+fieldset {
+  border: 0;
+  padding: 0;
+  margin-bottom: 2.8rem;
+  .help {
+    color: $meta-text;
+    font-size: 0.8rem;
+    margin: 0;
+  }
+}
+
+input[type="date"],
+input[type="datetime-local"],
+input[type="email"],
+input[type="month"],
+input[type="number"],
+input[type="password"],
+input[type="search"],
+input[type="tel"],
+input[type="text"],
+input[type="time"],
+input[type="url"],
+input[type="week"],
+textarea {
+  border: 1px solid $color-input-border;
+  border-radius: 0;
+  box-sizing: border-box;
+  color: $plain-text;
+  transition: 250ms border;
+  display: block;
+  font-family: $font-primary;
+  margin: 0;
+  padding: 0.875rem 0.6rem;
+  width: 100%;
+  line-height: 1;
+  &:focus {
+    border: 1.5px solid $black;
+  }
+}
+
+input[type="reset"],
+input[type="search"],
+input[type="text"],
+input[type="submit"] {
+  border-radius: 0;
+  -webkit-appearance: none;
+}
+
+::-webkit-input-placeholder {
+  color: $gray;
+}
+
+::ms-input-placeholder {
+  color: $gray;
+}
+
+::-placeholder {
+  color: $gray;
+}
+
+textarea {
+  height: 8em;
+  overflow: auto;
+  resize: vertical;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+  padding: 0;
+}
+
+[type="radio"]:checked,
+[type="radio"]:not(:checked) {
+    position: absolute;
+    left: -9999px;
+}
+[type="radio"]:checked + label,
+[type="radio"]:not(:checked) + label
+{
+    position: relative;
+    padding-left: 28px;
+    cursor: pointer;
+    line-height: 20px;
+    display: inline-block;
+    color: $black;
+}
+[type="radio"]:checked + label .count,
+[type="radio"]:not(:checked) + label .count
+{
+  margin-bottom: 0;
+  color: #fff;
+  background-color: $color-background;
+  white-space: nowrap;
+  margin-left: .3rem;
+  padding: .05rem .4rem;
+  border-radius: 8px;
+}
+[type="radio"]:checked + label:before,
+[type="radio"]:not(:checked) + label:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 18px;
+    height: 18px;
+    border: 1px solid #969696;
+    border-radius: 100%;
+    background: #fff;
+}
+[type="radio"]:checked + label:after,
+[type="radio"]:not(:checked) + label:after {
+    content: '';
+    width: 12px;
+    height: 12px;
+    background: $color-action;
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    border-radius: 100%;
+    -webkit-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+}
+[type="radio"]:not(:checked) + label:after {
+    opacity: 0;
+    -webkit-transform: scale(0);
+    transform: scale(0);
+}
+[type="radio"]:checked + label:after {
+    opacity: 1;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+}
+
+.radios .radio {
+  display: inline;
+  margin-right: 1rem;
+}
+
+.radios .radio label {
+  font-size: .875rem;
+}

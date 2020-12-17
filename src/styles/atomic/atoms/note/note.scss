@@ -1,0 +1,30 @@
+.note {
+    font-size: .875rem;
+    margin-bottom: 0;
+    font-style: italic;
+    line-height: 1.7;
+
+    &.-info::before {
+        @extend %fa-icon;
+        @extend .fas;
+        content: fa-content($fa-var-info-circle);
+        color: $info;
+        margin-right: .2rem;
+    }
+
+    &.-error::before {
+        @extend %fa-icon;
+        @extend .fas;
+        content: fa-content($fa-var-times-octagon);
+        color: $error;
+        margin-right: .2rem;
+    }
+
+    &.-success::before {
+        @extend %fa-icon;
+        @extend .fas;
+        content: fa-content($fa-var-check-circle);
+        color: $success;
+        margin-right: .2rem;
+    }
+}

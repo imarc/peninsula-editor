@@ -1,0 +1,12 @@
+.cms-controlpanel {
+    @include frontendIconButton;
+
+    position: fixed;
+
+    bottom: 11.2rem;
+    left: 2rem;
+
+    &::before {
+        content: fa-content($fa-var-tachometer-alt-fast);
+    }
+}

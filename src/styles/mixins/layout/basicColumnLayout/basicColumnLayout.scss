@@ -1,0 +1,23 @@
+///
+/// Flex based layout for arranging immediate children into a column
+///
+/// @param {measure}   $padding     [30px] - padding of entire layout
+/// @param {alignment} $alignment [center]  - Uses flex "align-items"
+///
+
+@mixin basicColumnLayout($padding: 30px, $alignment: center, $childSpacing: 30px) {
+    display: flex;
+    flex-direction: column;
+    align-items: $alignment; 
+
+    padding: $padding;
+
+    & > * {
+        margin-bottom: $childSpacing;
+    }
+
+    // Children Context
+    & > *:last-child {
+        margin-bottom: 0;
+    }
+}

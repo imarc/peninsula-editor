@@ -1,0 +1,53 @@
+.cms-alert {
+    background-color: #dbdcd6;
+    border-radius: 6px;
+    padding: 1.2rem 1rem .8rem 3rem;
+    position: relative;
+
+    .title,
+    .description {
+        font-size: .75rem;
+        text-transform: none;
+        margin-bottom: 0;
+    }
+    .description {
+        line-height: 1.4;
+    }
+
+    &.-success::before {
+        background-color: $success;
+    }
+
+    &.-success::after {
+        content: fa-content($fa-var-pencil-alt);
+    }
+
+    &.-error::before {
+        background-color: $error;
+    }
+
+    &.-error::after {
+        content: fa-content($fa-var-ban);
+    }
+    
+    &::before {
+        content: '';
+        display: block;
+        position: absolute;
+        top: 5px;
+        left: 5px;
+        width: calc(100% - 10px);
+        height: 5px;
+        border-radius: 3px;
+        background-color: $success;
+    }
+    &::after {
+        @extend %fa-icon;
+        @extend .fas;
+        content: fa-content($fa-var-pencil-alt);
+        position: absolute;
+        top: 1.4rem;
+        left: 1rem;
+        font-size: 1.15rem;
+    }
+}

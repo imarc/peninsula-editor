@@ -1,0 +1,33 @@
+.cms-record {
+    display: none;
+    padding: 0 4rem;
+    form {
+        display: flex;
+        flex-direction: row;
+    }
+    form > * {
+        padding-top: 3rem;
+    }
+    form .primary {
+        margin-right: 4rem;
+        flex-grow: 1;
+    }
+    form .primary fieldset > *:not(.-immutable) {
+        max-width: 540px;
+    }
+
+    .-immutable {
+        padding: 1rem;
+        margin-left: -1rem;
+        margin-right: -1rem;
+        background-color: #f6f6f6;
+    }
+    form .secondary {
+        width: 300px;
+        box-shadow: inset 21px 0 45px -45px rgba(0, 0, 0, 0.4);
+        padding-left: 2rem;
+    }
+    &.-active {
+        display: block;
+    }
+}

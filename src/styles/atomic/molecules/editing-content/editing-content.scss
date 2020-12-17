@@ -1,0 +1,61 @@
+.cms-editing-content {
+    position: fixed;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 2rem;
+    padding-left: 2rem;
+    transition: padding-left 125ms $easing;
+    background-color: $brand-denim;
+    z-index: 5;
+
+    .action {
+        background: none;
+        border-radius: 0;
+        background-color: $brand-greeny-blue;
+        font-weight: 600;
+    }
+    .action:hover::after,
+    .action:focus::after,
+    .cancel:hover::after,
+    .cancel:focus::after {
+        display: none;
+    }
+
+    .title {
+        font-size: 2.25rem;
+        font-weight: 200;
+        color: #fff;
+        text-transform: none;
+    }
+    .title::before {
+        @extend %fa-icon;
+        @extend .fas;
+        content: fa-content($fa-var-exclamation-triangle);
+        color: #ffe447;
+        margin-right: 1.5rem;
+        font-size: 1.9rem;
+    }
+
+    .actions {
+        align-items: center;
+    }
+
+    .cancel {
+        background: none;
+        color: #fff;
+        border: none;
+    }
+    .cancel:hover,
+    .cancel:focus {
+        border: none;
+    }
+
+    &.-open {
+        padding-left: calc(320px + 2rem);
+    }
+}

@@ -1,0 +1,41 @@
+.range .hidden {
+    visibility: hidden;
+    height: 0;
+    padding: 0;
+    border: none;
+}
+
+.range label {
+    margin-bottom: 4.25rem;
+}
+
+.noUi-horizontal .noUi-handle {
+    border-radius: 50%;
+    box-shadow: none;
+    border: 2px solid $color-border;
+    width: 25px;
+    height: 25px;
+    top: -5px;
+    cursor: grab;
+}
+
+.noUi-horizontal .noUi-handle:active {
+    cursor: grabbing;
+}
+
+.noUi-horizontal .noUi-handle::before,
+.noUi-horizontal .noUi-handle::after {
+    display: none;
+}
+
+
+.noUi-connect {
+    background-color: $color-action;
+}
+
+.noUi-horizontal .noUi-tooltip {
+    padding: 0px 5px;
+    line-height: 1.6;
+    border: 1px solid $gray;
+    bottom: 180%;
+}

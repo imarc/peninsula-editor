@@ -1,0 +1,50 @@
+.cms-navprimary {
+    margin-top: .5rem;
+    ul {
+        flex-direction: column;
+    }
+
+    & > ul > li.-active {
+        background-color: $brand-denim;
+    }
+
+    & > ul > li.-active ul a.-active {
+        color: #fff;
+        font-weight: 700;
+    }
+
+    ul ul {
+        height: 0;
+        overflow: hidden;
+    }
+    ul ul.-open {
+        height: auto;
+    }
+    ul ul a {
+        font-size: .875rem;
+        padding: 0 1rem;
+        padding-left: 2rem;
+        font-weight: 400;
+    }
+    ul ul a.-active,
+    ul ul a:hover,
+    ul ul a:focus {
+        background-color: transparent;
+        color: $brand-pale-teal;
+    }
+    a {
+        text-align: left;
+        background-color: transparent;
+        margin-bottom: .5rem;
+    }
+    a i {
+        margin-right: .3rem;
+        width: 17px;
+    }
+    a:hover,
+    a:focus,
+    a.-active {
+        background-color: transparent;
+        color: $brand-pale-teal;
+    }
+}

@@ -1,0 +1,8 @@
+@mixin eyebrow($fontsize: .875rem) {
+    text-transform: uppercase;
+    display: block;
+    color: $color-meta;
+    font-weight: 600;
+    font-size: $fontsize;
+    line-height: 1;
+}

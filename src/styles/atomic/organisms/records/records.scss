@@ -1,0 +1,115 @@
+.cms-records {
+    padding: 2.5rem 4rem;
+
+    .text.-search {
+        max-width: 400px;
+    }
+
+    .cms-select {
+        width: 42px;
+    }
+
+    .cms-pagination {
+        margin-bottom: 0;
+    }
+
+    .cms-actions {
+		width: 200px;
+		text-align: center;
+
+        & > * {
+            margin-right: 18px;
+        }
+        & > *:last-child {
+            margin-right: 0;
+        }
+    }
+
+    .cms-actions a {
+        background: none;
+        border: none;
+        padding: 0;
+        font-size: 0;
+    }
+
+    .cms-actions a i {
+        font-size: 1rem;
+    }
+
+    .cms-actions a::before {
+        color: $gray;
+        font-size: .875rem;
+    }
+
+    .cms-actions a[href]:hover::before {
+        color: $brand-greeny-blue;
+    }
+
+    .cms-record {
+        display: table-row;
+    }
+
+    footer {
+        border-top: none;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    form {
+        max-width: 100%;
+    }
+
+    th {
+        font-size: 1.25rem;
+        font-weight: 500;
+        border-bottom: none;
+    }
+
+    tr:nth-child(even) > td {
+        background-color: transparent;
+    }
+
+    tr {
+        transition: background-color 250ms $easing;
+    }
+
+    tbody tr:hover {
+        background-color: #f6f6f6;
+    }
+
+    tbody tr:hover .cms-recordedit::before,
+    tbody tr:hover .cms-recordsettings::before {
+        color: $brand-greeny-blue;
+    }
+
+    tbody tr:hover .cms-recordremove::before {
+        color: $error;
+    }
+
+    td {
+        font-size: .875rem;
+        line-height: 1em;
+    }
+
+    td:first-child:not(.cms-select),
+    .cms-select + td {
+        font-weight: 600;
+    }
+
+    td label {
+        margin-bottom: 0;
+    }
+
+    tr > td {
+        border-bottom: 2px solid $gray;
+        border-right: 2px solid $gray;
+    }
+    tr > td:last-child {
+        border-right: none;
+    }
+    tr:last-child > td {
+        border-bottom: none;
+    }
+}

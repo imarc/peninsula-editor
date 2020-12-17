@@ -1,0 +1,22 @@
+.navigation {
+    &.-pagination ul {
+        display: flex;
+        flex-direction: row;
+        background-color: transparent;
+        .page,
+        .prev,
+        .next {
+            width: auto;
+            display: inline-block;
+            font-size: 1.125rem;
+            background-color: transparent;
+            color: $color-action;
+            &:hover,
+            &:focus,
+            &.-active {
+                background-color: transparent;
+                color: $color-action-hover;
+            }
+        }
+    }
+}

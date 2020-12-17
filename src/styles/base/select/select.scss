@@ -1,0 +1,74 @@
+.select > span {
+    border: 1.5px solid $border;
+    display: inline-block;
+    width: 100%;
+    position: relative;
+    & + .error p::before {
+      @extend %fa-icon;
+      @extend .fas;
+      content: fa-content($fa-var-exclamation-circle);
+      color: $error;
+      margin-right: .5rem;
+    }
+ }
+
+.select > span::before {
+    @extend %fa-icon;
+    @extend .fas;
+    content: fa-content($fa-var-caret-down);
+    position: absolute;
+    top: .8rem;
+    right: 1.3rem;
+    color: $color-action;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.select select {
+    width: 100%;
+    border: none;
+    padding: 0.4rem 0.6rem;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    text-indent: 1px;
+    text-overflow: '';
+}
+
+.select select::-ms-expand {
+    display: none;
+}
+
+
+.select-wrapper {
+    margin: auto;
+    max-width: 600px;
+    width: calc(100% - 40px);
+}
+.selectr-selected {
+    border: none;
+    height: 45px;
+}
+.select.-multi .selectr-selected {
+    height: auto;
+}
+.selectr-options-container {
+    top: -1px;
+    left: -1px;
+    width: calc(100% + 2px);
+    border-radius: 5px;
+}
+.selectr-selected::before {
+    display: none;
+}
+.selectr-label {
+    height: 32px;
+}
+
+.select.-multi .selectr-label {
+    height: auto;
+}
+
+.selectr-tag {
+    background-color: $color-action;
+    font-size: .75rem;
+}

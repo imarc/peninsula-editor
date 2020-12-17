@@ -1,0 +1,26 @@
+@mixin frontendIconButton() {
+    background-color: $brand-greeny-blue;
+    border: none;
+    font-size: 0;
+    line-height: 0;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    transition: background-color 250ms $easing;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+
+    &:hover,
+    &:focus {
+        background: darken($brand-greeny-blue, 10%);
+    }
+
+    &::before {
+        @extend %fa-icon;
+        @extend .fas;
+        font-size: 1rem;
+        color: #fff;
+        vertical-align: -30px;
+    }
+}

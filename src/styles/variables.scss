@@ -1,0 +1,121 @@
+///
+/// = Variables =
+///
+
+$gutter: 32px !default;
+$siteWidth: 1180px !default;
+
+///
+/// This is the default font stack.
+///
+
+$font-stack: 'Poppins', sans-serif !default;
+$font-mono: "Roboto Mono", monospace !default;
+
+$font-primary: $font-stack !default;
+$font-secondary: $font-mono !default;
+$font-stack-heading: $font-stack !default;
+
+///
+/// We provide the color `$white`, `$lightgray`, `$gray`, `$darkgray`,
+/// `$charcoal` and `$black` for convienence.
+///
+
+$white: #fff !default;
+$lightgray: #ddd !default;
+$gray: #dbdcd6!default;
+$darkgray: #4a4a4a !default;
+$charcoal: #191919 !default;
+$black: #454545 !default;
+
+///
+/// The brand colors (name them the color)
+///
+
+$brand-greeny-blue: #3faa88 !default;
+$brand-deep-lavender: #9064a9 !default;
+$brand-denim: #3e6a91 !default;
+$brand-dirty-blue: #46869a !default;
+$brand-pale-teal: #86b9c6 !default;
+$brand-dark: #2f3c47 !default;
+$brand-greyish-brown: #454545 !default;
+
+$color-action: $brand-greeny-blue !default;
+$color-active: $brand-greeny-blue !default;
+$color-action-hover: $brand-denim !default;
+$color-navlink: $darkgray !default;
+$color-utilitylink: $gray !default;
+$color-nav-hover: $brand-pale-teal !default;
+$color-background: $brand-pale-teal !default;
+$color-border: $brand-pale-teal !default;
+$color-border-light: $gray !default;
+$color-input-border: $darkgray !default;
+$color-meta: $brand-deep-lavender !default;
+$color-secondary: $brand-dirty-blue !default;
+$color-icon: $brand-greeny-blue !default;
+$color-hero: $brand-denim !default;
+$color-highlight: $brand-deep-lavender !default;
+$color-caption: $darkgray !default;
+
+///
+/// Messaging colors
+///
+
+$info: #0c8ee1 !default;
+$warning: #FF7900 !default;
+$success: #26c01e !default;
+$error: #db4549 !default;
+$info: #ddd !default;
+
+///
+/// Applied colors
+///
+
+$plain-text: $black !default;
+$meta-text: lighten($black, 35%) !default;
+$link: $brand-denim !default;
+$link-hover: $brand-deep-lavender !default;
+$border: #9c9c9c !default;
+
+///
+/// Social Network Colors
+///
+
+$facebook: #3664a2 !default;
+$twitter: #55acee !default;
+$linkedin: #0077b5 !default;
+$youtube: #cd201f !default;
+
+///
+/// Media Query Breakpoints
+///
+
+$breakpoints: (
+  md: 576px,
+  lg: 1024px,
+  xl: 1200px
+) !default;
+
+///
+/// If this is turned off, component mixins are included but not their CSS classnames.
+///
+$use-boilerplate-classes: true !default;
+
+///
+/// These are settings for slick to work properly and not throw an error.
+///
+$slick-font-path: "~slick-carousel/slick/fonts/" !default;
+$slick-font-family: "slick" !default;
+$slick-loader-path: "~slick-carousel/slick/" !default;
+$slick-arrow-color: black !default;
+
+///
+/// Easings
+///
+$easing: cubic-bezier(0.215, 0.61, 0.355, 1);
+
+///
+/// Shadows
+///
+$shadowheavy: 10px 10px 20px rgba($black, 0.3);
+$shadowlight: 3px 3px 0 rgba($black, 0.3);

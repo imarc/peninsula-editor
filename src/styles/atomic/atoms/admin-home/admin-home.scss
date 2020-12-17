@@ -1,0 +1,7 @@
+.cms-admin-home {
+    &::before {
+        @extend %fa-icon;
+        @extend .far;
+        content: fa-content($fa-var-tachometer-alt-fast);
+    }
+}

@@ -1,0 +1,18 @@
+@mixin containerReset{
+    @media screen and (min-width: $siteWidth) {
+        margin-left: calc(
+            -1 * (
+                (
+                    ((100vw - #{$siteWidth}) / 2) + 20px
+                )
+            )
+        );
+        margin-right: calc(
+            -1 * (
+                (
+                    ((100vw - #{$siteWidth}) / 2) + 20px
+                )
+            )
+        );
+    }
+}

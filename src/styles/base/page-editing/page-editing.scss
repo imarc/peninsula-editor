@@ -1,0 +1,143 @@
+body {
+    transition: padding-left 250ms $easing;
+}
+
+body.-editing {
+    padding-left: 160px;
+    @media (max-width: 1560px) {
+        left: 320px;
+        width: calc(100% - 320px);
+    }
+
+    .imageWithText [href=" "] {
+        pointer-events: auto;
+    }
+
+    a:not([href]) {
+        opacity: 1;
+    }
+
+    [data-editor="image"] {
+        cursor: pointer;
+    }
+
+}
+
+.ql-container {
+    font-size: inherit !important;
+    font-family: inherit !important;
+    height: auto;
+}
+
+.codeflask {
+    position: relative !important;
+}
+
+.ck.ck-editor__editable_inline {
+    overflow: visible !important;
+    background-color: rgba(#86b9c6, .2);
+    padding: 0 !important;
+}
+
+.ck.ck-button.confirm::before {
+    @extend %fa-icon;
+    @extend .fas;
+    content: fa-content($fa-var-check);
+    color: $success;
+}
+
+.codeflask__flatten {
+    width: 100% !important;
+    white-space: normal !important;
+}
+
+.codeflask__textarea {
+    height: 100% !important;
+}
+
+.codeflask__pre {
+    display: block !important;
+    position: relative !important;
+}
+
+.codeflask__flatten {
+    width: 100% !important;
+}
+
+.ck-content {
+    overflow: hidden;
+}
+
+.ck .ck-widget {
+    width: 100%;
+}
+
+[data-module="section"] hr {
+    border-top: 1px solid $color-border;
+    height: 0;
+    margin: 3rem 0;
+    overflow: visible;
+    @include breakpoint(lg) {
+        margin: 2rem 0;
+    }
+}
+
+[data-editor="richtext"] > *:last-child {
+    margin-bottom: 0;
+}
+
+[data-editor="richtext"] li {
+    margin-bottom: .3em;
+    line-height: 1.75;
+}
+[data-module="section"] > [data-editor="richtext"] {
+    margin-bottom: 2rem;
+  
+    @include breakpoint(lg) {
+        margin-bottom: 4rem;
+    }
+}
+
+[data-editor="richtext"] ul {
+    padding-left: 3rem;
+}
+
+[data-editor="richtext"] ul, 
+[data-editor="richtext"] ol {
+    margin-bottom: 1.5rem;
+}
+
+[data-editor="richtext"] ol {
+    padding-left: 2rem;
+}
+
+[data-editor="richtext"] p {
+    margin-bottom: 1.5rem;
+}
+
+[data-editor="richtext"] > *:first-child {
+    margin-top: 0;
+}
+
+[data-editor="richtext"] h2 {
+    margin-bottom: 1rem;
+}
+
+[data-module="section"] > .card {
+    margin-bottom: 2rem;
+    @include breakpoint(lg) {
+        margin-bottom: 4rem;
+    }
+}
+
+[data-module="section"] > * + hr {
+    @include breakpoint(lg) {
+        margin-top: -2rem;
+    }
+}
+
+[data-module="section"] > [data-module="cta"] + hr {
+    @include breakpoint(lg) {
+        margin-top: 2rem;
+    }
+}

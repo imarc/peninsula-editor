@@ -1,0 +1,36 @@
+.cms-header {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #f6f6f6;
+    padding: 2rem;
+
+    .cms-title {
+        font-size: 1.5rem;
+        margin-bottom: 1.6rem;
+        display: flex;
+        flex-direction: row;
+		align-items: stretch;
+		height: 48px;
+    }
+
+    .cms-subtitle {
+        display: block;
+        color: $brand-deep-lavender;
+        font-size: .75rem;
+        text-transform: uppercase;
+	}
+
+	nav {
+		margin-bottom: 0;
+	}
+
+    @include breakpoint(lg) {
+        flex-direction: row;
+
+        .cms-title {
+            margin-bottom: 0;
+            font-size: 2.1175rem;
+        }
+    }
+}

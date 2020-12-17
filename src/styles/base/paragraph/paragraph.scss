@@ -1,0 +1,42 @@
+p {
+  margin: 0 0 2em;
+  padding: 0;
+}
+
+b,
+strong {
+  font-weight: 700;
+}
+
+i,
+em {
+  font-style: italic;
+}
+
+blockquote {
+  margin-bottom: 2rem;
+  padding-left: 3rem;
+  margin-left: 0;
+  position: relative;
+  &::before {
+    content: '“';
+    display: block;
+    position: absolute;
+    top: -40px;
+    left: 0;
+    font-size: 6rem;
+  }
+  footer {
+    position: relative;
+  }
+  footer::before {
+    content: '';
+    display: block;
+    position: absolute;
+
+    border-top: 2px solid $black;
+    top: -12px;
+    left: 0;
+    width: 70px;
+  }
+}

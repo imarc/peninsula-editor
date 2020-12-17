@@ -1,0 +1,23 @@
+.cms-editorHighlight {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    border: 2px solid rgba($brand-greeny-blue, .3);
+    z-index: 1;
+
+    &::after {
+        @extend %fa-icon;
+        @extend .fas;
+        content: fa-content($fa-var-pencil-alt);
+        display: block;
+        background-color: $brand-greeny-blue;
+        padding: .5rem;
+        color: #fff;
+        position: absolute;
+        top: 0;
+        right: 0;
+        pointer-events: none;
+    }
+}

@@ -1,0 +1,8 @@
+@mixin textWithIcon {
+    font-weight: 600;
+    &::before {
+        @extend %fa-icon;
+        @extend .fas;
+        margin-right: .5rem;
+    }
+}

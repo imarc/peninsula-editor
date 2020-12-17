@@ -1,0 +1,248 @@
+@mixin buttonPrimary {
+    display: inline-block;
+    position: relative;
+
+    font-weight: 400;
+
+    padding: .5rem 2rem;
+
+    color: #fff;
+    background-color: $color-action;
+
+    transition: background-color 75ms $easing, color 75ms $easing;
+    &:hover,
+    &:focus {
+        background-color: $color-action-hover;
+        color: #fff;
+        text-decoration: none;
+
+        .count {
+            color: $color-action-hover;
+        }
+    }
+
+    &.-add::before {
+        @extend %fa-icon;
+        @extend .far;
+        content: fa-content($fa-var-plus);
+        font-size: .8em;
+        margin-right: 5px;
+    }
+
+    &.-option {
+        padding: 5px 13px;
+    }
+
+    &.-remove::before {
+        @extend %fa-icon;
+        @extend .fas;
+        content: fa-content($fa-var-trash-alt);
+        font-size: .8em;
+        margin-right: 5px;
+    }
+
+    &.-person::before {
+        @extend %fa-icon;
+        @extend .fas;
+        content: fa-content($fa-var-user);
+        font-size: .8em;
+        margin-right: 5px;
+    }
+
+    &.-personAdd::before {
+        @extend %fa-icon;
+        @extend .fas;
+        content: fa-content($fa-var-user-plus);
+        font-size: .8em;
+        margin-right: 5px;
+    }
+
+    &.-date::before {
+        @extend %fa-icon;
+        @extend .fas;
+        content: fa-content($fa-var-calendar-alt);
+        font-size: .8em;
+        margin-right: 5px;
+    }
+
+    &.-secure::before {
+        @extend %fa-icon;
+        @extend .fas;
+        content: fa-content($fa-var-lock-alt);
+        font-size: .8em;
+        margin-right: 5px;
+    }
+
+    &.-external::before {
+        @extend %fa-icon;
+        @extend .fas;
+        content: fa-content($fa-var-external-link);
+        font-size: .8em;
+        margin-right: 5px;
+    }
+
+    &.-processing {
+        background-color: $color-action-hover;
+        color: $color-action-hover;
+    }
+    &.-processing::before {
+        @extend %fa-icon;
+        @extend .fas;
+        content: fa-content($fa-var-spinner);
+        position: absolute;
+        top: 25%;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        margin: 0 auto;
+        transform: translateY(-50%);
+        color: #fff;
+        font-size: 1.5rem;
+        animation: continuousRotation 2s infinite linear;
+    }
+
+    &.-print::before {
+        @extend %fa-icon;
+        @extend .far;
+        content: fa-content($fa-var-print);
+        font-size: .8em;
+        margin-right: 5px;
+    }
+
+    &[disabled] {
+        background-color: $gray;
+    }
+    .count {
+        background-color: rgba(#fff, .7);
+        color: $color-action;
+        padding: 0 5px;
+        border-radius: 12px;
+        transition: color 250ms $easing;
+    }
+
+}
+
+@mixin buttonSecondary {
+    display: inline-block;
+    position: relative;
+
+    font-weight: 400;
+
+    padding: calc(.5rem - 2px) calc(2rem - 2px);
+
+    color: $color-action;
+
+    border: 2px solid $color-action;
+
+    transition: background-color 75ms $easing, color 75ms $easing;
+    &:hover,
+    &:focus {
+        color: $color-action-hover;
+        border: 2px solid $color-action-hover;
+        text-decoration: none;
+
+        .count {
+            background-color: rgba($color-action-hover, .7);
+        }
+    }
+
+    &.-option {
+        padding: 3px 11px;
+    }
+
+    &.-remove {
+        color: $error;
+        border-color: $error;
+    }
+
+    &.-remove:hover {
+        color: darken($error, .3);
+        border-color: darken($error, .3);
+    }
+
+
+    &.-document::before {
+        @extend %fa-icon;
+        @extend .fas;
+        content: fa-content($fa-var-file-alt);
+        font-size: .8em;
+        margin-right: 5px;
+    }
+
+
+    &.-remove::before {
+        @extend %fa-icon;
+        @extend .fas;
+        content: fa-content($fa-var-trash-alt);
+        font-size: .8em;
+        margin-right: 5px;
+    }
+
+    &.-date::before {
+        @extend %fa-icon;
+        @extend .fas;
+        content: fa-content($fa-var-calendar-alt);
+        font-size: .8em;
+        margin-right: 5px;
+    }
+
+    &.-external::before {
+        @extend %fa-icon;
+        @extend .fas;
+        content: fa-content($fa-var-external-link);
+        font-size: .8em;
+        margin-right: 5px;
+    }
+
+    &.-processing {
+        color: #fff;
+        border: 2px solid $color-action-hover;
+    }
+    &.-processing::before {
+        @extend %fa-icon;
+        @extend .fas;
+        content: fa-content($fa-var-spinner);
+        position: absolute;
+        color: $color-action-hover;
+        top: 25%;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        margin: 0 auto;
+        transform: translateY(-50%);
+        font-size: 1.5rem;
+        animation: continuousRotation 2s infinite linear;
+    }
+
+    &[disabled] {
+        color: $gray;
+
+        border: 2px solid $gray;
+    }
+
+    .count {
+        background-color: rgba($color-action, .7);
+        color: #fff;
+        padding: 0 5px;
+        border-radius: 12px;
+        transition: background-color 250ms $easing;
+    }
+
+    &.-naked {
+        border: none
+    }
+
+    &.-naked:focus,
+    &.-naked:hover {
+        border: none
+    }
+
+    &.-deemphasize {
+        border: none;
+        color: $darkgray;
+    }
+    &.-deemphasize:hover {
+        background-color: transparent;
+        color: #000;
+    }
+}

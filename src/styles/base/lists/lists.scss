@@ -1,0 +1,53 @@
+p,
+ol,
+ul,
+dl {
+    margin-bottom: 2rem;
+}
+
+ol,
+ul {
+    padding-left: 2rem;
+    li,
+    dt,
+    dd {
+        margin-bottom: 1em;
+    }
+}
+
+ul {
+    list-style: disc;
+    list-style-type: none;
+    padding-left: 1.2rem;
+}
+ul li {
+    position: relative;
+}
+ul li::before {
+    content: '•';
+    position: absolute;
+    top: 0;
+    left: -1.2rem;
+}
+
+dl {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+
+    @include breakpoint(md) {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+}
+dt {
+    font-weight: 700;
+    width: 160px;
+}
+
+dd {
+    width: calc(100% - 160px);
+    margin-left: 0;
+    padding-left: 1rem;
+}
+

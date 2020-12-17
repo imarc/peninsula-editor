@@ -1,0 +1,54 @@
+.cms-tool {
+    background-color: #fff;
+
+    @include breakpoint(lg) {
+        & > main {
+            margin-left: 320px;
+        }
+        & > main > .message {
+            margin: 3rem 4rem;
+            margin-bottom: 0;
+        }
+        aside {
+            width: 320px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            overflow: hidden;
+
+            .cms-toolbar {
+                background-color: $brand-dark;
+                height: 100%;
+                overflow-y: scroll;
+                margin-right: -17px;
+            }
+
+            &::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 100%;
+                width: 5px;
+                z-index: 1;
+                background: repeating-linear-gradient(
+                    -35deg,
+                    #e2e428,
+                    #e2e428 4px,
+                    $brand-dark 4px,
+                    $brand-dark 8px
+                  );
+            }
+        }
+    }
+}
+
+body.-mac {
+    @include breakpoint(lg) {
+        aside .cms-toolbar {
+            margin-right: 0;
+        }
+    }
+
+}

@@ -1,0 +1,12 @@
+.cms-actionbar {
+    ul {
+        display: flex;
+        flex-direction: row;
+    }
+    li {
+        width: 100%;
+    }
+    button {
+        width: 100%;
+    }
+}

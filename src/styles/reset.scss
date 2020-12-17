@@ -1,0 +1,114 @@
+///
+/// = Base =
+///
+
+html {
+    box-sizing: border-box;
+    background-color: #fff;
+    color: $plain-text;
+    font-family: $font-stack;
+    font-size: 16px;
+    line-height: 2;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+  }
+  html.scroll-lock {
+    overflow: hidden;
+    body {
+      overflow: hidden;
+    }
+  }
+  
+  *,
+  *::before,
+  *::after {
+    box-sizing: inherit;
+  }
+  
+  
+  body {
+    min-width: 320px;
+    position: relative;
+    height: 100%;
+    width: 100%;
+    font-weight: 300;
+    min-height: 100vh;
+    overflow-x: hidden;
+    background-color: $color-background;
+  }
+  
+.site {
+  background-color: #fff;
+  margin-bottom: 0;
+}
+
+  img {
+    max-width: 100%;
+    vertical-align: middle;
+    height: auto;
+  }
+  
+  ///
+  /// = Print =
+  ///
+  
+  @media print {
+    * {
+      background-color: transparent !important;
+      box-shadow: none !important;
+      color: #000 !important;
+      text-shadow: none !important;
+    }
+  
+    a {
+      text-decoration: underline;
+    }
+  
+    pre,
+    blockquote,
+    tr,
+    img,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      page-break-inside: avoid;
+    }
+  
+    thead {
+      display: table-header-group;
+    }
+  
+    @page {
+      margin: 0.5cm;
+    }
+  
+    p,
+    h2,
+    h3 {
+      orphans: 3;
+      widows: 3;
+    }
+  }
+  a:not([href]) {
+    opacity: .5;
+  }
+  // Unordered List reset
+  @mixin ulreset {
+    list-style-type: none;
+    padding-left: 0;
+    li::before {
+      content: '';
+    }
+  }
+
+  .fade-enter-active, .fade-leave-active {
+    transition: opacity .5s;
+  }
+  .fade-enter, .fade-leave-to  {
+    opacity: 0;
+  }

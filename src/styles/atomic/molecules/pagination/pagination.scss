@@ -1,0 +1,63 @@
+.cms-pagination {
+    ul {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        background-color: transparent;
+    }
+    li {
+        flex-grow: 0;
+    }
+    .cms-spread {
+        color: $brand-greeny-blue;
+        font-weight: 600;
+        margin: 0 .3em;
+        line-height: 0;
+        vertical-align: -4px;
+    }
+    .cms-page,
+    .cms-previous,
+    .cms-next {
+        width: auto;
+        display: inline-block;
+        padding: 0.05rem 0.7rem;
+        background-color: transparent;
+        color: $brand-greeny-blue;
+        font-weight: 600;
+        border-radius: 5px;
+
+        &:hover,
+        &.-active {
+            background-color: $brand-deep-lavender;
+            color: #fff;
+        }
+    }
+    .cms-previous,
+    .cms-next {
+        font-size: .75rem;
+        font-weight: 800;
+        text-transform: uppercase;
+    }
+    .cms-previous {
+        margin-right: 1.5em;
+    }
+    .cms-next {
+        margin-left: 1.5em;
+    }
+    .cms-previous::before {
+        @extend %fa-icon;
+        @extend .far;
+        content: fa-content($fa-var-long-arrow-left);
+        margin-right: .5em;
+        font-size: 1.3em;
+        vertical-align: -1px;
+    }
+    .cms-next::after {
+        @extend %fa-icon;
+        @extend .far;
+        content: fa-content($fa-var-long-arrow-right);
+        margin-left: .5em;
+        font-size: 1.3em;
+        vertical-align: -1px;
+    }
+}

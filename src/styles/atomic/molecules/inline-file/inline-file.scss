@@ -1,0 +1,70 @@
+.cms-inline-file {
+    position: absolute;
+    padding: .5rem;
+    box-shadow: 0 3px 5px rgba(#000, .5);
+    border-radius: 5px;
+    border: #c4c4c4;
+    background-color: #fafafa;
+    top: -9999px;
+    left: -9999px;
+    z-index: 9999999;
+    background-color: #fff;
+
+    input {
+        width: 233px;
+    }
+
+    .confirm-upload,
+    .cancel-upload {
+        font-size: 0;
+        cursor: pointer;
+        border: none;
+        background: none;
+        vertical-align: middle;
+    }
+
+    .confirm-upload::before,
+    .cancel-upload::before {
+        @extend %fa-icon;
+        @extend .far;
+        font-size: 1.5rem;
+    }
+
+    .confirm-upload::before {
+        content: fa-content($fa-var-check);
+        color: $success;
+    }
+
+    .cancel-upload::before {
+        content: fa-content($fa-var-times);
+        color: $error;
+    }
+
+    .confirm-upload {
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 250ms $easing;
+    }
+
+    .confirm-upload.-active {
+        opacity: 1;
+        pointer-events: all;
+    }
+
+    &::after {
+        @extend %fa-icon;
+        @extend .far;
+        content: fa-content($fa-var-spinner-third);
+        position: absolute;
+        top: 21px;
+        right: 41px;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 250ms $easing;
+        animation: continuousRotation .5s infinite linear;
+    }
+
+    &.-active::after {
+        opacity: 1;
+    }
+}

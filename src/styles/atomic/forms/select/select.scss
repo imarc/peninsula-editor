@@ -1,0 +1,96 @@
+.select > span {
+    border: 1.5px solid $border;
+    display: inline-block;
+    width: 100%;
+    position: relative;
+    & + .error p::before,
+    & + .error li::before {
+        @extend %fa-icon;
+        @extend .fas;
+        content: fa-content($fa-var-exclamation-circle);
+        color: $error;
+        margin-right: .5rem;
+    }
+    & + .error li::before {
+        top: 2px;
+        left: 0;
+        margin-right: .5rem;
+    }
+    & + .error li {
+        padding-left: 1.5rem;
+        display: inline;
+        margin-right: 1rem;
+        position: relative;
+    }
+    & + .error ul {
+        margin-top: 0;
+        padding-left: 0;
+    }
+ }
+
+.select.-show {
+    width: 80px;
+}
+.select > span::before {
+    @extend %fa-icon;
+    @extend .fas;
+    content: fa-content($fa-var-caret-down);
+    position: absolute;
+    top: .8rem;
+    right: 1.3rem;
+    color: $color-action;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.select select {
+    width: 100%;
+    border: none;
+    padding: 0.4rem 0.6rem;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    text-indent: 1px;
+    text-overflow: '';
+}
+
+.select select::-ms-expand {
+    display: none;
+}
+
+
+.select-wrapper {
+    margin: auto;
+    max-width: 600px;
+    width: calc(100% - 40px);
+}
+.selectr-selected {
+    border: none;
+    height: 45px;
+}
+.selectr-container.multiple.has-selected .selectr-selected {
+    padding: 9px 28px 9px 5px;
+}
+.selectr-option {
+    min-height: 42px;
+    margin-bottom: 0;
+}
+.selectr-options-container {
+    top: -1px;
+    left: -1px;
+    width: calc(100% + 2px);
+    border-radius: 5px;
+}
+.selectr-selected::before {
+    display: none;
+}
+selectr-label {
+    height: 32px;
+}
+
+.selectr-container:not(.multiple) .selectr-label {
+    pointer-events: none;
+}
+
+.selectr-tag {
+    background-color: $color-action;
+}

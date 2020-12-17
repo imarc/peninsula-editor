@@ -1,0 +1,7 @@
+.cms-logout {
+    &::before {
+        @extend %fa-icon;
+        @extend .far;
+        content: fa-content($fa-var-sign-out);
+    }
+}

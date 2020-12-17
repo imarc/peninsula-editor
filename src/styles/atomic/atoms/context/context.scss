@@ -1,0 +1,14 @@
+.cms-context {
+    font-weight: 200;
+    margin-right: .65em;
+    &::after {
+        @extend %fa-icon;
+        @extend .fal;
+        content: fa-content($fa-var-angle-right);
+        font-size: 1.1em;
+        line-height: 0;
+        vertical-align: -.1em;
+        margin-left: .65em;
+        color: $brand-deep-lavender;
+    }
+}

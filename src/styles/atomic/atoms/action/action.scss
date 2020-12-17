@@ -1,0 +1,28 @@
+.action {
+    background: none;
+    @include buttonPrimary;
+}
+
+button.action {
+    border: none;
+}
+
+.cms-action {
+    background: none;
+    @include buttonSecondary;
+
+    &.-filter::before {
+        content: '⬤';
+        color: $error;
+        font-size: .6em;
+        line-height: 0;
+        vertical-align: 3px;
+        margin-right: 1.5em;
+    }
+    &.-filter.-filtered::before {
+        color: $success;
+    }
+    &::after {
+        display: none;
+    }
+}

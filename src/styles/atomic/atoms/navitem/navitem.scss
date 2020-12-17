@@ -1,0 +1,25 @@
+.cms-navitem {
+    font-size: .875rem;
+    color: #fff;
+    font-weight: 400;
+    padding: 0;
+    background-color: transparent;
+    text-align: left;
+    padding: .15rem 2rem;
+    &[href].-active,
+    &[href]:hover,
+    &[href]:focus {
+        background-color: $brand-denim;
+        color: #fff;
+    }
+    &:not([href]),
+    &:not([href])::before {
+        color: #3d4e5c;
+        pointer-events: none;
+    }
+
+    &::before {
+        color: $brand-pale-teal;
+        margin-right: .5em;
+    }
+}

@@ -1,0 +1,38 @@
+.cms-widget {
+    width: 100%;
+    border: 1px solid $gray;
+    border-radius: 5px;
+    padding: 2rem;
+
+    .title {
+        margin-top: 0;
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: .9rem;
+    }
+
+    h3 {        
+        font-size: 1rem;
+    }
+
+
+    p {
+        margin-bottom: 1.3rem;
+    }
+    .action {
+        margin-top: 1rem;
+    }
+
+    .cta::after {
+        @extend %fa-icon;
+        @extend .far;
+        content: fa-content($fa-var-angle-right);
+        font-size: 1.4em;
+        margin-left: .4em;
+        vertical-align: -3px;
+    }
+
+    & > *:last-child {
+        margin-bottom: 0;
+    }
+}
