@@ -17,7 +17,9 @@ export default function getModules ({ commit }) {
         Object.keys(parameters).forEach(async parameterKey => {
           const { options } = parameters[parameterKey]
 
-          if (isArray(options)) {
+          if (isArray(options) && isObject(options[0])) {
+            response.data[key].parameters[parameterKey].options = options
+          } else if (isArray(options)) {
             response.data[key].parameters[parameterKey].options = options.map(option => {
               return {
                 label: option,
@@ -37,9 +39,11 @@ export default function getModules ({ commit }) {
             const requestUrl = options.match(/'((?:\\.|[^'\\])*)'/)[1]
 
             const fetchedOptions = await axios.get(requestUrl).then(res => res.data)
-            const finalArray = []
+            let finalArray = []
 
-            if (isArray(fetchedOptions)) {
+            if (isArray(fetchedOptions) && isObject(fetchedOptions[0])) {
+              finalArray = fetchedOptions
+            } else if (isArray(fetchedOptions)) {
               fetchedOptions.forEach(option => {
                 finalArray.push({ label: option, value: option })
               })

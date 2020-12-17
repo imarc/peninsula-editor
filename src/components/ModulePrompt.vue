@@ -108,7 +108,23 @@
                 </span>
                 <span v-if="typeof selectedModule.parameters !== 'undefined'">
                   <span v-for="(value, key) in selectedModule.parameters" :key="key">
-                      <div class="select">
+                      <div v-if="typeof selectedModule.parameters[key].type !== 'undefined'">
+                        <label :for="key" v-text="value.label"></label>
+                        <p
+                            v-if="selectedModule.parameters[key].note"
+                            class="note -info"
+                            v-text="selectedModule.parameters[key].note"
+                        ></p>
+                        <input
+                            :id="key"
+                            v-model="moduleParameterData[key]"
+                            :type="selectedModule.parameters[key].type"
+                            :placeholder="value.placeholder ? value.placeholder : ''"
+                            :min="typeof selectedModule.parameters[key].min !== 'undefined' ? selectedModule.parameters[key].min : null"
+                            :max="typeof selectedModule.parameters[key].max !== 'undefined' ? selectedModule.parameters[key].max : null"
+                        />
+                      </div>
+                      <div v-else class="select">
                           <label for="cardReference" v-text="value.label"></label>
                           <p
                               v-if="selectedModule.parameters[key].note"
