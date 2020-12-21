@@ -15,7 +15,7 @@ const attributeHandlers = {
       element = node.querySelector(`[data-${key}]`)
     }
 
-    return element[key].length ? element[key] : ''
+    return element.getAttribute(key) !== 'undefined' ? element.getAttribute(key) : ''
   },
   /**
      * Class Attribute Getters

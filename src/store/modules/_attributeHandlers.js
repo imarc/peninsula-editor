@@ -30,7 +30,7 @@ const attributeHandlers = {
     }
 
     if (attributeModifiedElement && value) {
-      attributeModifiedElement[key] = value
+      attributeModifiedElement.setAttribute(key, value)
     }
   },
 
