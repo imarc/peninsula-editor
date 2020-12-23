@@ -61,7 +61,7 @@
                             </div>
                           </transition>
                         </div>
-                        <div v-else-if="key === 'download' && moduleAttributeData.download.length">
+                        <div v-else-if="key === 'download'  && typeof moduleAttributeData.download !== 'undefined'">
                           <label :for="key" v-text="value.label"></label>
                           <p
                               v-if="baseModuleData.attributes[key].note"

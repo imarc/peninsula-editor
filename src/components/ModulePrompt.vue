@@ -245,7 +245,6 @@ export default {
 
       store.dispatch('addModule', moduleData)
         .then(() => {
-          console.log(this.isLoading)
           this.isLoading = false
         })
     },
