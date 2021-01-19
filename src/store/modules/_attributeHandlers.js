@@ -24,9 +24,7 @@ const attributeHandlers = {
     }
 
     if (!attributeModifiedElement) {
-      throw new Error(
-        'It appears this module has been updated since it was inserted on to this page. Try removing and reinserting it so it is up to date.'
-      )
+      return
     }
 
     if (attributeModifiedElement && value) {
@@ -47,9 +45,7 @@ const attributeHandlers = {
     }
 
     if (!classModifiedElement) {
-      throw new Error(
-        'It appears this module has been updated since it was inserted on to this page. Try removing and reinserting it so it is up to date.'
-      )
+      return
     }
 
     if (!value) {
@@ -75,12 +71,6 @@ const attributeHandlers = {
       styleModifiedElement = node
     } else {
       styleModifiedElement = node.querySelector(`[data-${key}]`)
-    }
-
-    if (!styleModifiedElement) {
-      throw new Error(
-        'It appears this module has been updated since it was inserted on to this page. Try removing and reinserting it so it is up to date.'
-      )
     }
 
     if (cssPropertyValueSupported('width', value)) {

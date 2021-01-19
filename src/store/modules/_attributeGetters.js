@@ -15,7 +15,11 @@ const attributeHandlers = {
       element = node.querySelector(`[data-${key}]`)
     }
 
-    return element.getAttribute(key) !== 'undefined' ? element.getAttribute(key) : ''
+    if (!element) {
+      return ''
+    }
+
+    return element.getAttribute(key)
   },
   /**
      * Class Attribute Getters
@@ -32,9 +36,7 @@ const attributeHandlers = {
     }
 
     if (!classModifiedElement) {
-      throw new Error(
-        'It appears this module has been updated since it was inserted on to this page. Try removing and reinserting it so it is up to date.'
-      )
+      return
     }
 
     const classes = [...classModifiedElement.classList]

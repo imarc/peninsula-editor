@@ -31,12 +31,22 @@ async function renderData (moduleNode) {
   const baseEndpointUrl = endpoint.split('?')[0]
   const existingParams = queryString.parse(endpoint.split('?')[1])
 
+  const finalModuleParams = {}
+
+  Object.keys(moduleParams).forEach(moduleParam => {
+    if (moduleParams[moduleParam] !== 'undefined' && moduleParams[moduleParam] !== '') {
+      finalModuleParams[moduleParam] = moduleParams[moduleParam]
+    }
+  })
+
   const data = await axios.get(baseEndpointUrl, {
     params: {
-      ...moduleParams,
+      ...finalModuleParams,
       ...existingParams
     }
   }).then(res => res.data.data)
+
+  console.log(data)
 
   const template = Twig.twig({
     data: twigTemplate

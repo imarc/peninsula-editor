@@ -4,10 +4,6 @@ body {
 
 body.-editing {
     padding-left: 160px;
-    @media (max-width: 1560px) {
-        left: 320px;
-        width: calc(100% - 320px);
-    }
 
     .imageWithText [href=" "] {
         pointer-events: auto;
