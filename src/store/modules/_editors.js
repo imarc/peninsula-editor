@@ -5,6 +5,7 @@
  */
 
 import CodeFlask from 'codeflask'
+import loadScripts from './_loadScripts'
 import InlineEditor from '@ckeditor/ckeditor5-editor-inline/src/inlineeditor'
 import Autoformat from '@ckeditor/ckeditor5-autoformat/src/autoformat'
 import Essentials from '@ckeditor/ckeditor5-essentials/src/essentials'
@@ -155,6 +156,10 @@ const editors = {
         language: 'html'
       })
 
+      if ('dynamicContent' in node.dataset) {
+        flask.updateCode(node.dataset.dynamicContent)
+      }
+
       store.state.HTMLEditors.push(flask)
 
       const editorTextArea = node.querySelector('textarea')
@@ -163,8 +168,20 @@ const editors = {
 
       editorTextArea.addEventListener('blur', () => {
         const newCode = flask.getCode()
+
         flask.editorRoot.dataset.editing = false
         flask.editorRoot.innerHTML = newCode
+
+        const scripts = [...flask.editorRoot.querySelectorAll('script')]
+
+        if (scripts.length) {
+          loadScripts(scripts)
+          node.dataset.dynamicContent = newCode
+        } else {
+          delete node.dataset.dynamicContent
+        }
+
+        commit('setIsEditing', false)
       })
 
       // eslint-disable-next-line no-param-reassign

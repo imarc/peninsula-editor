@@ -17,6 +17,9 @@ body.-editing {
         cursor: pointer;
     }
 
+    [data-editor="html"]:not([data-editing="true"]) * {
+        pointer-events: none;
+    }
 }
 
 .ql-container {
