@@ -44,31 +44,40 @@
     max-width: 600px;
     width: calc(100% - 40px);
 }
-.selectr-selected {
-    border: none;
-    height: 45px;
-}
-.select.-multi .selectr-selected {
-    height: auto;
-}
-.selectr-options-container {
-    top: -1px;
-    left: -1px;
-    width: calc(100% + 2px);
-    border-radius: 5px;
-}
-.selectr-selected::before {
-    display: none;
-}
-.selectr-label {
-    height: 32px;
+
+
+.ss-main .ss-multi-selected .ss-add {
+    opacity: 0;
 }
 
-.select.-multi .selectr-label {
-    height: auto;
+.ss-main .ss-multi-selected,
+.ss-main .ss-single-selected {
+  border: none !important;
 }
 
-.selectr-tag {
-    background-color: $color-action;
-    font-size: .75rem;
+.ss-main .ss-multi-selected .ss-values .ss-disabled,
+.ss-main .ss-single-selected {
+  padding: 10px 5px !important;
+}
+
+.ss-main .ss-single-selected {
+  height: 41px !important;
+}
+
+.ss-main {
+  min-height: 41px;
+}
+
+.select-wrapper {
+  margin: auto;
+  max-width: 600px;
+  width: calc(100% - 40px);
+}
+
+.ss-main .ss-multi-selected .ss-values .ss-value {
+  background-color: $color-action !important;
+}
+
+.ss-arrow {
+  display: none !important;
 }
