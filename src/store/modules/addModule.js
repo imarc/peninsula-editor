@@ -124,6 +124,11 @@ export default async function addModule ({ commit }, moduleData) {
    * closes prompt.
    */
   this.state.context.node.append(node)
+
+  if ('handler' in moduleData.module) {
+    window.moduleHandlers[moduleData.module.handler](node)
+  }
+
   commit('setIsSelectingModule', false)
   this.dispatch('updateHighlights')
 
