@@ -180,8 +180,6 @@ const editors = {
         } else {
           delete node.dataset.dynamicContent
         }
-
-        commit('setIsEditing', false)
       })
 
       // eslint-disable-next-line no-param-reassign

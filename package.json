@@ -41,6 +41,7 @@
     "@ckeditor/ckeditor5-upload": "^22.0.0",
     "@shopify/draggable": "^1.0.0-beta.8",
     "axios": "^0.19.2",
+    "babel-runtime": "^6.26.0",
     "codeflask": "^1.4.1",
     "core-js": "^3.6.5",
     "lodash": "^4.17.15",
