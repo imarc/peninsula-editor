@@ -4,7 +4,7 @@
             <h2 class="title">
                 Update Settings for this Module
             </h2>
-            <section class="cms-attribute-fields">
+            <section class="cms-attribute-fields" ref="attributeFields">
                 <div class="text">
                     <label for="name">Enter a unique name for this module</label>
                     <input id="name" v-model="moduleAttributeData.name" type="text" />
@@ -105,7 +105,7 @@
                             :max="typeof baseModuleData.parameters[key].max !== 'undefined' ? baseModuleData.parameters[key].max : null"
                         />
                       </div>
-                      <div v-else class="select">
+                      <div v-else class="select js-select">
                           <label for="cardReference" v-text="value.label"></label>
                           <p
                               v-if="baseModuleData.parameters[key].note"
@@ -114,9 +114,8 @@
                           ></p>
                           <span>
                               <select
-                                  :id="moduleParameterData[key]"
                                   v-model="moduleParameterData[key]"
-                                  name="cardReference"
+                                  :multiple="baseModuleData.parameters[key].multiple"
                               >
                                   <option
                                       v-for="option in value.options"
@@ -147,6 +146,7 @@ import axios from 'axios'
 import attributeGetters from '../store/modules/_attributeGetters'
 import attributeHandlers from '../store/modules/_attributeHandlers'
 import { getParameters, renderData } from '../modules/renderData'
+import SlimSelect from 'slim-select'
 
 import store from '../store/index'
 
@@ -173,6 +173,14 @@ export default {
     }
   },
   mounted () {
+    this.applySelectLib()
+
+    if ('parameters' in this.baseModuleData) {
+      Object.keys(this.baseModuleData.parameters).forEach(param => {
+        this.moduleParameterData[param] = this.baseModuleData.parameters[param].multiple ? [] : ''
+      })
+    }
+
     this.moduleAttributeData.name = this.currentModule.node.dataset.moduleName
 
     const moduleAttributes = this.availibleModules[this.currentModuleType].attributes
@@ -311,6 +319,39 @@ export default {
     },
     removeFileFeedback () {
       this.fileFeedback = null
+    },
+    applySelectLib () {
+      this.$nextTick(() => {
+        const selectFieldInputs = [...this.$refs.attributeFields.querySelectorAll('.js-select')]
+
+        if (selectFieldInputs.length) {
+          selectFieldInputs.forEach(function applySelectPure (selectField) {
+            const selectElement = selectField.querySelector('select')
+            const select = new SlimSelect({
+              select: selectElement,
+              closeOnSelect: !selectElement.multiple
+            })
+
+            let filteredItem = null
+
+            const searchInput = selectField.querySelector('input[type="search"]')
+
+            searchInput.addEventListener('input', () => {
+              filteredItem = select.data.filtered ? select.data.filtered[0] : null
+            })
+
+            searchInput.addEventListener('keydown', ({ key }) => {
+              if (key === 'Tab' && filteredItem && !selectElement.multiple) {
+                select.set(filteredItem.value)
+              }
+
+              if (key === 'Enter' && filteredItem) {
+                select.set(filteredItem.value)
+              }
+            })
+          })
+        }
+      })
     }
   }
 }

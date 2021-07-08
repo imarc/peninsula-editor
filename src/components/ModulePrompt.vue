@@ -21,7 +21,7 @@
                     </button>
                 </div>
             </div>
-            <section v-if="moduleIsSelected" class="cms-attribute-fields">
+            <section v-if="moduleIsSelected" class="cms-attribute-fields" ref="attributeFields">
                 <div class="text">
                     <label for="name">Enter a unique name for this module</label>
                     <input id="name" v-model="moduleAttributeData.name" type="text" />
@@ -124,7 +124,7 @@
                             :max="typeof selectedModule.parameters[key].max !== 'undefined' ? selectedModule.parameters[key].max : null"
                         />
                       </div>
-                      <div v-else class="select">
+                      <div v-else class="select js-select">
                           <label for="cardReference" v-text="value.label"></label>
                           <p
                               v-if="selectedModule.parameters[key].note"
@@ -133,9 +133,8 @@
                           ></p>
                           <span>
                               <select
-                                  :id="moduleParameterData[key]"
                                   v-model="moduleParameterData[key]"
-                                  name="cardReference"
+                                  :multiple="selectedModule.parameters[key].multiple"
                               >
                                   <option
                                       v-for="option in value.options"
@@ -179,6 +178,7 @@ import { mapState } from 'vuex'
 import { isArray, isObject } from 'lodash'
 import axios from 'axios'
 import store from '../store/index'
+import SlimSelect from 'slim-select'
 
 export default {
   data () {
@@ -233,7 +233,13 @@ export default {
     promptForInformation (value, key) {
       this.selectedModule = value
       this.selectedModule.key = key
+
+      Object.keys(value.parameters).forEach(param => {
+        this.moduleParameterData[param] = 'multiple' in value.parameters[param] ? [] : ''
+      })
+
       this.moduleIsSelected = true
+      this.applySelectLib()
     },
     populateModule () {
       this.isLoading = true
@@ -305,6 +311,39 @@ export default {
     },
     removeFileFeedback () {
       this.fileFeedback = null
+    },
+    applySelectLib () {
+      this.$nextTick(() => {
+        const selectFieldInputs = [...this.$refs.attributeFields.querySelectorAll('.js-select')]
+
+        if (selectFieldInputs.length) {
+          selectFieldInputs.forEach(function applySelectPure (selectField) {
+            const selectElement = selectField.querySelector('select')
+            const select = new SlimSelect({
+              select: selectElement,
+              closeOnSelect: !selectElement.multiple
+            })
+
+            let filteredItem = null
+
+            const searchInput = selectField.querySelector('input[type="search"]')
+
+            searchInput.addEventListener('input', () => {
+              filteredItem = select.data.filtered ? select.data.filtered[0] : null
+            })
+
+            searchInput.addEventListener('keydown', ({ key }) => {
+              if (key === 'Tab' && filteredItem && !selectElement.multiple) {
+                select.set(filteredItem.value)
+              }
+
+              if (key === 'Enter' && filteredItem) {
+                select.set(filteredItem.value)
+              }
+            })
+          })
+        }
+      })
     }
   }
 }
