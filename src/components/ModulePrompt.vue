@@ -234,9 +234,11 @@ export default {
       this.selectedModule = value
       this.selectedModule.key = key
 
-      Object.keys(value.parameters).forEach(param => {
-        this.moduleParameterData[param] = 'multiple' in value.parameters[param] ? [] : ''
-      })
+      if ('parameters' in value) {
+        Object.keys(value.parameters).forEach(param => {
+          this.moduleParameterData[param] = 'multiple' in value.parameters[param] ? [] : ''
+        })
+      }
 
       this.moduleIsSelected = true
       this.applySelectLib()
