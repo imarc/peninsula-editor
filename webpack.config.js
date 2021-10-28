@@ -4,7 +4,7 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const { styles } = require('@ckeditor/ckeditor5-dev-utils')
 
 module.exports = {
-  mode: 'production',
+  mode: 'development',
   module: {
     rules: [
       {
@@ -43,11 +43,13 @@ module.exports = {
   entry: './src/index.js',
   output: {
     filename: 'index.js',
+    libraryTarget: 'umd',
+    library: 'peninsula-editor',
     path: path.resolve(__dirname, 'dist')
   },
   resolve: {
     alias: {
-      'vue$': 'vue/dist/vue.esm.js'
+      vue$: 'vue/dist/vue.esm.js'
     }
   },
   plugins: [

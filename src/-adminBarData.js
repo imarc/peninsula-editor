@@ -6,6 +6,6 @@
  *
  */
 
-export default {
+export default () => ({
   isMacOS: false
-}
+})

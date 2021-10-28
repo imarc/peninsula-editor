@@ -21,6 +21,12 @@ export default {
     'photoSelection',
     'error',
     'highlightedNode',
-    'editors'
+    'editors',
+    'canEdit',
+    'adminUrl',
+    'avatar',
+    'userName',
+    'homeUrl',
+    'logoutUrl'
   ])
 }

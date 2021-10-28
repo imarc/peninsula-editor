@@ -16,6 +16,7 @@ export default {
   containers: [],
   modules: [],
   context: {},
+  canEdit: false,
   isEditing: false,
   editingIsAvailible: false,
   isModuleMode: false,
@@ -30,6 +31,11 @@ export default {
   error: null,
   highlightedNode: null,
   editingNode: null,
+  adminUrl: null,
+  avatar: null,
+  userName: null,
+  homeUrl: null,
+  logoutUrl: null,
   photoSelection: {
     isSelecting: false,
     node: null

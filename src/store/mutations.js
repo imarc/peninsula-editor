@@ -40,6 +40,21 @@ export default {
   setBackendUrl (state, url) {
     state.backendUrl = url
   },
+  setAdminUrl (state, url) {
+    state.adminUrl = url
+  },
+  setAvatar (state, avatar) {
+    state.avatar = avatar
+  },
+  setUserName (state, userName) {
+    state.userName = userName
+  },
+  setHomeUrl (state, url) {
+    state.homeUrl = url
+  },
+  setLogoutUrl (state, url) {
+    state.logoutUrl = url
+  },
   setIsSaving (state, bool) {
     state.isSaving = bool
   },
@@ -69,6 +84,9 @@ export default {
   },
   setVueInstance (state, instance) {
     state.vueInstance = instance
+  },
+  setCanEdit (state, bool) {
+    state.canEdit = bool
   },
   removeModuleData (state, moduleDataToRemove) {
     state.modules = state.modules.filter(

@@ -10,63 +10,32 @@
 // Dependencies
 import Vue from 'vue'
 import ImageUploader from 'vue-image-upload-resize'
-import store from './store'
-import adminBarData from './-adminBarData'
-import adminBarMethods from './-adminBarMethods'
-import adminBarComputed from './-adminBarComputed'
-import FrontendNav from './components/FrontendNav.vue'
-import EditingContent from './components/EditingContent.vue'
-import ModulesList from './components/ModulesList.vue'
-import ModulePrompt from './components/ModulePrompt.vue'
-import ModuleSettings from './components/ModuleSettings.vue'
-import ModuleHighlight from './components/ModuleHighlight.vue'
-import EditorHighlight from './components/EditorHighlight.vue'
-import ImagePrompt from './components/ImagePrompt.vue'
-import Error from './components/Error.vue'
+import PeninsulaBase from './components/PeninsulaBase.vue'
 
 Vue.use(ImageUploader)
-const adminBar = document.querySelector('.js-adminBar')
 
-if (adminBar) {
-  // eslint-disable-next-line no-new
-  new Vue({
-    el: adminBar,
-    components: {
-      FrontendNav,
-      EditingContent,
-      ModulesList,
-      ModulePrompt,
-      ModuleSettings,
-      ModuleHighlight,
-      EditorHighlight,
-      ImagePrompt,
-      Error
-    },
-    data: adminBarData,
-    computed: adminBarComputed,
-    mounted () {
-      const updateLink = document.querySelector('link[rel="update"]')
-      store.dispatch('getValidation')
-      store.dispatch('getModules')
-      store.dispatch('initialDataConstruct')
-      store.dispatch('setLatestSavedData', this.collections)
-      store.dispatch('editorApply')
-      store.dispatch('moduleCollect')
-      store.dispatch('setVueInstance', this)
-      this.isMacOS = navigator.platform.toUpperCase().indexOf('MAC') >= 0
-
-      if (window.location.hash.indexOf('#edit') !== -1) {
-        store.dispatch('setAdminBarIsOpen', true)
+export default function peninsulaEditor (element, {
+  backendUrl = null,
+  canEdit = false,
+  adminUrl = null,
+  avatar = null,
+  userName = null,
+  homeUrl = null,
+  logoutUrl = null
+} = {}) {
+  console.log('test')
+  const PeninsulaBaseCtor = Vue.extend(PeninsulaBase)
+  new PeninsulaBaseCtor({
+    propsData: {
+      initialConfig: {
+        backendUrl,
+        canEdit,
+        adminUrl,
+        avatar,
+        userName,
+        homeUrl,
+        logoutUrl
       }
-
-      if (updateLink) {
-        store.dispatch(
-          'setBackendUrl',
-          document.querySelector('link[rel="update"]')
-        )
-      }
-    },
-    methods: adminBarMethods,
-    store
-  })
+    }
+  }).$mount(element)
 }

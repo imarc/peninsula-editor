@@ -33,6 +33,12 @@ import setHighlightedModule from './modules/setHighlightedModule'
 import setVueInstance from './modules/setVueInstance'
 import throwError from './modules/throwError'
 import updateHighlights from './modules/updateHighlights'
+import setCanEdit from './modules/setCanEdit'
+import setAdminUrl from './modules/setAdminUrl'
+import setAvatar from './modules/setAvatar'
+import setUserName from './modules/setUserName'
+import setHomeUrl from './modules/setHomeUrl'
+import setLogoutUrl from './modules/setLogoutUrl'
 
 export default {
   initialDataConstruct,
@@ -62,5 +68,11 @@ export default {
   getValidation,
   setBackendUrl,
   throwError,
-  updateHighlights
+  updateHighlights,
+  setCanEdit,
+  setAdminUrl,
+  setAvatar,
+  setUserName,
+  setHomeUrl,
+  setLogoutUrl
 }
