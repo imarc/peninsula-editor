@@ -20,7 +20,7 @@
                         "
                         class="select"
                     >
-                        <label for="cardReference" v-text="value.label"></label>
+                        <label for="cardReference" v-text="v.label"></label>
                         <span>
                             <select
                                 :id="moduleAttributeData[key]"
@@ -176,6 +176,7 @@ export default {
     this.applySelectLib()
 
     if ('parameters' in this.baseModuleData) {
+		console.log(this.baseModuleData);
       Object.keys(this.baseModuleData.parameters).forEach(param => {
         this.moduleParameterData[param] = this.baseModuleData.parameters[param].multiple ? [] : ''
       })
@@ -202,8 +203,11 @@ export default {
     })
 
     const parameterObj = getParameters(this.currentModule.node.dataset)
+
     Object.keys(parameterObj).forEach(key => {
-      this.moduleParameterData[key] = parameterObj[key]
+      this.moduleParameterData[key] = this.baseModuleData.parameters[key].multiple
+        ? parameterObj[key].split(',')
+        : parameterObj[key];
     })
   },
   methods: {

@@ -8,8 +8,7 @@ function getParameters (dataset) {
   Object.keys(dataset).forEach(key => {
     if (key.indexOf('parameter') !== -1) {
       const parameter = key.replace('parameter', '').toLowerCase()
-      const finalValue = dataset[key].includes(',') ? dataset[key].split(',') : dataset[key]
-      obj[parameter] = finalValue
+      obj[parameter]  = dataset[key];
     }
   })
 
