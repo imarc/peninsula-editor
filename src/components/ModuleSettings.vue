@@ -20,7 +20,7 @@
                         "
                         class="select"
                     >
-                        <label for="cardReference" v-text="v.label"></label>
+                        <label for="cardReference" v-text="value.label"></label>
                         <span>
                             <select
                                 :id="moduleAttributeData[key]"
