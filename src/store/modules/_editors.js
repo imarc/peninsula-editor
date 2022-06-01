@@ -65,7 +65,7 @@ const editors = {
         ...ckconfig
       })
         .then(editor => {
-          store.state.CKEditors.push(editor)
+          store.state.CKEditor = editor
 
           editor.appliedAttributes = appliedAttributes
 
@@ -98,6 +98,8 @@ const editors = {
         return true
       }
 
+      store.dispatch('destroyEditors')
+
       const flask = new CodeFlask(node, {
         language: 'html'
       })
@@ -105,8 +107,6 @@ const editors = {
       if ('dynamicContent' in node.dataset) {
         flask.updateCode(node.dataset.dynamicContent)
       }
-
-      store.state.HTMLEditors.push(flask)
 
       const editorTextArea = node.querySelector('textarea')
 
