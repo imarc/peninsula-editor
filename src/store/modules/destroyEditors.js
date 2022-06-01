@@ -3,17 +3,17 @@
  */
 
 export default function destroyEditors () {
+
   /**
-     * Scans DOM for all simple editor instances
-     */
+   * Scans DOM for all simple editor instances
+   */
   const simpleTextNode = [...document.querySelectorAll('[data-editor="simpletext"]')]
   const richTextNodes = [...document.querySelectorAll('[data-editor="richtext"]')]
   const htmlNodes = [...document.querySelectorAll('[data-editor="html"]')]
 
   /**
-     * Destory Everything
-     */
-
+   * Destroy Everything
+   */
   if (this.state.CKEditor) {
     this.state.CKEditor.destroy()
 
@@ -31,10 +31,6 @@ export default function destroyEditors () {
 
   htmlNodes.forEach(node => {
     node.dataset.editing = false
-
-    if (node.dataset.dynamicContent) {
-      node.innerHTML = node.dataset.dynamicContent
-    }
   })
 
   richTextNodes.forEach(node => {
@@ -42,6 +38,7 @@ export default function destroyEditors () {
   })
 
   simpleTextNode.forEach(node => {
+    node.dataset.editing = false
     node.contentEditable = false
   })
 

@@ -5,11 +5,20 @@
 
 // Dependencies
 import axios from 'axios'
+import loadScripts from './_loadScripts'
 
 export default function saveContent ({ commit }) {
-  commit('setIsSaving', true)
 
-  const promises = []
+  const htmlNodes = [...document.querySelectorAll('[data-editor="html"]')]
+  const promises  = []
+
+  htmlNodes.forEach(node => {
+    if (node.dataset.dynamicContent) {
+      node.innerHTML = node.dataset.dynamicContent
+    }
+  })
+
+  commit('setIsSaving', true)
 
   Object.keys(this.state.collections).forEach(collection => {
     promises.push(
@@ -25,5 +34,11 @@ export default function saveContent ({ commit }) {
     this.dispatch('setIsEditing', false)
     commit('setIsSaving', false)
     commit('setEditingNode', null)
+
+    htmlNodes.forEach(node => {
+      if (node.dataset.dynamicContent) {
+        loadScripts([...node.querySelectorAll('script')])
+      }
+    })
   })
 }

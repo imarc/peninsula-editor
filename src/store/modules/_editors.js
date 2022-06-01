@@ -11,17 +11,19 @@ import CKPlugins from '../../ckplugins'
 import store from '../index'
 
 const editors = {
+
   /**
-     * Apply Simple Text Editing
-     */
+   * Apply Simple Text Editing
+   */
   simpletext (node, commit) {
     node.addEventListener('click', () => {
-      if (!store.state.adminBarIsOpen) {
+      if (node.dataset.editing === 'true' || !store.state.adminBarIsOpen) {
         return true
       }
+
       store.dispatch('destroyEditors')
 
-      // eslint-disable-next-line no-param-reassign
+      node.dataset.editing = true
       node.contentEditable = true
       node.focus()
 
@@ -33,8 +35,8 @@ const editors = {
   },
 
   /**
-     * Apply Rich Text Editing
-     */
+   * Apply Rich Text Editing
+   */
   richtext (node, commit) {
     // Gracefully fall back to simple if IE
     if (window.document.documentMode) {
@@ -77,7 +79,6 @@ const editors = {
           console.error(error.stack)
         })
 
-      // eslint-disable-next-line no-param-reassign
       node.dataset.editing = true
 
       commit('setIsEditing', true)
@@ -90,8 +91,8 @@ const editors = {
   },
 
   /**
-     * Apply HTML Editing
-     */
+   * Apply HTML Editing
+   */
   html (node, commit) {
     node.addEventListener('click', () => {
       if (node.dataset.editing === 'true' || !store.state.adminBarIsOpen) {
@@ -106,6 +107,8 @@ const editors = {
 
       if ('dynamicContent' in node.dataset) {
         flask.updateCode(node.dataset.dynamicContent)
+      } else {
+        flask.updateCode(node.innerHTML)
       }
 
       const editorTextArea = node.querySelector('textarea')
@@ -128,7 +131,6 @@ const editors = {
         }
       })
 
-      // eslint-disable-next-line no-param-reassign
       node.dataset.editing = true
 
       commit('setIsEditing', true)
@@ -139,8 +141,8 @@ const editors = {
   },
 
   /**
-     * Image Upload
-     */
+   * Image Upload
+   */
   image (node, commit) {
     node.addEventListener('click', event => {
       if (!store.state.adminBarIsOpen) {
