@@ -31,7 +31,11 @@ export default function resetContent ({ commit }) {
       )
     }
 
-    field.innerHTML = this.state.latestSavedData[collectionName][keyName][fieldName]
+    if (field instanceof HTMLImageElement) {
+        field.src = this.state.latestSavedData[collectionName][keyName][fieldName];
+    } else {
+        field.innerHTML = this.state.latestSavedData[collectionName][keyName][fieldName];
+    }
   })
 
   commit('setIsModuleMode', false)

@@ -46,6 +46,10 @@ export default function initialDataConstruct () {
     this.state.collections[collectionName][keyName] =
             this.state.collections[collectionName][keyName] || {}
 
-    this.state.collections[collectionName][keyName][fieldName] = field.innerHTML
+    if (field instanceof HTMLImageElement) {
+        this.state.collections[collectionName][keyName][fieldName] = field.getAttribute('src');
+    } else {
+        this.state.collections[collectionName][keyName][fieldName] = field.innerHTML;
+    }
   })
 }
