@@ -107,10 +107,8 @@ const editors = {
 
       if ('dynamicContent' in node.dataset) {
         flask.updateCode(node.dataset.dynamicContent)
-      } else {
-        flask.updateCode(node.innerHTML)
-      }
-
+      } 
+      
       const editorTextArea = node.querySelector('textarea')
 
       editorTextArea.focus()
