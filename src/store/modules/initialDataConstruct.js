@@ -1,5 +1,7 @@
 // Polyfills
 import '../../modules/closest'
+import loadScripts from './_loadScripts'
+import { isEmpty } from 'lodash'
 
 /**
  * @function initialDataConstruct
@@ -46,10 +48,30 @@ export default function initialDataConstruct () {
     this.state.collections[collectionName][keyName] =
             this.state.collections[collectionName][keyName] || {}
 
+
+    const htmlEmbeds = field.querySelectorAll('[data-module="html-embed"]')
+
+    if (htmlEmbeds && !isEmpty(htmlEmbeds)) {
+      htmlEmbeds.forEach(embed => { 
+
+        if ('dynamicContent' in embed.dataset) {
+          embed.innerHTML = embed.dataset.dynamicContent
+        }
+
+      })
+    }
+
     if (field instanceof HTMLImageElement) {
         this.state.collections[collectionName][keyName][fieldName] = field.getAttribute('src');
     } else {
         this.state.collections[collectionName][keyName][fieldName] = field.innerHTML;
     }
+
+    // Load Scripts for each embed html with dynamic content
+    htmlEmbeds.forEach(embed => {
+
+      loadScripts([...embed.querySelectorAll('script')])
+    })
+
   })
 }
