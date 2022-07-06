@@ -102,5 +102,5 @@
     "docs": "docsify serve docs",
     "prepare": "webpack --config webpack.config.js"
   },
-  "version": "0.4.6"
+  "version": "0.4.7"
 }
