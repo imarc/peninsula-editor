@@ -19,6 +19,15 @@ const editors = {
       if (!store.state.adminBarIsOpen) {
         return true
       }
+
+      node.addEventListener('dragstart', (e) => {
+        e.preventDefault()
+      })
+
+      node.addEventListener('drop', (e) => {
+        e.preventDefault()
+      })
+
       store.dispatch('destroyEditors')
 
       // eslint-disable-next-line no-param-reassign
