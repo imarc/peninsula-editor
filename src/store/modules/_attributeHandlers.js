@@ -27,6 +27,12 @@ const attributeHandlers = {
       return
     }
 
+    if (!value || !value.length) {
+      attributeModifiedElement.removeAttribute(key)
+
+      return
+    }
+
     if (attributeModifiedElement && value) {
       attributeModifiedElement.setAttribute(key, value)
     }
