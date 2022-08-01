@@ -32,10 +32,10 @@ export default {
     ...mapState(['collections', 'isSaving', 'adminBarIsOpen'])
   },
   methods: {
-    saveContent (event) {
+    async saveContent (event) {
       event.preventDefault()
       store.dispatch('destroyEditors')
-      setTimeout(() => {
+      await setTimeout(() => {
         store.dispatch('initialDataConstruct')
         store.dispatch('setLatestSavedData', this.collections)
         store.dispatch('saveContent')

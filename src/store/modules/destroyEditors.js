@@ -33,9 +33,15 @@ export default function destroyEditors () {
   })
 
   this.state.HTMLEditors.forEach(editor => {
-    const newCode = editor.getCode()
+    const newCode = editor.getCode() // HTML that was rendered INCLUDING html rendered by the scripts
+
     editor.editorRoot.dataset.editing = false
-    editor.editorRoot.innerHTML = newCode
+
+    if ('dynamicContent' in editor.editorRoot.dataset) {
+      editor.editorRoot.innerHTML = editor.editorRoot.dataset.dynamicContent // Original HTML with scripts that HAVE NOT RUN
+    } else {
+      editor.editorRoot.innerHTML = newCode
+    }
   })
 
   richTextNodes.forEach(node => {

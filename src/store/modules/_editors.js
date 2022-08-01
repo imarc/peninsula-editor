@@ -123,15 +123,14 @@ const editors = {
 
       editorTextArea.addEventListener('blur', () => {
         const newCode = flask.getCode()
-
         flask.editorRoot.dataset.editing = false
         flask.editorRoot.innerHTML = newCode
 
         const scripts = [...flask.editorRoot.querySelectorAll('script')]
 
         if (scripts.length) {
-          loadScripts(scripts)
           node.dataset.dynamicContent = newCode
+          loadScripts(scripts)
         } else {
           delete node.dataset.dynamicContent
         }
