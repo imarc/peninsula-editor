@@ -9,8 +9,8 @@
     }
 
     & > * {
-        column-break-inside : avoid;
-        display: inline-block;
+        break-inside: avoid;
+        display: block;
     }
   
     @include breakpoint(lg) {
