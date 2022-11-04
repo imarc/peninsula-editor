@@ -8,7 +8,12 @@ function getParameters (dataset) {
   Object.keys(dataset).forEach(key => {
     if (key.indexOf('parameter') !== -1) {
       const parameter = key.replace('parameter', '').toLowerCase()
-      obj[parameter]  = dataset[key];
+
+      if (dataset[key].indexOf(',') !== -1) {
+        obj[parameter] = dataset[key].split(',')
+      } else {
+        obj[parameter] = dataset[key]
+      }
     }
   })
 
@@ -39,12 +44,12 @@ async function renderData (moduleNode) {
     }
   })
 
-  const data = await axios.get(baseEndpointUrl, {
-    params: {
-      ...finalModuleParams,
-      ...existingParams
-    }
-  }).then(res => res.data.data)
+  const searchParams = queryString.stringify({
+    ...finalModuleParams,
+    ...existingParams
+  })
+
+  const data = await axios.get(`${baseEndpointUrl}?${searchParams.toString()}`).then(res => res.data.data)
 
   const template = Twig.twig({
     data: twigTemplate
