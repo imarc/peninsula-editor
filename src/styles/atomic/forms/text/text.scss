@@ -13,8 +13,7 @@
     }
     &.-immutable {
         label {
-            @include eyebrow;
-            margin-bottom: .3rem;
+            margin-bottom: 0.8rem;
         }
         p {
           line-height: 1.5;
