@@ -13,8 +13,8 @@ export default function destroyEditors () {
      * Destory Everything
      */
 
-  this.state.CKEditors.forEach(editor => {
-    editor.destroy()
+  this.state.CKEditors.forEach(async editor => {
+    await editor.destroy()
 
     this.state.CKEditors = this.state.CKEditors.filter(
       CKEditor => CKEditor !== editor

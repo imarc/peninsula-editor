@@ -153,6 +153,7 @@
                 class="link"
                 @click="populateModule"
                 @keyup.enter="populateModule"
+                :disabled="isLoading"
             >
                 + Insert Module
             </button>

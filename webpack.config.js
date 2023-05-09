@@ -1,10 +1,10 @@
 const path = require('path')
-const CKEditorWebpackPlugin = require('@ckeditor/ckeditor5-dev-webpack-plugin')
+const { CKEditorTranslationsPlugin } = require('@ckeditor/ckeditor5-dev-translations')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const { styles } = require('@ckeditor/ckeditor5-dev-utils')
 
 module.exports = {
-  mode: 'production',
+  mode: 'development',
   module: {
     rules: [
       {
@@ -17,6 +17,7 @@ module.exports = {
       },
       {
         test: /ckeditor5-[^/\\]+[/\\]theme[/\\].+\.css$/,
+
         use: [
           {
             loader: 'style-loader',
@@ -27,14 +28,17 @@ module.exports = {
               }
             }
           },
+          'css-loader',
           {
             loader: 'postcss-loader',
-            options: styles.getPostCssConfig({
-              themeImporter: {
-                themePath: require.resolve('@ckeditor/ckeditor5-theme-lark')
-              },
-              minify: true
-            })
+            options: {
+              postcssOptions: styles.getPostCssConfig({
+                themeImporter: {
+                  themePath: require.resolve('@ckeditor/ckeditor5-theme-lark')
+                },
+                minify: true
+              })
+            }
           }
         ]
       }
@@ -47,7 +51,7 @@ module.exports = {
   },
   resolve: {
     alias: {
-      'vue$': 'vue/dist/vue.esm.js'
+      vue$: 'vue/dist/vue.esm.js'
     }
   },
   plugins: [

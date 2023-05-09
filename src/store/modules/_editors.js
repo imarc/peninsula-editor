@@ -71,6 +71,7 @@ const editors = {
 
       InlineEditor.create(node, {
         plugins: CKPlugins,
+        updateSourceElementOnDestroy: true,
         ...ckconfig
       })
         .then(editor => {
