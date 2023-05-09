@@ -27,8 +27,6 @@ import Error from './components/Error.vue'
 Vue.use(ImageUploader)
 const adminBar = document.querySelector('.js-adminBar')
 
-console.log('this def has the update')
-
 if (adminBar) {
   // eslint-disable-next-line no-new
   new Vue({

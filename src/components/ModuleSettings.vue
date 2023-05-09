@@ -176,7 +176,6 @@ export default {
     this.applySelectLib()
 
     if ('parameters' in this.baseModuleData) {
-		console.log(this.baseModuleData);
       Object.keys(this.baseModuleData.parameters).forEach(param => {
         this.moduleParameterData[param] = this.baseModuleData.parameters[param].multiple ? [] : ''
       })
