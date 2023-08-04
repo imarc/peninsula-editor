@@ -9,6 +9,7 @@ import Link from '@ckeditor/ckeditor5-link/src/link'
 import List from '@ckeditor/ckeditor5-list/src/list'
 import Table from '@ckeditor/ckeditor5-table/src/table'
 import TableToolbar from '@ckeditor/ckeditor5-table/src/tabletoolbar'
+import TableColumnResize from '@ckeditor/ckeditor5-table/src/tablecolumnresize'
 import Paragraph from '@ckeditor/ckeditor5-paragraph/src/paragraph'
 import Alignment from '@ckeditor/ckeditor5-alignment/src/alignment'
 import FileUploadInline from './store/modules/plugins/inlineFileUpload'
@@ -26,5 +27,6 @@ export default [
     List,
     Table,
     TableToolbar,
+    TableColumnResize,
     FileUploadInline
 ]
