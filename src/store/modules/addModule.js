@@ -30,6 +30,8 @@ export default async function addModule ({ commit }, moduleData) {
         moduleData.attributes.name || startCase(moduleData.module.key)
   node.dataset.module = moduleData.module.key
 
+  node.id = node.dataset.moduleName.toLowerCase().replace(/\s/g, '-')
+
   /**
    * Look for additional attributes besides name and apply them
    */

@@ -26,6 +26,10 @@
                     <label for="name">Enter a unique name for this module</label>
                     <input id="name" v-model="moduleAttributeData.name" type="text" />
                 </div>
+                <div class="text">
+                    <label for="name">Jump Link</label>
+                    <input id="name" :value="moduleHashURL" type="text" disabled />
+                </div>
                 <span v-for="(value, key) in selectedModule.attributes" :key="key">
                     <div v-if="isArray(value.options)" class="select">
                         <label for="cardReference" v-text="value.label"></label>
@@ -225,6 +229,16 @@ export default {
       }
 
       return allowedModules
+    },
+    moduleHashURL () {
+      if (!this.moduleAttributeData.name) {
+        return null
+      }
+
+      const currentURL = `${location.protocol}//${location.host}${location.pathname}`
+      const ID = this.moduleAttributeData.name.toLowerCase().replace(/\s/g, '-')
+
+      return `${currentURL}#${ID}`
     },
     notSameAsContext () {
       return this.context.node.dataset.module

@@ -9,6 +9,10 @@
                     <label for="name">Enter a unique name for this module</label>
                     <input id="name" v-model="moduleAttributeData.name" type="text" />
                 </div>
+                <div class="text">
+                    <label for="name">Jump Link</label>
+                    <input id="name" :value="moduleHashURL" type="text" disabled />
+                </div>
                 <span
                     v-for="(value, key) in availibleModules[currentModuleType].attributes"
                     :key="key"
@@ -170,6 +174,22 @@ export default {
     },
     baseModuleData () {
       return this.availibleModules[this.currentModuleType]
+    },
+    moduleNameId () {
+      if (!this.moduleAttributeData.name) {
+        return null
+      }
+
+      return this.moduleAttributeData.name.toLowerCase().replace(/\s/g, '-')
+    },
+    moduleHashURL () {
+      if (!this.moduleAttributeData.name) {
+        return null
+      }
+
+      const currentURL = `${location.protocol}//${location.host}${location.pathname}`
+
+      return `${currentURL}#${this.moduleNameId}`
     }
   },
   mounted () {
@@ -206,7 +226,7 @@ export default {
     Object.keys(parameterObj).forEach(key => {
       this.moduleParameterData[key] = this.baseModuleData.parameters[key].multiple
         ? parameterObj[key].split(',')
-        : parameterObj[key];
+        : parameterObj[key]
     })
   },
   methods: {
@@ -215,6 +235,7 @@ export default {
     },
     updateModuleAttributes () {
       this.currentModule.node.dataset.moduleName = this.moduleAttributeData.name
+      this.currentModule.node.id = this.moduleNameId
 
       const moduleAttributes = this.availibleModules[this.currentModuleType]
         .attributes
