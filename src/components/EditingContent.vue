@@ -24,26 +24,26 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState } from 'pinia'
 import store from '../store/index'
 
 export default {
   computed: {
-    ...mapState(['collections', 'isSaving', 'adminBarIsOpen'])
+    ...mapState(store, ['collections', 'isSaving', 'adminBarIsOpen'])
   },
   methods: {
     async saveContent (event) {
       event.preventDefault()
-      store.dispatch('destroyEditors')
+      store.destroyEditors()
       await setTimeout(() => {
-        store.dispatch('initialDataConstruct')
-        store.dispatch('setLatestSavedData', this.collections)
-        store.dispatch('saveContent')
+        store.initialDataConstruct()
+        store.setLatestSavedData(this.collections)
+        store.saveContent()
       }, 0)
     },
     cancelChanges (event) {
       event.preventDefault()
-      store.dispatch('resetContent')
+      store.resetContent()
     }
   }
 }

@@ -7,77 +7,77 @@
  */
 
 export default {
-  addModuleToContext (state, node) {
-    state.context.nestedModules.push(node)
+  addModuleToContext(node) {
+    this.context.nestedModules.push(node);
   },
-  setIsEditing (state, bool) {
-    state.isEditing = bool
+  setIsEditing(bool) {
+    this.isEditing = bool;
   },
-  setEditingIsAvailible (state, bool) {
-    state.editingIsAvailible = bool
+  setEditingIsAvailible(bool) {
+    this.editingIsAvailible = bool;
   },
-  setIsModuleMode (state, bool) {
-    state.isModuleMode = bool
+  setIsModuleMode(bool) {
+    this.isModuleMode = bool;
   },
-  setModules (state, modules) {
-    state.availibleModules = modules
+  setModules(modules) {
+    this.availibleModules = modules;
   },
-  setAdminBarIsOpen (state, bool) {
-    state.adminBarIsOpen = bool
+  setAdminBarIsOpen(bool) {
+    this.adminBarIsOpen = bool;
   },
-  setError (state, error) {
-    state.error = error
+  setError(error) {
+    this.error = error;
   },
-  setContextModules (state, moduleData) {
-    state.context.nestedModules = moduleData.map(module => module.node)
+  setContextModules(moduleData) {
+    this.context.nestedModules = moduleData.map(module => module.node);
   },
-  setIsSelectingModule (state, bool) {
-    state.isSelectingModule = bool
+  setIsSelectingModule(bool) {
+    this.isSelectingModule = bool;
   },
-  setToken (state, token) {
-    state.token = token
+  setToken(token) {
+    this.token = token;
   },
-  setBackendUrl (state, url) {
-    state.backendUrl = url
+  setBackendUrl(url) {
+    this.backendUrl = url;
   },
-  setIsSaving (state, bool) {
-    state.isSaving = bool
+  setIsSaving(bool) {
+    this.isSaving = bool;
   },
-  setPhotoSelection (state, object) {
-    state.photoSelection = object
+  setPhotoSelection(object) {
+    this.photoSelection = object;
   },
-  setLatestSavedData (state, object) {
-    this.state.latestSavedData = object
+  setLatestSavedData(object) {
+    this.latestSavedData = object;
   },
-  setCurrentModule (state, module) {
-    state.currentModule = module
+  setCurrentModule(module) {
+    this.currentModule = module;
   },
-  setContext (state, module) {
-    state.context = module
+  setContext(module) {
+    this.context = module;
   },
-  setIsUpdatingModule (state, bool) {
-    state.isUpdatingModule = bool
+  setIsUpdatingModule(bool) {
+    this.isUpdatingModule = bool;
   },
-  setEditingNode (state, node) {
-    state.editingNode = node
+  setEditingNode(node) {
+    this.editingNode = node;
   },
-  setHighlightedNode (state, node) {
-    state.highlightedNode = node
+  setHighlightedNode(node) {
+    this.highlightedNode = node;
   },
-  unsetContext (state) {
-    state.context = null
+  unsetContext() {
+    this.context = null;
   },
-  setVueInstance (state, instance) {
-    state.vueInstance = instance
+  setVueInstance(instance) {
+    this.vueInstance = instance;
   },
-  removeModuleData (state, moduleDataToRemove) {
-    state.modules = state.modules.filter(
+  removeModuleData(moduleDataToRemove) {
+    this.modules = this.modules.filter(
       module => moduleDataToRemove.indexOf(module) === -1
-    )
+    );
   },
-  removeContainerData (state, containerNames) {
-    state.containers = state.containers.filter(
+  removeContainerData(containerNames) {
+    this.containers = this.containers.filter(
       container => containerNames.indexOf(container.containerName) === -1
-    )
+    );
   }
 }

@@ -1,4 +1,5 @@
-import { mapState } from 'vuex'
+import store from './store/index.js'
+import { mapState } from 'pinia'
 
 /**
  * Computed State for Admin Bar top level
@@ -9,7 +10,7 @@ import { mapState } from 'vuex'
  */
 
 export default {
-  ...mapState([
+  ...mapState(store, [
     'isEditing',
     'editingIsAvailible',
     'isModuleMode',

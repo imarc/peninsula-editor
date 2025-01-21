@@ -6,16 +6,16 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState } from 'pinia'
 import store from '../store/index'
 
 export default {
   computed: {
-    ...mapState(['error'])
+    ...mapState(store, ['error'])
   },
   methods: {
     closeError () {
-      store.dispatch('throwError', null)
+      store.throwError(null)
     }
   }
 }

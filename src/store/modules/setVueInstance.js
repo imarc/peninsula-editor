@@ -4,6 +4,6 @@
  * @param Object Vue Instance
  */
 
-export default function setVueInstance ({ commit }, instance) {
-  commit('setVueInstance', instance)
+export default function setVueInstance (instance) {
+  this.setVueInstance(instance)
 }

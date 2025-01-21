@@ -3,17 +3,15 @@
  * @param Object commit event object for Vuex commit
  */
 
-export default function resetListContext ({ commit }) {
+export default function resetListContext () {
   /**
      * NOTE: Yes this is hacky, if I figure out a way to remount
      * the list component in a better way that doesn't require
      * statechange I'll update it.
      */
-  const tempContextRef = this.state.context
+  const tempContextRef = this.context
 
-  commit('setIsModuleMode', false)
-  commit('setContext', tempContextRef)
-  setTimeout(() => {
-    commit('setIsModuleMode', true)
-  }, 0)
+  this.setIsModuleMode(false)
+  this.setContext(tempContextRef)
+  setTimeout(() => this.setIsModuleMode(true), 0)
 }

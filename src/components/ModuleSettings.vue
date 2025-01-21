@@ -144,15 +144,14 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState } from 'pinia'
+import store from '../store/index.js'
 import { startCase, isArray, isObject } from 'lodash'
 import axios from 'axios'
 import attributeGetters from '../store/modules/_attributeGetters'
 import attributeHandlers from '../store/modules/_attributeHandlers'
 import { getParameters, renderData } from '../modules/renderData'
 import SlimSelect from 'slim-select'
-
-import store from '../store/index'
 
 export default {
   data () {
@@ -168,7 +167,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['currentModule', 'availibleModules', 'token']),
+    ...mapState(store, ['currentModule', 'availibleModules', 'token']),
     currentModuleType () {
       return this.currentModule.node.dataset.module
     },
@@ -217,7 +216,7 @@ export default {
           key
         )
       } catch (error) {
-        store.dispatch('throwError', `${error}`)
+        store.throwError(`${error}`)
       }
     })
 
@@ -263,7 +262,7 @@ export default {
             key
           )
         } catch (error) {
-          store.dispatch('throwError', error)
+          store.throwError(error)
           errors.push(error)
         }
       })
@@ -280,15 +279,15 @@ export default {
         renderData(this.currentModule.node)
       }
 
-      store.dispatch('setIsEditing', true)
-      store.dispatch('closeModuleSettings')
-      store.dispatch('resetListContext')
+      store.setIsEditing(true)
+      store.closeModuleSettings()
+      store.resetListContext()
 
       return true
     },
     closeSettings (event) {
       event.preventDefault()
-      store.dispatch('closeModuleSettings')
+      store.closeModuleSettings()
     },
     isArray (value) {
       return isArray(value)

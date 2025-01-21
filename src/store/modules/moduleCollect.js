@@ -5,10 +5,10 @@
  */
 
 // Dependencies
-import uuidv4 from 'uuid/v4'
+import uuidv4 from 'uuid/v4.js'
 
 // eslint-disable-next-line no-unused-vars
-export default function moduleCollect ({ commit }, parentNode) {
+export default function moduleCollect (parentNode) {
   /**
      * Sets context, either top of the whole content instance,
      * or, if provided, a specific point in a DOM tree
@@ -19,8 +19,8 @@ export default function moduleCollect ({ commit }, parentNode) {
      * If no specific node is provided, define top level nodes for use in menu
      */
   if (!parentNode) {
-    this.state.modules = []
-    this.state.containers = [
+    this.modules = []
+    this.containers = [
       ...parentCollectContext.querySelectorAll('[data-module="section"]'),
       ...parentCollectContext.querySelectorAll('[data-module="section-simple"]')
     ]
@@ -53,10 +53,10 @@ export default function moduleCollect ({ commit }, parentNode) {
       : null
 
     if (!parentContext && parentNode) {
-      parentContext = this.state.context.node
+      parentContext = this.context.node
     }
 
-    this.state.modules.push({
+    this.modules.push({
       node: module,
       id: uuidv4(),
       nestedModules: directModules,

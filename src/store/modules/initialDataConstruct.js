@@ -1,5 +1,5 @@
 // Polyfills
-import '../../modules/closest'
+import '../../modules/closest.js'
 
 /**
  * @function initialDataConstruct
@@ -8,14 +8,14 @@ import '../../modules/closest'
  */
 export default function initialDataConstruct () {
   // Creates array of availible fields in content instance.
-  this.state.fields = [...document.querySelectorAll('[data-field]')]
+  this.fields = [...document.querySelectorAll('[data-field]')]
 
   /**
      * Loops through each field and commits it's data structure
      * to the state by moving up through its parents, and identifying
      * its closest key and collection names.
      */
-  this.state.fields.forEach(field => {
+  this.fields.forEach(field => {
     /**
          * Checks if current field has a key or
          * collection already assigned to it.
@@ -40,16 +40,16 @@ export default function initialDataConstruct () {
     }
 
     // Create records in state if key value pairs don't yet exist
-    this.state.collections[collectionName] =
-            this.state.collections[collectionName] || {}
+    this.collections[collectionName] =
+            this.collections[collectionName] || {}
 
-    this.state.collections[collectionName][keyName] =
-            this.state.collections[collectionName][keyName] || {}
+    this.collections[collectionName][keyName] =
+            this.collections[collectionName][keyName] || {}
 
     if (field instanceof HTMLImageElement) {
-        this.state.collections[collectionName][keyName][fieldName] = field.getAttribute('src');
+        this.collections[collectionName][keyName][fieldName] = field.getAttribute('src');
     } else {
-        this.state.collections[collectionName][keyName][fieldName] = field.innerHTML;
+        this.collections[collectionName][keyName][fieldName] = field.innerHTML;
     }
   })
 }

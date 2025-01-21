@@ -6,8 +6,8 @@
 // Dependencies
 import axios from 'axios'
 
-export default function saveContent ({ commit }) {
-  commit('setIsSaving', true)
+export default function saveContent () {
+  this.setIsSaving(true)
 
   const promises = []
 
@@ -22,8 +22,8 @@ export default function saveContent ({ commit }) {
   })
 
   Promise.all(promises).then(() => {
-    this.dispatch('setIsEditing', false)
-    commit('setIsSaving', false)
-    commit('setEditingNode', null)
+    this.setIsEditing(false)
+    this.setIsSaving(false)
+    this.setEditingNode(null)
   })
 }

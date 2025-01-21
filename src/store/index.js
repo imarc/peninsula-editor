@@ -8,18 +8,16 @@
  */
 
 // Dependencies
-import Vue from 'vue'
-import Vuex from 'vuex'
-import state from './state'
-import actions from './actions'
-import mutations from './mutations'
+import { defineStore } from 'pinia';
+import state from './state.js'
+import actions from './actions.js'
+import mutations from './mutations.js'
 
-Vue.use(Vuex)
-
-const store = new Vuex.Store({
+// Define the store using Pinia
+export default defineStore('main', {
   state,
-  actions,
-  mutations
+  actions: {
+    ...mutations,
+    ...actions,
+  },
 })
-
-export default store

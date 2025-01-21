@@ -33,7 +33,7 @@
 
 <script>
 import axios from 'axios'
-import { mapState } from 'vuex'
+import { mapState } from 'pinia'
 import store from '../store/index'
 
 export default {
@@ -44,7 +44,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['photoSelection', 'token'])
+    ...mapState(store, ['photoSelection', 'token'])
   },
   methods: {
     setImage (file) {

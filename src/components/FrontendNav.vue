@@ -17,12 +17,12 @@
 
 <script>
 import { startCase } from 'lodash'
-import { mapState } from 'vuex'
+import { mapState } from 'pinia'
 import store from '../store/index'
 
 export default {
   computed: {
-    ...mapState(['containers', 'modules'])
+    ...mapState(store, ['containers', 'modules'])
   },
   methods: {
     setContext (container, event) {
@@ -30,7 +30,7 @@ export default {
       const [correctModule] = this.modules.filter(
         module => module.node === container
       )
-      store.dispatch('setContext', correctModule)
+      store.setContext(correctModule)
     },
     applyStartCase (string) {
       return startCase(string)

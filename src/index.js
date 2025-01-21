@@ -8,12 +8,12 @@
  */
 
 // Dependencies
-import Vue from 'vue'
-import ImageUploader from 'vue-image-upload-resize'
-import store from './store'
-import adminBarData from './-adminBarData'
-import adminBarMethods from './-adminBarMethods'
-import adminBarComputed from './-adminBarComputed'
+import { createApp } from 'vue'
+//import ImageUploader from 'vue-image-upload-resize'
+import store from './store/index.js'
+import adminBarData from './-adminBarData.js'
+import adminBarMethods from './-adminBarMethods.js'
+import adminBarComputed from './-adminBarComputed.js'
 import FrontendNav from './components/FrontendNav.vue'
 import EditingContent from './components/EditingContent.vue'
 import ModulesList from './components/ModulesList.vue'
@@ -24,13 +24,11 @@ import EditorHighlight from './components/EditorHighlight.vue'
 import ImagePrompt from './components/ImagePrompt.vue'
 import Error from './components/Error.vue'
 
-Vue.use(ImageUploader)
+//Vue.use(ImageUploader)
 const adminBar = document.querySelector('.js-adminBar')
 
 if (adminBar) {
-  // eslint-disable-next-line no-new
-  new Vue({
-    el: adminBar,
+  const app = createApp({
     components: {
       FrontendNav,
       EditingContent,
@@ -42,31 +40,30 @@ if (adminBar) {
       ImagePrompt,
       Error
     },
-    data: adminBarData,
+    data: () => adminBarData,
     computed: adminBarComputed,
     mounted () {
       const updateLink = document.querySelector('link[rel="update"]')
-      store.dispatch('getValidation')
-      store.dispatch('getModules')
-      store.dispatch('initialDataConstruct')
-      store.dispatch('setLatestSavedData', this.collections)
-      store.dispatch('editorApply')
-      store.dispatch('moduleCollect')
-      store.dispatch('setVueInstance', this)
+      this.getValidation()
+      this.getModules()
+      this.initialDataConstruct()
+      this.setLatestSavedData(this.collections)
+      this.editorApply()
+      this.moduleCollect()
+      this.setVueInstance(this)
       this.isMacOS = navigator.platform.toUpperCase().indexOf('MAC') >= 0
 
       if (window.location.hash.indexOf('#edit') !== -1) {
-        store.dispatch('setAdminBarIsOpen', true)
+        this.setAdminBarIsOpen(true)
       }
 
       if (updateLink) {
-        store.dispatch(
-          'setBackendUrl',
-          document.querySelector('link[rel="update"]')
-        )
+        this.setBackendUrl(document.querySelector('link[rel="update"]'))
       }
     },
     methods: adminBarMethods,
     store
   })
+
+  app.mount(adminBar)
 }

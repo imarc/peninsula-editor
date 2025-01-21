@@ -179,7 +179,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState } from 'pinia'
 import { isArray, isObject } from 'lodash'
 import axios from 'axios'
 import store from '../store/index'
@@ -199,7 +199,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['availibleModules', 'context', 'token']),
+    ...mapState(store, ['availibleModules', 'context', 'token']),
     allowedModules () {
       const allowedModules = {}
       const contextModuleName = this.context.node.dataset.module
@@ -266,14 +266,14 @@ export default {
         parameters: this.moduleParameterData
       }
 
-      store.dispatch('addModule', moduleData)
+      store.addModule(moduleData)
         .then(() => {
           this.isLoading = false
         })
     },
     closeModulePrompt (event) {
       event.preventDefault()
-      store.dispatch('closeModulePrompt')
+      store.closeModulePrompt()
     },
     isArray (value) {
       return isArray(value)

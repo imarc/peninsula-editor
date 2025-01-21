@@ -4,11 +4,8 @@
  * @param Array array of module ids in new order
  */
 
-export default function openModulesList ({ commit }, orderArray) {
-  const { context } = this.state
-  const { modules } = this.state
-
-  commit('setIsEditing', true)
+export default function openModulesList (orderArray) {
+  this.setIsEditing(true)
 
   /**
      * Create module data array based on order of module IDs
@@ -16,7 +13,7 @@ export default function openModulesList ({ commit }, orderArray) {
   const relatedModuleData = orderArray.map(id => {
     let correspondingModule = {}
 
-    modules.forEach(module => {
+    this.modules.forEach(module => {
       if (module.id === id) {
         correspondingModule = module
       }
@@ -28,27 +25,27 @@ export default function openModulesList ({ commit }, orderArray) {
   /**
      * Clean up highlight classes
      */
-  context.nestedModules.forEach(module => {
+  this.context.nestedModules.forEach(module => {
     module.classList.remove('-highlight')
   })
 
   /**
      * Remove modules from visible dom
      */
-  while (context.node.firstChild) {
-    context.node.removeChild(context.node.firstChild)
+  while (this.context.node.firstChild) {
+    this.context.node.removeChild(this.context.node.firstChild)
   }
 
   /**
      * Reappend same referenced nodes in new order
      */
   relatedModuleData.forEach(module => {
-    context.node.append(module.node)
+    this.context.node.append(module.node)
   })
 
   /**
      * Update data representation for current container
      */
-  commit('setContextModules', relatedModuleData)
-  this.dispatch('updateHighlights')
+  this.setContextModules(relatedModuleData)
+  this.updateHighlights()
 }

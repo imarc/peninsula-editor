@@ -4,6 +4,6 @@
  * @param HTMLElement node to be highlighted
  */
 
-export default function setHighlightedModule ({ commit }, node) {
-  commit('setHighlightedNode', node)
+export default function setHighlightedModule (node) {
+  this.setHighlightedNode(node)
 }

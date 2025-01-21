@@ -3,7 +3,8 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState } from 'pinia'
+import store from '../store/index.js'
 
 export default {
   data () {
@@ -16,7 +17,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['highlightedNode']),
+    ...mapState(store, ['highlightedNode']),
     styleString () {
       return `top: ${this.top}px; left: ${this.left}px; width: ${this.width}px; height: ${this.height}px`
     }

@@ -3,11 +3,11 @@
  * @param Object commit event object for Vuex commit
  */
 
-export default function resetContent ({ commit }) {
+export default function resetContent () {
   /**
      * Loops through each field and and resets it's innerHTML with the last saved content
      */
-  this.state.fields.forEach(field => {
+  this.fields.forEach(field => {
     /**
          * Checks if current field has a key or
          * collection already assigned to it.
@@ -32,15 +32,15 @@ export default function resetContent ({ commit }) {
     }
 
     if (field instanceof HTMLImageElement) {
-        field.src = this.state.latestSavedData[collectionName][keyName][fieldName];
+        field.src = this.latestSavedData[collectionName][keyName][fieldName];
     } else {
-        field.innerHTML = this.state.latestSavedData[collectionName][keyName][fieldName];
+        field.innerHTML = this.latestSavedData[collectionName][keyName][fieldName];
     }
   })
 
-  commit('setIsModuleMode', false)
-  this.dispatch('initialDataConstruct')
-  this.dispatch('editorApply')
-  this.dispatch('moduleCollect')
-  commit('setIsEditing', false)
+  this.setIsModuleMode(false)
+  this.initialDataConstruct()
+  this.editorApply()
+  this.moduleCollect()
+  this.setIsEditing(false)
 }

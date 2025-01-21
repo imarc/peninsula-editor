@@ -6,8 +6,8 @@
 // Dependencies
 import axios from 'axios'
 
-export default function getValidation ({ commit }) {
+export default function getValidation () {
   axios.get('/api/v1/csrf').then(response => {
-    commit('setToken', response.data)
+    this.setToken(response.data)
   })
 }

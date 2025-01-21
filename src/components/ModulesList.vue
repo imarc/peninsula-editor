@@ -59,7 +59,7 @@
 
 <script>
 import '../modules/append'
-import { mapState } from 'vuex'
+import { mapState } from 'pinia'
 import { Sortable } from '@shopify/draggable'
 import { startCase } from 'lodash'
 import store from '../store/index'
@@ -72,7 +72,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['context', 'modules']),
+    ...mapState(store, ['context', 'modules']),
     contextModules () {
       return this.context.nestedModules.map(contextModule => {
         let correspondingModuleData = {}
@@ -106,12 +106,12 @@ export default {
         const [parentModule] = this.modules.filter(
           module => module.node === this.context.parentContext
         )
-        store.dispatch('setContext', parentModule)
+        store.setContext(parentModule)
 
         return true
       }
 
-      store.dispatch('setIsModuleMode', false)
+      store.setIsModuleMode(false)
 
       return true
     },
@@ -126,30 +126,30 @@ export default {
         })
       }
 
-      store.dispatch('setHighlightedModule', module.node)
+      store.setHighlightedModule(module.node)
     },
     dehighlightModule () {
-      store.dispatch('setHighlightedModule', null)
+      store.setHighlightedModule(null)
     },
     openModuleSelect (event) {
       event.preventDefault()
-      store.dispatch('setIsSelectingModule', true)
+      store.setIsSelectingModule(true)
     },
     applyStartCase (string) {
       return startCase(string)
     },
     removeModule (module, event) {
       event.preventDefault()
-      store.dispatch('removeModule', module)
+      store.removeModule(module)
     },
     openModuleSettings (module, event) {
       event.preventDefault()
-      store.dispatch('openModuleSettings', module)
+      store.openModuleSettings(module)
     },
     setContext (module, event) {
       if (this.hasNestedModules(module)) {
         event.preventDefault()
-        store.dispatch('setContext', module)
+        store.setContext(module)
         module.node.classList.remove('-highlight')
       }
     },
@@ -170,7 +170,7 @@ export default {
           moduleElement => moduleElement.dataset.value
         )
 
-        store.dispatch('updateModuleOrder', this.moduleOrder)
+        store.updateModuleOrder(this.moduleOrder)
       })
 
       sortable.on('sortable:sort', () => {

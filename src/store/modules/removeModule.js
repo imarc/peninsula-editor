@@ -4,14 +4,14 @@
  * @param Object Module
  */
 
-export default function removeModule ({ commit }, module) {
-  commit('setIsEditing', true)
+export default function removeModule (module) {
+  this.setIsEditing(true)
 
   /**
      * Collect nested module data and store in array for removal
      */
   const nestedModules = [...module.node.querySelectorAll('[data-module]')]
-  const moduleDataToRemove = this.state.modules.filter(
+  const moduleDataToRemove = this.modules.filter(
     moduleObj => nestedModules.indexOf(moduleObj.node) !== -1
   )
   moduleDataToRemove.push(module)
@@ -19,7 +19,7 @@ export default function removeModule ({ commit }, module) {
   /**
      * Remove node from DOM
      */
-  this.state.context.nestedModules = this.state.context.nestedModules.filter(
+  this.context.nestedModules = this.context.nestedModules.filter(
     node => node !== module.node
   )
   module.node.remove()
@@ -27,7 +27,7 @@ export default function removeModule ({ commit }, module) {
   /**
      * Remove data from state
      */
-  commit('removeModuleData', moduleDataToRemove)
-  this.dispatch('updateHighlights')
-  this.dispatch('setHighlightedModule', null)
+  this.removeModuleData(moduleDataToRemove)
+  this.updateHighlights()
+  this.setHighlightedModule(null)
 }

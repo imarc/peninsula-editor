@@ -4,9 +4,9 @@
  * @param Boolean what to set boolean value to for editing
  */
 
-export default function setIsModuleMode ({ commit }, bool) {
+export default function setIsModuleMode (bool) {
   if (!bool) {
-    commit('unsetContext')
+    this.unsetContext()
   }
-  commit('setIsModuleMode', bool)
+  this.setIsModuleMode(bool)
 }

@@ -7,11 +7,11 @@
 // Dependencies
 import { startCase } from 'lodash'
 // eslint-disable-next-line import/no-cycle
-import editorOptions from './_editors'
-import attributeHandlers from './_attributeHandlers'
-import { renderData } from '../../modules/renderData'
+import editorOptions from './_editors.js'
+import attributeHandlers from './_attributeHandlers.js'
+import { renderData } from '../../modules/renderData.js'
 
-export default async function addModule ({ commit }, moduleData) {
+export default async function addModule (moduleData) {
   /**
    * Parses template as html and creates reference to module node
    */
@@ -56,7 +56,7 @@ export default async function addModule ({ commit }, moduleData) {
         key
       )
     } catch (error) {
-      this.dispatch('throwError', error)
+      this.throwError(error)
       errors.push(error)
     }
   })
@@ -89,35 +89,35 @@ export default async function addModule ({ commit }, moduleData) {
   /**
    * Clear any error if valid.
    */
-  this.dispatch('throwError', null)
+  this.throwError(null)
 
   /**
    * Update state with new module(s)
    */
-  commit('addModuleToContext', node)
-  this.dispatch('moduleCollect', node)
+  this.addModuleToContext(node)
+  this.moduleCollect(node)
 
   /**
    * If valid, flag that editing has occured.
    */
-  commit('setIsEditing', true)
+  this.setIsEditing(true)
 
   /**
    * Applies editors if data-editor attributes exist
    */
   if (node.dataset.editor) {
-    editorOptions[node.dataset.editor](node, commit)
+    editorOptions[node.dataset.editor](node)
 
-    this.state.editors.push(node)
+    this.editors.push(node)
   } else {
     const newModuleEditors = [...node.querySelectorAll('[data-editor]')]
 
     newModuleEditors.forEach(editor => {
       const editorType = editor.dataset.editor
 
-      this.state.editors.push(editor)
+      this.editors.push(editor)
 
-      editorOptions[editorType](editor, commit)
+      editorOptions[editorType](editor)
     })
   }
 
@@ -125,14 +125,14 @@ export default async function addModule ({ commit }, moduleData) {
    * Populates node to current container,
    * closes prompt.
    */
-  this.state.context.node.append(node)
+  this.context.node.append(node)
 
   if ('handler' in moduleData.module) {
     window.moduleHandlers[moduleData.module.handler](node)
   }
 
-  commit('setIsSelectingModule', false)
-  this.dispatch('updateHighlights')
+  this.setIsSelectingModule(false)
+  this.updateHighlights()
 
   return true
 }

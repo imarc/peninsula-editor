@@ -7,7 +7,7 @@
 import axios from 'axios'
 import { isArray, isObject } from 'lodash'
 
-export default function getModules ({ commit }) {
+export default function getModules () {
   axios.get('/api/v1/cms/modules/').then(response => {
     /* Check if additional module specific data needs to be fetched */
     Object.keys(response.data).forEach(key => {
@@ -60,6 +60,6 @@ export default function getModules ({ commit }) {
       }
     })
 
-    commit('setModules', response.data)
+    this.setModules(response.data)
   })
 }

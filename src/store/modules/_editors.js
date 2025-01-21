@@ -5,10 +5,9 @@
  */
 
 import CodeFlask from 'codeflask'
-import loadScripts from './_loadScripts'
-import InlineEditor from '@ckeditor/ckeditor5-editor-inline/src/inlineeditor'
-import CKPlugins from '../../ckplugins'
-import store from '../index'
+import loadScripts from './_loadScripts.js'
+import InlineEditor from '@ckeditor/ckeditor5-editor-inline/src/inlineeditor.js'
+import CKPlugins from '../../ckplugins.js'
 
 const editors = {
   /**
@@ -16,7 +15,7 @@ const editors = {
      */
   simpletext (node, commit) {
     node.addEventListener('click', () => {
-      if (!store.state.adminBarIsOpen) {
+      if (!this.adminBarIsOpen) {
         return true
       }
 
@@ -28,7 +27,7 @@ const editors = {
         e.preventDefault()
       })
 
-      store.dispatch('destroyEditors')
+      this.destroyEditors()
 
       // eslint-disable-next-line no-param-reassign
       node.contentEditable = true
@@ -52,11 +51,11 @@ const editors = {
     }
 
     node.addEventListener('click', () => {
-      if (node.dataset.editing === 'true' || !store.state.adminBarIsOpen) {
+      if (node.dataset.editing === 'true' || !this.adminBarIsOpen) {
         return true
       }
 
-      store.dispatch('destroyEditors')
+      this.destroyEditors()
 
       const appliedAttributes = {}
       const downloadNodes = [...node.querySelectorAll('a[download]')]
@@ -75,7 +74,7 @@ const editors = {
         ...ckconfig
       })
         .then(editor => {
-          store.state.CKEditors.push(editor)
+          this.CKEditors.push(editor)
 
           editor.appliedAttributes = appliedAttributes
 
@@ -104,7 +103,7 @@ const editors = {
      */
   html (node, commit) {
     node.addEventListener('click', () => {
-      if (node.dataset.editing === 'true' || !store.state.adminBarIsOpen) {
+      if (node.dataset.editing === 'true' || !this.adminBarIsOpen) {
         return true
       }
 
@@ -116,7 +115,7 @@ const editors = {
         flask.updateCode(node.dataset.dynamicContent)
       }
 
-      store.state.HTMLEditors.push(flask)
+      this.HTMLEditors.push(flask)
 
       const editorTextArea = node.querySelector('textarea')
 
@@ -152,7 +151,7 @@ const editors = {
      */
   image (node, commit) {
     node.addEventListener('click', event => {
-      if (!store.state.adminBarIsOpen) {
+      if (!this.adminBarIsOpen) {
         return true
       }
 

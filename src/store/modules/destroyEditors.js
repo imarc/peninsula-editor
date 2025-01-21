@@ -13,10 +13,10 @@ export default function destroyEditors () {
      * Destory Everything
      */
 
-  this.state.CKEditors.forEach(async editor => {
+  this.CKEditors.forEach(async editor => {
     await editor.destroy()
 
-    this.state.CKEditors = this.state.CKEditors.filter(
+    this.CKEditors = this.CKEditors.filter(
       CKEditor => CKEditor !== editor
     )
 
@@ -32,7 +32,7 @@ export default function destroyEditors () {
     }
   })
 
-  this.state.HTMLEditors.forEach(editor => {
+  this.HTMLEditors.forEach(editor => {
     const newCode = editor.getCode() // HTML that was rendered INCLUDING html rendered by the scripts
 
     editor.editorRoot.dataset.editing = false
@@ -52,5 +52,5 @@ export default function destroyEditors () {
     simpleEditor.contentEditable = false
   })
 
-  this.dispatch('editorApply')
+  this.editorApply()
 }

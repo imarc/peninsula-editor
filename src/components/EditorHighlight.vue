@@ -10,7 +10,8 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState } from 'pinia'
+import store from '../store/index.js'
 import uuidv4 from 'uuid/v4'
 import HighlightBox from './HighlightBox.vue'
 
@@ -20,7 +21,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['editors', 'editingNode']),
+    ...mapState(store, ['editors', 'editingNode']),
 
     idEditors () {
       return this.editors.map(editor => {

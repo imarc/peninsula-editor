@@ -7,7 +7,7 @@
 // Dependencies
 import { cloneDeep } from 'lodash'
 
-export default function setLatestSavedData ({ commit }, object) {
+export default function setLatestSavedData (object) {
   const clonedObj = cloneDeep(object)
-  commit('setLatestSavedData', clonedObj)
+  this.setLatestSavedData(clonedObj)
 }
