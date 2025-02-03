@@ -9,5 +9,5 @@ import { cloneDeep } from 'lodash'
 
 export default function setLatestSavedData (object) {
   const clonedObj = cloneDeep(object)
-  this.setLatestSavedData(clonedObj)
+  this.latestSavedData = clonedObj
 }

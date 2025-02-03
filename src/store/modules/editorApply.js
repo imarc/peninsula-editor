@@ -11,7 +11,7 @@ export default function initialDataConstruct () {
   this.editors = [...document.querySelectorAll('[data-editor]')]
 
   if (this.editors.length > 0) {
-    commit('setEditingIsAvailible', true)
+    this.setEditingIsAvailible(true)
   }
 
   /**

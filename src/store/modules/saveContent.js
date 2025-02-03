@@ -11,11 +11,11 @@ export default function saveContent () {
 
   const promises = []
 
-  Object.keys(this.state.collections).forEach(collection => {
+  Object.keys(this.collections).forEach(collection => {
     promises.push(
-      axios.patch(`/api/v1/${collection}/`, this.state.collections[collection], {
+      axios.patch(`/api/v1/${collection}/`, this.collections[collection], {
         headers: {
-          'X-CSRF-Token': this.state.token
+          'X-CSRF-Token': this.token
         }
       })
     )

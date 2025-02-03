@@ -5,5 +5,5 @@
  */
 
 export default function setIsSelectingModule (bool) {
-  this.setIsSelectingModule(bool)
+  this.isSelectingModule = bool
 }

@@ -1,5 +1,7 @@
-import store from './store/index.js'
+import { useMainStore } from './store/index.js'
 import { mapState } from 'pinia'
+
+const store = useMainStore()
 
 /**
  * Computed State for Admin Bar top level

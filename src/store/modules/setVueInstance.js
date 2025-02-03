@@ -5,5 +5,5 @@
  */
 
 export default function setVueInstance (instance) {
-  this.setVueInstance(instance)
+  this.vueInstance = instance
 }

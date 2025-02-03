@@ -10,10 +10,10 @@
 // Dependencies
 import { createApp } from 'vue'
 //import ImageUploader from 'vue-image-upload-resize'
-import store from './store/index.js'
+import { useMainStore } from './store/index.js'
+import { createPinia, mapState } from 'pinia'
 import adminBarData from './-adminBarData.js'
 import adminBarMethods from './-adminBarMethods.js'
-import adminBarComputed from './-adminBarComputed.js'
 import FrontendNav from './components/FrontendNav.vue'
 import EditingContent from './components/EditingContent.vue'
 import ModulesList from './components/ModulesList.vue'
@@ -24,8 +24,11 @@ import EditorHighlight from './components/EditorHighlight.vue'
 import ImagePrompt from './components/ImagePrompt.vue'
 import Error from './components/Error.vue'
 
+import './styles/main.scss'
+
 //Vue.use(ImageUploader)
 const adminBar = document.querySelector('.js-adminBar')
+
 
 if (adminBar) {
   const app = createApp({
@@ -41,29 +44,56 @@ if (adminBar) {
       Error
     },
     data: () => adminBarData,
-    computed: adminBarComputed,
-    mounted () {
+    setup() {
+      const store = useMainStore()
+      return {
+        store,
+        ...mapState(store, [
+          'isEditing',
+          'editingIsAvailible',
+          'isModuleMode',
+          'isSelectingModule',
+          'isUpdatingModule',
+          'adminBarIsOpen',
+          'collections',
+          'backendUrl',
+          'photoSelection',
+          'error',
+          'highlightedNode',
+          'editors'
+        ])
+      }
+    },
+    mounted() {
+      console.log('starting')
       const updateLink = document.querySelector('link[rel="update"]')
-      this.getValidation()
-      this.getModules()
-      this.initialDataConstruct()
-      this.setLatestSavedData(this.collections)
-      this.editorApply()
-      this.moduleCollect()
-      this.setVueInstance(this)
-      this.isMacOS = navigator.platform.toUpperCase().indexOf('MAC') >= 0
-
+      console.log('getting validation')
+      this.store.getValidation()
+      console.log('getting modules')
+      this.store.getModules()
+      console.log('initializing data')
+      this.store.initialDataConstruct()
+      console.log('setting latest saved data')
+      this.store.setLatestSavedData(this.store.collections)
+      console.log('applying editors')
+      this.store.editorApply()
+      console.log('collecting modules')
+      this.store.moduleCollect()
+      console.log('setting vue instance')
+      this.store.setVueInstance(this)
+      console.log('setting admin bar is open')
       if (window.location.hash.indexOf('#edit') !== -1) {
         this.setAdminBarIsOpen(true)
       }
 
       if (updateLink) {
-        this.setBackendUrl(document.querySelector('link[rel="update"]'))
+        this.store.setBackendUrl(document.querySelector('link[rel="update"]'))
       }
     },
     methods: adminBarMethods,
-    store
   })
-
+  
+  const pinia = createPinia()
+  app.use(pinia)
   app.mount(adminBar)
 }

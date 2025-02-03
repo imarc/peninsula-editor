@@ -10,20 +10,8 @@ export default {
   addModuleToContext(node) {
     this.context.nestedModules.push(node);
   },
-  setIsEditing(bool) {
-    this.isEditing = bool;
-  },
-  setEditingIsAvailible(bool) {
-    this.editingIsAvailible = bool;
-  },
-  setIsModuleMode(bool) {
-    this.isModuleMode = bool;
-  },
   setModules(modules) {
     this.availibleModules = modules;
-  },
-  setAdminBarIsOpen(bool) {
-    this.adminBarIsOpen = bool;
   },
   setError(error) {
     this.error = error;
@@ -31,23 +19,14 @@ export default {
   setContextModules(moduleData) {
     this.context.nestedModules = moduleData.map(module => module.node);
   },
-  setIsSelectingModule(bool) {
-    this.isSelectingModule = bool;
-  },
   setToken(token) {
     this.token = token;
-  },
-  setBackendUrl(url) {
-    this.backendUrl = url;
   },
   setIsSaving(bool) {
     this.isSaving = bool;
   },
   setPhotoSelection(object) {
     this.photoSelection = object;
-  },
-  setLatestSavedData(object) {
-    this.latestSavedData = object;
   },
   setCurrentModule(module) {
     this.currentModule = module;
@@ -61,14 +40,8 @@ export default {
   setEditingNode(node) {
     this.editingNode = node;
   },
-  setHighlightedNode(node) {
-    this.highlightedNode = node;
-  },
   unsetContext() {
     this.context = null;
-  },
-  setVueInstance(instance) {
-    this.vueInstance = instance;
   },
   removeModuleData(moduleDataToRemove) {
     this.modules = this.modules.filter(

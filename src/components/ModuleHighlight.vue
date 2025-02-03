@@ -4,9 +4,16 @@
 
 <script>
 import { mapState } from 'pinia'
-import store from '../store/index.js'
+import { useMainStore } from '../store/index.js'
 
 export default {
+  setup() {
+    const store = useMainStore()
+    return {
+      store,
+      ...mapState(store, ['highlightedNode'])
+    }
+  },
   data () {
     return {
       top: 0,
@@ -17,7 +24,6 @@ export default {
   },
 
   computed: {
-    ...mapState(store, ['highlightedNode']),
     styleString () {
       return `top: ${this.top}px; left: ${this.left}px; width: ${this.width}px; height: ${this.height}px`
     }

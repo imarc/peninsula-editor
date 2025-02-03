@@ -5,5 +5,5 @@
  */
 
 export default function setIsEditing (bool) {
-  this.setIsEditing(bool)
+  this.isEditing = bool
 }

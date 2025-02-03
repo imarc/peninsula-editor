@@ -5,6 +5,5 @@
  */
 
 export default function setBackendUrl (node) {
-  const url = node.href
-  this.setBackendUrl(url)
+  this.backendUrl = node.href
 }

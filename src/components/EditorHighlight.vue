@@ -11,7 +11,7 @@
 
 <script>
 import { mapState } from 'pinia'
-import store from '../store/index.js'
+import { useMainStore } from '../store/index.js'
 import uuidv4 from 'uuid/v4'
 import HighlightBox from './HighlightBox.vue'
 
@@ -20,9 +20,15 @@ export default {
     HighlightBox
   },
 
-  computed: {
-    ...mapState(store, ['editors', 'editingNode']),
+  setup() {
+    const store = useMainStore()
+    return {
+      store,
+      ...mapState(store, ['editors', 'editingNode'])
+    }
+  },
 
+  computed: {
     idEditors () {
       return this.editors.map(editor => {
         return {

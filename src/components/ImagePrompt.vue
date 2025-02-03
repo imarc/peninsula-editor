@@ -34,17 +34,22 @@
 <script>
 import axios from 'axios'
 import { mapState } from 'pinia'
-import store from '../store/index'
+import { useMainStore } from '../store/index.js'
+
 
 export default {
+  setup() {
+    const store = useMainStore()
+    return {
+      store,
+      ...mapState(store, ['photoSelection', 'token'])
+    }
+  },
   data () {
     return {
       imageString: null,
       isUploading: false
     }
-  },
-  computed: {
-    ...mapState(store, ['photoSelection', 'token'])
   },
   methods: {
     setImage (file) {
@@ -65,7 +70,7 @@ export default {
 
           this.isUploading = false
 
-          store.commit('setPhotoSelection', {
+          this.store.commit('setPhotoSelection', {
             isSelecting: false,
             node: null
           })
@@ -74,7 +79,7 @@ export default {
     cancel (event) {
       event.preventDefault()
 
-      store.commit('setPhotoSelection', {
+      this.store.commit('setPhotoSelection', {
         isSelecting: false,
         node: null
       })

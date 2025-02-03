@@ -7,5 +7,5 @@
  */
 
 export default {
-  isMacOS: false
+  isMacOS: navigator.userAgentData?.platform === 'macOS' || /Mac/.test(navigator.userAgent),
 }

@@ -25,25 +25,29 @@
 
 <script>
 import { mapState } from 'pinia'
-import store from '../store/index'
+import { useMainStore } from '../store/index.js'
 
 export default {
-  computed: {
-    ...mapState(store, ['collections', 'isSaving', 'adminBarIsOpen'])
+  setup() {
+    const store = useMainStore()
+    return {
+      store,
+      ...mapState(store, ['collections', 'isSaving', 'adminBarIsOpen']),
+    }
   },
   methods: {
     async saveContent (event) {
       event.preventDefault()
-      store.destroyEditors()
+      this.store.destroyEditors()
       await setTimeout(() => {
-        store.initialDataConstruct()
-        store.setLatestSavedData(this.collections)
-        store.saveContent()
+        this.store.initialDataConstruct()
+        this.store.setLatestSavedData(this.collections)
+        this.store.saveContent()
       }, 0)
     },
     cancelChanges (event) {
       event.preventDefault()
-      store.resetContent()
+      this.store.resetContent()
     }
   }
 }

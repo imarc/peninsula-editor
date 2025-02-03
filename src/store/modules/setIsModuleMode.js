@@ -8,5 +8,5 @@ export default function setIsModuleMode (bool) {
   if (!bool) {
     this.unsetContext()
   }
-  this.setIsModuleMode(bool)
+  this.isModuleMode = bool
 }

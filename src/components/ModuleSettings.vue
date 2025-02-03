@@ -145,7 +145,7 @@
 
 <script>
 import { mapState } from 'pinia'
-import store from '../store/index.js'
+import { useMainStore } from '../store/index.js'
 import { startCase, isArray, isObject } from 'lodash'
 import axios from 'axios'
 import attributeGetters from '../store/modules/_attributeGetters'
@@ -154,6 +154,13 @@ import { getParameters, renderData } from '../modules/renderData'
 import SlimSelect from 'slim-select'
 
 export default {
+  setup() {
+    const store = useMainStore()
+    return {
+      store,
+      ...mapState(store, ['currentModule', 'availibleModules', 'token'])
+    }
+  },
   data () {
     return {
       moduleAttributeData: {
@@ -167,7 +174,6 @@ export default {
     }
   },
   computed: {
-    ...mapState(store, ['currentModule', 'availibleModules', 'token']),
     currentModuleType () {
       return this.currentModule.node.dataset.module
     },
@@ -216,7 +222,7 @@ export default {
           key
         )
       } catch (error) {
-        store.throwError(`${error}`)
+        this.store.throwError(`${error}`)
       }
     })
 
@@ -262,7 +268,7 @@ export default {
             key
           )
         } catch (error) {
-          store.throwError(error)
+          this.store.throwError(error)
           errors.push(error)
         }
       })
@@ -279,15 +285,15 @@ export default {
         renderData(this.currentModule.node)
       }
 
-      store.setIsEditing(true)
-      store.closeModuleSettings()
-      store.resetListContext()
+      this.store.setIsEditing(true)
+      this.store.closeModuleSettings()
+      this.store.resetListContext()
 
       return true
     },
     closeSettings (event) {
       event.preventDefault()
-      store.closeModuleSettings()
+      this.store.closeModuleSettings()
     },
     isArray (value) {
       return isArray(value)

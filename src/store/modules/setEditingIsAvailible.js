@@ -5,5 +5,5 @@
  */
 
 export default function setEditingIsAvailible (bool) {
-  this.setEditingIsAvailable(bool)
+  this.editingIsAvialible = bool
 }

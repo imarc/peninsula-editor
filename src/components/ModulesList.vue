@@ -62,9 +62,16 @@ import '../modules/append'
 import { mapState } from 'pinia'
 import { Sortable } from '@shopify/draggable'
 import { startCase } from 'lodash'
-import store from '../store/index'
+import { useMainStore } from '../store/index.js'
 
 export default {
+  setup() {
+    const store = useMainStore()
+    return {
+      store,
+      ...mapState(store, ['context', 'modules'])
+    }
+  },
   data () {
     return {
       moduleOrder: [],
@@ -72,7 +79,6 @@ export default {
     }
   },
   computed: {
-    ...mapState(store, ['context', 'modules']),
     contextModules () {
       return this.context.nestedModules.map(contextModule => {
         let correspondingModuleData = {}
@@ -106,12 +112,12 @@ export default {
         const [parentModule] = this.modules.filter(
           module => module.node === this.context.parentContext
         )
-        store.setContext(parentModule)
+        this.store.setContext(parentModule)
 
         return true
       }
 
-      store.setIsModuleMode(false)
+      this.store.setIsModuleMode(false)
 
       return true
     },
@@ -126,30 +132,30 @@ export default {
         })
       }
 
-      store.setHighlightedModule(module.node)
+      this.store.setHighlightedModule(module.node)
     },
     dehighlightModule () {
-      store.setHighlightedModule(null)
+      this.store.setHighlightedModule(null)
     },
     openModuleSelect (event) {
       event.preventDefault()
-      store.setIsSelectingModule(true)
+      this.store.setIsSelectingModule(true)
     },
     applyStartCase (string) {
       return startCase(string)
     },
     removeModule (module, event) {
       event.preventDefault()
-      store.removeModule(module)
+      this.store.removeModule(module)
     },
     openModuleSettings (module, event) {
       event.preventDefault()
-      store.openModuleSettings(module)
+      this.store.openModuleSettings(module)
     },
     setContext (module, event) {
       if (this.hasNestedModules(module)) {
         event.preventDefault()
-        store.setContext(module)
+        this.store.setContext(module)
         module.node.classList.remove('-highlight')
       }
     },
@@ -170,7 +176,7 @@ export default {
           moduleElement => moduleElement.dataset.value
         )
 
-        store.updateModuleOrder(this.moduleOrder)
+        this.store.updateModuleOrder(this.moduleOrder)
       })
 
       sortable.on('sortable:sort', () => {

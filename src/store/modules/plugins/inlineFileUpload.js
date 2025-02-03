@@ -3,7 +3,7 @@ import ButtonView from '@ckeditor/ckeditor5-ui/src/button/buttonview'
 import FileDialogButtonView from '@ckeditor/ckeditor5-upload/src/ui/filedialogbuttonview'
 
 import uploadIcon from './upload.svg'
-import store from '../../'
+import { useMainStore } from '../../index.js'
 
 import axios from 'axios'
 
@@ -69,10 +69,11 @@ export default class FileUploadInline extends Plugin {
   async uploadFile (uri) {
     this.confirmEl.classList.remove('-active')
     this.fileUi.classList.add('-active')
+    const store = useMainStore()
     const response = await axios
       .post('/api/v1/cms/files/', uri, {
         headers: {
-          'X-CSRF-Token': store.state.token,
+          'X-CSRF-Token': store.token, // ! TODO make sure this still works
           'Content-Type': 'text/plain'
         }
       })

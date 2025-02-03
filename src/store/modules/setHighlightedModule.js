@@ -5,5 +5,5 @@
  */
 
 export default function setHighlightedModule (node) {
-  this.setHighlightedNode(node)
+  this.highlightedNode = node
 }

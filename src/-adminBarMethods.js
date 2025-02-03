@@ -5,15 +5,17 @@
  * Authors: Tristan Norton
  *
  */
-import store from './store/index.js'
+import { useMainStore } from './store/index.js'
 
 export default {
   openAdminBar (event) {
     event.preventDefault()
+    const store = useMainStore()
     store.setAdminBarIsOpen(true)
   },
   closeAdminBar (event) {
     event.preventDefault()
+    const store = useMainStore()
     store.setAdminBarIsOpen(false)
   }
 }

@@ -7,15 +7,19 @@
 
 <script>
 import { mapState } from 'pinia'
-import store from '../store/index'
+import { useMainStore } from '../store/index.js'
 
 export default {
-  computed: {
-    ...mapState(store, ['error'])
+  setup() {
+    const store = useMainStore()
+    return {
+      store,
+      ...mapState(store, ['error'])
+    }
   },
   methods: {
     closeError () {
-      store.throwError(null)
+      this.store.throwError(null)
     }
   }
 }

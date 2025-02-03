@@ -10,5 +10,5 @@ export default function setAdminBarIsOpen (bool) {
   } else {
     document.querySelector('body').classList.remove('-editing')
   }
-  this.setAdminBarIsOpen(bool)
+  this.adminBarIsOpen = bool
 }
