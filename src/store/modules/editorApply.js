@@ -7,10 +7,12 @@
 import editorOptions from './_editors.js'
 
 export default function initialDataConstruct () {
+  console.log('initialDataConstruct')
   // Creates array of availible editors in content instance.
   this.editors = [...document.querySelectorAll('[data-editor]')]
 
   if (this.editors.length > 0) {
+    console.log('setting editing is availible')
     this.setEditingIsAvailible(true)
   }
 

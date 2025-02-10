@@ -98,6 +98,7 @@ export default {
         : 'List'
     },
     contextName () {
+      console.log('context', this.context, this.context?.name)
       return this.context.node.dataset.moduleName
     }
   },

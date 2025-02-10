@@ -24,7 +24,7 @@ import EditorHighlight from './components/EditorHighlight.vue'
 import ImagePrompt from './components/ImagePrompt.vue'
 import Error from './components/Error.vue'
 
-import './styles/main.scss'
+  import './styles/main.scss'
 
 //Vue.use(ImageUploader)
 const adminBar = document.querySelector('.js-adminBar')
@@ -45,6 +45,7 @@ if (adminBar) {
     },
     data: () => adminBarData,
     setup() {
+      console.log('setting up adminBar')
       const store = useMainStore()
       return {
         store,
@@ -83,7 +84,7 @@ if (adminBar) {
       this.store.setVueInstance(this)
       console.log('setting admin bar is open')
       if (window.location.hash.indexOf('#edit') !== -1) {
-        this.setAdminBarIsOpen(true)
+        this.store.setAdminBarIsOpen(true)
       }
 
       if (updateLink) {

@@ -5,5 +5,6 @@
  */
 
 export default function setEditingIsAvailible (bool) {
+  console.log('setEditingIsAvailible', bool)
   this.editingIsAvialible = bool
 }
