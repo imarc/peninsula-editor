@@ -20,15 +20,8 @@ export default {
     HighlightBox
   },
 
-  setup() {
-    const store = useMainStore()
-    return {
-      store,
-      ...mapState(store, ['editors', 'editingNode'])
-    }
-  },
-
   computed: {
+    ...mapState(useMainStore, ['editors', 'editingNode']),
     idEditors () {
       return this.editors.map(editor => {
         return {

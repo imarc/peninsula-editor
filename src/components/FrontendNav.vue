@@ -23,10 +23,10 @@ import { useMainStore } from '../store/index.js'
 export default {
   setup() {
     const store = useMainStore()
-    return {
-      store,
-      ...mapState(store, ['containers', 'modules']),
-    }
+    return { store }
+  },
+  computed: {
+    ...mapState(useMainStore, ['containers', 'modules']),
   },
   methods: {
     setContext (container, event) {

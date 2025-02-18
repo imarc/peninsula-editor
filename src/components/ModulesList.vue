@@ -67,10 +67,7 @@ import { useMainStore } from '../store/index.js'
 export default {
   setup() {
     const store = useMainStore()
-    return {
-      store,
-      ...mapState(store, ['context', 'modules'])
-    }
+    return { store }
   },
   data () {
     return {
@@ -80,10 +77,13 @@ export default {
   },
   computed: {
     contextModules () {
-      return this.context.nestedModules.map(contextModule => {
+      if (!this.store.context.nestedModules) {
+        return []
+      }
+      return this.store.context.nestedModules.map(contextModule => {
         let correspondingModuleData = {}
 
-        this.modules.forEach(module => {
+        this.store.modules.forEach(module => {
           if (module.node === contextModule) {
             correspondingModuleData = module
           }
@@ -93,13 +93,16 @@ export default {
       })
     },
     parentContextName () {
-      return this.context.parentContext
-        ? this.context.parentContext.dataset.moduleName
+      return this.store.context.parentContext
+        ? this.store.context.parentContext.dataset.moduleName
         : 'List'
     },
     contextName () {
-      console.log('context', this.context, this.context?.name)
-      return this.context.node.dataset.moduleName
+      if (this.store?.context?.node) {
+        return this.store.context.node.dataset.moduleName
+      }
+      
+      return null
     }
   },
   mounted () {
@@ -109,9 +112,9 @@ export default {
     navigateUp (event) {
       event.preventDefault()
 
-      if (this.context.parentContext) {
-        const [parentModule] = this.modules.filter(
-          module => module.node === this.context.parentContext
+      if (this.store.context.parentContext) {
+        const [parentModule] = this.store.modules.filter(
+          module => module.node === this.store.context.parentContext
         )
         this.store.setContext(parentModule)
 

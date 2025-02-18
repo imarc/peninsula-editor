@@ -40,10 +40,10 @@ import { useMainStore } from '../store/index.js'
 export default {
   setup() {
     const store = useMainStore()
-    return {
-      store,
-      ...mapState(store, ['photoSelection', 'token'])
-    }
+    return { store }
+  },
+  computed: {
+    ...mapState(useMainStore, ['photoSelection', 'token'])
   },
   data () {
     return {
@@ -70,7 +70,7 @@ export default {
 
           this.isUploading = false
 
-          this.store.commit('setPhotoSelection', {
+          this.store.setPhootSelection({
             isSelecting: false,
             node: null
           })
@@ -79,7 +79,7 @@ export default {
     cancel (event) {
       event.preventDefault()
 
-      this.store.commit('setPhotoSelection', {
+      this.store.setPhotoSelection({
         isSelecting: false,
         node: null
       })

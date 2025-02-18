@@ -30,10 +30,10 @@ import { useMainStore } from '../store/index.js'
 export default {
   setup() {
     const store = useMainStore()
-    return {
-      store,
-      ...mapState(store, ['collections', 'isSaving', 'adminBarIsOpen']),
-    }
+    return { store }
+  },
+  computed: {
+    ...mapState(useMainStore, ['collections', 'isSaving', 'adminBarIsOpen']),
   },
   methods: {
     async saveContent (event) {

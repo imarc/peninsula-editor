@@ -7,13 +7,6 @@ import { mapState } from 'pinia'
 import { useMainStore } from '../store/index.js'
 
 export default {
-  setup() {
-    const store = useMainStore()
-    return {
-      store,
-      ...mapState(store, ['highlightedNode'])
-    }
-  },
   data () {
     return {
       top: 0,
@@ -24,6 +17,7 @@ export default {
   },
 
   computed: {
+    ...mapState(useMainStore, ['highlightedNode']),
     styleString () {
       return `top: ${this.top}px; left: ${this.left}px; width: ${this.width}px; height: ${this.height}px`
     }
@@ -40,7 +34,7 @@ export default {
 
   methods: {
     setContext () {
-      if (this.highlightedNode) {
+      if (this.highlightedNode && this.highlightedNode.getBoundingClientRect ) {
         const {
           top,
           left,
@@ -53,7 +47,8 @@ export default {
         this.width = width
         this.height = height
 
-        this.$forceUpdate()
+        // Disable for now
+        //this.$forceUpdate()
       }
     }
   }

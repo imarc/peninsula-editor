@@ -1,7 +1,7 @@
-const path = require('path')
-const { CKEditorTranslationsPlugin } = require('@ckeditor/ckeditor5-dev-translations')
-const VueLoaderPlugin = require('vue-loader/lib/plugin')
-const { styles } = require('@ckeditor/ckeditor5-dev-utils')
+import path from 'path'
+import { CKEditorTranslationsPlugin } from '@ckeditor/ckeditor5-dev-translations'
+import { VueLoaderPlugin } from 'vue-loader'
+import { styles } from '@ckeditor/ckeditor5-dev-utils'
 
 module.exports = {
   mode: 'production',

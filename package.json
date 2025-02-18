@@ -58,7 +58,7 @@
     "slim-select": "^1.27.1",
     "twig": "^1.15.4",
     "uuid": "^3.3.3",
-    "vue-image-upload-resize": "^2.3.0"
+    "vue-loader": "^17.4.2"
   },
   "deprecated": false,
   "description": "A wysiwyg, module-based content editor using vue and ckeditor.",

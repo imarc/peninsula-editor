@@ -1,5 +1,5 @@
 <template>
-    <div class="cms-editorHighlight" :style="styleString" @click="handleClick"></div>
+    <div class="cms-editorHighlight" :style="styleString"></div>
 </template>
 
 <script>
@@ -53,10 +53,6 @@ export default {
 
         this.ticking = true
       }
-    },
-    handleClick() {
-      console.log('Highlight box clicked');
-      // Add additional click handling logic here
     }
   }
 }

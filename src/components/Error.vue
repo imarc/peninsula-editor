@@ -12,10 +12,10 @@ import { useMainStore } from '../store/index.js'
 export default {
   setup() {
     const store = useMainStore()
-    return {
-      store,
-      ...mapState(store, ['error'])
-    }
+    return { store }
+  },
+  computed: {
+      ...mapState(useMainStore, ['error'])
   },
   methods: {
     closeError () {

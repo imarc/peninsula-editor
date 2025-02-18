@@ -14,6 +14,7 @@
                     <input id="name" :value="moduleHashURL" type="text" disabled />
                 </div>
                 <span
+                    v-if="currentModuleType"
                     v-for="(value, key) in availibleModules[currentModuleType].attributes"
                     :key="key"
                 >
@@ -91,7 +92,7 @@
                         </div>
                     </div>
                 </span>
-                <span v-if="typeof availibleModules[currentModuleType].parameters !== 'undefined'">
+                <span v-if="currentModuleType && typeof availibleModules[currentModuleType].parameters !== 'undefined'">
                   <span v-for="(value, key) in availibleModules[currentModuleType].parameters" :key="key">
                       <div v-if="typeof baseModuleData.parameters[key].type !== 'undefined'">
                         <label :for="key" v-text="value.label"></label>
@@ -156,10 +157,7 @@ import SlimSelect from 'slim-select'
 export default {
   setup() {
     const store = useMainStore()
-    return {
-      store,
-      ...mapState(store, ['currentModule', 'availibleModules', 'token'])
-    }
+    return { store }
   },
   data () {
     return {
@@ -174,8 +172,9 @@ export default {
     }
   },
   computed: {
+    ...mapState(useMainStore, ['currentModule', 'availibleModules', 'token']),
     currentModuleType () {
-      return this.currentModule.node.dataset.module
+      return this.currentModule.node?.dataset.module
     },
     baseModuleData () {
       return this.availibleModules[this.currentModuleType]
@@ -200,10 +199,14 @@ export default {
   mounted () {
     this.applySelectLib()
 
-    if ('parameters' in this.baseModuleData) {
+    if (this.baseModuleData && 'parameters' in this.baseModuleData) {
       Object.keys(this.baseModuleData.parameters).forEach(param => {
         this.moduleParameterData[param] = this.baseModuleData.parameters[param].multiple ? [] : ''
       })
+    }
+
+    if (!this.currentModule.node) {
+      return
     }
 
     this.moduleAttributeData.name = this.currentModule.node.dataset.moduleName
@@ -316,7 +319,8 @@ export default {
       this.moduleAttributeData.href = response.headers.location
       this.moduleAttributeData.download = file.name
       this.fileFeedback = null
-      this.$forceUpdate()
+      // Disable for now
+      //this.$forceUpdate()
     },
     manualAddFile (event) {
       event.preventDefault()

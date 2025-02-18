@@ -188,10 +188,7 @@ import SlimSelect from 'slim-select'
 export default {
   setup() {
     const store = useMainStore()
-    return {
-      store,
-      ...mapState(store, ['availibleModules', 'context', 'token'])
-    }
+    return { store }
   },
   data () {
     return {
@@ -206,7 +203,11 @@ export default {
     }
   },
   computed: {
+    ...mapState(useMainStore, ['availibleModules', 'context', 'token']),
     allowedModules () {
+      if (!this.context.node) {
+        return []
+      }
       const allowedModules = {}
       const contextModuleName = this.context.node.dataset.module
       const { allows } = this.availibleModules[contextModuleName]
@@ -302,7 +303,9 @@ export default {
       this.moduleAttributeData.href = response.headers.location
       this.moduleAttributeData.download = file.name
       this.fileFeedback = null
-      this.$forceUpdate()
+
+      // disable for now
+      // this.$forceUpdate()
     },
     manualAddFile (event) {
       event.preventDefault()
