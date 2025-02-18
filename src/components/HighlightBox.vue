@@ -3,7 +3,6 @@
 </template>
 
 <script>
-  # clean up this file AI!
 export default {
   props: {
     node: {
