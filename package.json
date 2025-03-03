@@ -1,6 +1,5 @@
 {
   "_from": "peninsula-editor@0.4.5",
-  "_id": "peninsula-editor@0.4.5",
   "_inBundle": false,
   "_integrity": "sha512-JEj9MMiWLlttbb0NjojJqXDlbRA8WcJ7mD4r1ypUmNY6tnxVZZsetGVehbHDLC/qNA0KKLtVfOdOLLs+tKRbgA==",
   "_location": "/peninsula-editor",
@@ -81,7 +80,7 @@
     "docs": "docsify serve docs",
     "XXXprepare": "webpack --config webpack.config.js"
   },
-  "version": "0.5.9",
+  "version": "0.6.0-alpha.1",
   "peerDependencies": {
     "axios": "^1.7.9",
     "pinia": "^2.3.1",
