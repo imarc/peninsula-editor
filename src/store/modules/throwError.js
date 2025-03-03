@@ -5,5 +5,5 @@
  */
 
 export default function throwError (error) {
-  this.setError(error)
+  this.error = error
 }

@@ -1,8 +1,6 @@
 import { useMainStore } from './store/index.js'
 import { mapState } from 'pinia'
 
-const store = useMainStore()
-
 /**
  * Computed State for Admin Bar top level
  *
@@ -12,7 +10,7 @@ const store = useMainStore()
  */
 
 export default {
-  ...mapState(store, [
+  ...mapState(useMainStore, [
     'isEditing',
     'editingIsAvailible',
     'isModuleMode',

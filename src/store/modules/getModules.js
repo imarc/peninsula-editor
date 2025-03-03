@@ -60,6 +60,6 @@ export default function getModules () {
       }
     })
 
-    this.setModules(response.data)
+    this.availibleModules = response.data
   })
 }

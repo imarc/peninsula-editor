@@ -6,7 +6,7 @@
 
 export default function setIsModuleMode (bool) {
   if (!bool) {
-    this.unsetContext()
+    this.context = null
   }
   this.isModuleMode = bool
 }

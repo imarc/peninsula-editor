@@ -24,7 +24,7 @@ import EditorHighlight from './components/EditorHighlight.vue'
 import ImagePrompt from './components/ImagePrompt.vue'
 import Error from './components/Error.vue'
 
-  import './styles/main.scss'
+  //import './styles/main.scss'
 
 //Vue.use(ImageUploader)
 const adminBar = document.querySelector('.js-adminBar')
@@ -47,23 +47,23 @@ if (adminBar) {
     setup() {
       console.log('setting up adminBar')
       const store = useMainStore()
-      return {
-        store,
-        ...mapState(store, [
-          'isEditing',
-          'editingIsAvailible',
-          'isModuleMode',
-          'isSelectingModule',
-          'isUpdatingModule',
-          'adminBarIsOpen',
-          'collections',
-          'backendUrl',
-          'photoSelection',
-          'error',
-          'highlightedNode',
-          'editors'
-        ])
-      }
+      return { store }
+    },
+    computed: {
+      ...mapState(useMainStore, [
+        'isEditing',
+        'editingIsAvailible',
+        'isModuleMode',
+        'isSelectingModule',
+        'isUpdatingModule',
+        'adminBarIsOpen',
+        'collections',
+        'backendUrl',
+        'photoSelection',
+        'error',
+        'highlightedNode',
+        'editors'
+      ])
     },
     mounted() {
       console.log('starting')
@@ -93,6 +93,9 @@ if (adminBar) {
     },
     methods: adminBarMethods,
   })
+
+  app.config.productionTip = false
+  app.config.devtools = true
   
   const pinia = createPinia()
   app.use(pinia)

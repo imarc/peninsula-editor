@@ -8,7 +8,6 @@
 import initialDataConstruct from './modules/initialDataConstruct.js'
 import editorApply from './modules/editorApply.js'
 import moduleCollect from './modules/moduleCollect.js'
-import setEditingIsAvailible from './modules/setEditingIsAvailible.js'
 import setIsEditing from './modules/setIsEditing.js'
 import closeModulesList from './modules/closeModulesList.js'
 import updateModuleOrder from './modules/updateModuleOrder.js'
@@ -38,7 +37,6 @@ export default {
   initialDataConstruct,
   editorApply,
   moduleCollect,
-  setEditingIsAvailible,
   setIsEditing,
   closeModulesList,
   updateModuleOrder,

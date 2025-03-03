@@ -5,6 +5,6 @@
  */
 
 export default function openModulesSettings (module) {
-  this.setCurrentModule(module)
-  this.setIsUpdatingModule(true)
+  this.currentModule = module
+  this.isUpdatingModule = true
 }

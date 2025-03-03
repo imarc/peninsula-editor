@@ -6,16 +6,18 @@
 
 import CodeFlask from 'codeflask'
 import loadScripts from './_loadScripts.js'
-import InlineEditor from '@ckeditor/ckeditor5-editor-inline/src/inlineeditor.js'
+import { InlineEditor } from 'ckeditor5'
 import CKPlugins from '../../ckplugins.js'
+import { useMainStore } from '../index.js'
 
 const editors = {
   /**
      * Apply Simple Text Editing
      */
-  simpletext (node, commit) {
+  simpletext (node) {
     node.addEventListener('click', () => {
-      if (!this.adminBarIsOpen) {
+      const store = useMainStore()
+      if (!store.adminBarIsOpen) {
         return true
       }
 
@@ -27,14 +29,15 @@ const editors = {
         e.preventDefault()
       })
 
-      this.destroyEditors()
+      store.destroyEditors()
 
       // eslint-disable-next-line no-param-reassign
       node.contentEditable = true
       node.focus()
 
-      commit('setIsEditing', true)
-      commit('setEditingNode', node)
+
+      store.setIsEditing(true)
+      store.setEditingNode(node)
 
       return true
     })
@@ -43,19 +46,20 @@ const editors = {
   /**
      * Apply Rich Text Editing
      */
-  richtext (node, commit) {
+  richtext (node) {
     // Gracefully fall back to simple if IE
     if (window.document.documentMode) {
-      this.simpletext(node, commit)
+      this.simpletext(node)
       return true
     }
 
     node.addEventListener('click', () => {
-      if (node.dataset.editing === 'true' || !this.adminBarIsOpen) {
+      const store = useMainStore()
+      if (node.dataset.editing === 'true' || !store.adminBarIsOpen) {
         return true
       }
 
-      this.destroyEditors()
+      store.destroyEditors()
 
       const appliedAttributes = {}
       const downloadNodes = [...node.querySelectorAll('a[download]')]
@@ -71,10 +75,11 @@ const editors = {
       InlineEditor.create(node, {
         plugins: CKPlugins,
         updateSourceElementOnDestroy: true,
+        licenseKey: 'GPL',
         ...ckconfig
       })
         .then(editor => {
-          this.CKEditors.push(editor)
+          store.CKEditors.push(editor)
 
           editor.appliedAttributes = appliedAttributes
 
@@ -89,8 +94,8 @@ const editors = {
       // eslint-disable-next-line no-param-reassign
       node.dataset.editing = true
 
-      commit('setIsEditing', true)
-      commit('setEditingNode', node)
+      store.setIsEditing(true)
+      store.setEditingNode(node)
 
       return true
     })
@@ -101,9 +106,10 @@ const editors = {
   /**
      * Apply HTML Editing
      */
-  html (node, commit) {
+  html (node) {
     node.addEventListener('click', () => {
-      if (node.dataset.editing === 'true' || !this.adminBarIsOpen) {
+      const store = useMainStore()
+      if (node.dataset.editing === 'true' || !store.adminBarIsOpen) {
         return true
       }
 
@@ -115,7 +121,7 @@ const editors = {
         flask.updateCode(node.dataset.dynamicContent)
       }
 
-      this.HTMLEditors.push(flask)
+      store.HTMLEditors.push(flask)
 
       const editorTextArea = node.querySelector('textarea')
 
@@ -139,8 +145,8 @@ const editors = {
       // eslint-disable-next-line no-param-reassign
       node.dataset.editing = true
 
-      commit('setIsEditing', true)
-      commit('setEditingNode', node)
+      store.setIsEditing(true)
+      store.setEditingNode(node)
 
       return true
     })
@@ -149,21 +155,22 @@ const editors = {
   /**
      * Image Upload
      */
-  image (node, commit) {
+  image (node) {
     node.addEventListener('click', event => {
-      if (!this.adminBarIsOpen) {
+      const store = useMainStore()
+      if (!store.adminBarIsOpen) {
         return true
       }
 
       event.preventDefault()
 
-      commit('setPhotoSelection', {
+      store.setPhotoSelection({
         isSelecting: true,
         node
       })
 
-      commit('setIsEditing', true)
-      commit('setEditingNode', node)
+      store.setIsEditing(true)
+      store.setEditingNode(node)
 
       return true
     })

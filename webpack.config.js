@@ -1,9 +1,12 @@
 import path from 'path'
-import { CKEditorTranslationsPlugin } from '@ckeditor/ckeditor5-dev-translations'
+import { fileURLToPath } from 'url'
+//import { CKEditorTranslationsPlugin } from '@ckeditor/ckeditor5-dev-translations'
 import { VueLoaderPlugin } from 'vue-loader'
-import { styles } from '@ckeditor/ckeditor5-dev-utils'
+//import { styles } from '@ckeditor/ckeditor5-dev-utils'
 
-module.exports = {
+const outputPath = path.resolve(path.dirname(fileURLToPath(import.meta.url)), 'dist')
+
+export default {
   mode: 'production',
   module: {
     rules: [
@@ -32,12 +35,12 @@ module.exports = {
           {
             loader: 'postcss-loader',
             options: {
-              postcssOptions: styles.getPostCssConfig({
-                themeImporter: {
-                  themePath: require.resolve('@ckeditor/ckeditor5-theme-lark')
-                },
-                minify: true
-              })
+              //postcssOptions: styles.getPostCssConfig({
+              //  themeImporter: {
+              //    themePath: require.resolve('@ckeditor/ckeditor5-theme-lark')
+              //  },
+              //  minify: true
+              //})
             }
           }
         ]
@@ -47,7 +50,7 @@ module.exports = {
   entry: './src/index.js',
   output: {
     filename: 'index.js',
-    path: path.resolve(__dirname, 'dist')
+    path: outputPath,
   },
   resolve: {
     alias: {

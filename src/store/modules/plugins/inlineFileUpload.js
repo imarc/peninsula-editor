@@ -1,6 +1,6 @@
-import Plugin from '@ckeditor/ckeditor5-core/src/plugin'
-import ButtonView from '@ckeditor/ckeditor5-ui/src/button/buttonview'
-import FileDialogButtonView from '@ckeditor/ckeditor5-upload/src/ui/filedialogbuttonview'
+import Plugin from '@ckeditor/ckeditor5-core/src/plugin.js'
+import ButtonView from '@ckeditor/ckeditor5-ui/src/button/buttonview.js'
+import FileDialogButtonView from '@ckeditor/ckeditor5-ui/src/button/filedialogbuttonview.js'
 
 import uploadIcon from './upload.svg'
 import { useMainStore } from '../../index.js'

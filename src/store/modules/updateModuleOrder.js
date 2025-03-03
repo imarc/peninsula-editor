@@ -46,6 +46,6 @@ export default function openModulesList (orderArray) {
   /**
      * Update data representation for current container
      */
-  this.setContextModules(relatedModuleData)
+  this.context.nestedModules = moduleData.map(module => module.node);
   this.updateHighlights()
 }

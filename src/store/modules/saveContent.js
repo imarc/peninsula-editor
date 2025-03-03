@@ -7,7 +7,7 @@
 import axios from 'axios'
 
 export default function saveContent () {
-  this.setIsSaving(true)
+  this.isSaving = true
 
   const promises = []
 
@@ -23,7 +23,7 @@ export default function saveContent () {
 
   Promise.all(promises).then(() => {
     this.setIsEditing(false)
-    this.setIsSaving(false)
+    this.isSaving = false
     this.setEditingNode(null)
   })
 }

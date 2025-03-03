@@ -94,7 +94,7 @@ export default async function addModule (moduleData) {
   /**
    * Update state with new module(s)
    */
-  this.addModuleToContext(node)
+  this.context.nestedModules.push(node)
   this.moduleCollect(node)
 
   /**

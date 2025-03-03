@@ -10,7 +10,6 @@
 // Dependencies
 import { defineStore } from 'pinia';
 import actions from './actions.js'
-import mutations from './mutations.js'
 
 // Define the store using Pinia
 export const useMainStore = defineStore('main', {
@@ -44,7 +43,25 @@ export const useMainStore = defineStore('main', {
     }
   }),
   actions: {
-    ...mutations,
+    setPhotoSelection(object) {
+      this.photoSelection = object;
+    },
+    setEditingNode(node) {
+      this.editingNode = node;
+    },
+    setEditingIsAvailible(bool) {
+      this.editingIsAvailible = bool
+    },
+    removeModuleData(moduleDataToRemove) {
+      this.modules = this.modules.filter(
+        module => moduleDataToRemove.indexOf(module) === -1
+      );
+    },
+    removeContainerData(containerNames) {
+      this.containers = this.containers.filter(
+        container => containerNames.indexOf(container.containerName) === -1
+      );
+    },
     ...actions,
   },
 })

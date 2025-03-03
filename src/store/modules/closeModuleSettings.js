@@ -4,5 +4,5 @@
  */
 
 export default function closeModuleSettings () {
-  this.setIsUpdatingModule(false)
+  this.isUpdatingModule = false
 }

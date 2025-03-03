@@ -1,3 +1,5 @@
+import { toRaw } from 'vue'
+
 /**
  * @function destroyEditors
  */
@@ -14,11 +16,9 @@ export default function destroyEditors () {
      */
 
   this.CKEditors.forEach(async editor => {
-    await editor.destroy()
+    editor = toRaw(editor)
 
-    this.CKEditors = this.CKEditors.filter(
-      CKEditor => CKEditor !== editor
-    )
+    await editor.destroy()
 
     if (typeof editor.appliedAttributes !== 'undefined') {
       setTimeout(() => {
@@ -31,6 +31,8 @@ export default function destroyEditors () {
       }, 100)
     }
   })
+
+  this.CKEditors = []
 
   this.HTMLEditors.forEach(editor => {
     const newCode = editor.getCode() // HTML that was rendered INCLUDING html rendered by the scripts
