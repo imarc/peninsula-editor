@@ -56,9 +56,10 @@ const editors = {
     const store = useMainStore()
     
     // Only initialize if we're in editing mode
-    if (!store.adminBarIsOpen) {
-      return true
-    }
+    //if (!store.adminBarIsOpen) {
+    //  console.log("skipping because adminBar is not open")
+    //  return true
+    //}
 
     const appliedAttributes = {}
     const downloadNodes = [...node.querySelectorAll('a[download]')]
@@ -71,6 +72,7 @@ const editors = {
       })
     }
 
+    console.log('initializing inlineeditor', node)
     InlineEditor.create(node, {
       plugins: CKPlugins,
       updateSourceElementOnDestroy: true,
@@ -83,7 +85,7 @@ const editors = {
         
         // Focus if this is the node being edited
         if (store.editingNode === node) {
-          editor.editing.view.focus()
+          //editor.editing.view.focus()
         }
       })
       .catch(error => {

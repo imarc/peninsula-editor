@@ -15,6 +15,8 @@ export default function initialDataConstruct () {
     console.log('setting editing is availible')
     this.setEditingIsAvailible(true)
   }
+  
+  console.log('initializing editors', this.editors)
 
   /**
    * Loops through each editor and determines which editor to apply.

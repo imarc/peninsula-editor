@@ -53,6 +53,4 @@ export default function destroyEditors () {
   simpleEditors.forEach(simpleEditor => {
     simpleEditor.contentEditable = false
   })
-
-  this.editorApply()
 }
