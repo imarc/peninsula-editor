@@ -53,52 +53,46 @@ const editors = {
       return true
     }
 
-    node.addEventListener('click', () => {
-      const store = useMainStore()
-      if (node.dataset.editing === 'true' || !store.adminBarIsOpen) {
-        return true
-      }
-
-      store.destroyEditors()
-
-      const appliedAttributes = {}
-      const downloadNodes = [...node.querySelectorAll('a[download]')]
-      const ckconfig = window.ckconfig || {}
-
-      if (downloadNodes.length) {
-        downloadNodes.forEach(node => {
-          const path = node.getAttribute('href')
-          appliedAttributes[path] = node.download
-        })
-      }
-
-      InlineEditor.create(node, {
-        plugins: CKPlugins,
-        updateSourceElementOnDestroy: true,
-        licenseKey: 'GPL',
-        ...ckconfig
-      })
-        .then(editor => {
-          store.CKEditors.push(editor)
-
-          editor.appliedAttributes = appliedAttributes
-
-          setTimeout(() => {
-            editor.sourceElement.focus()
-          }, 0)
-        })
-        .catch(error => {
-          console.error(error.stack)
-        })
-
-      // eslint-disable-next-line no-param-reassign
-      node.dataset.editing = true
-
-      store.setIsEditing(true)
-      store.setEditingNode(node)
-
+    const store = useMainStore()
+    
+    // Only initialize if we're in editing mode
+    if (!store.adminBarIsOpen) {
       return true
+    }
+
+    const appliedAttributes = {}
+    const downloadNodes = [...node.querySelectorAll('a[download]')]
+    const ckconfig = window.ckconfig || {}
+
+    if (downloadNodes.length) {
+      downloadNodes.forEach(node => {
+        const path = node.getAttribute('href')
+        appliedAttributes[path] = node.download
+      })
+    }
+
+    InlineEditor.create(node, {
+      plugins: CKPlugins,
+      updateSourceElementOnDestroy: true,
+      licenseKey: 'GPL',
+      ...ckconfig
     })
+      .then(editor => {
+        store.CKEditors.push(editor)
+        editor.appliedAttributes = appliedAttributes
+        
+        // Focus if this is the node being edited
+        if (store.editingNode === node) {
+          editor.editing.view.focus()
+        }
+      })
+      .catch(error => {
+        console.error(error.stack)
+      })
+
+    node.dataset.editing = true
+    store.setIsEditing(true)
+    store.setEditingNode(node)
 
     return true
   },
