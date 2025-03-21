@@ -38,7 +38,7 @@ export default {
   methods: {
     async saveContent (event) {
       event.preventDefault()
-      this.store.destroyEditors()
+      await this.store.destroyEditors()
       await setTimeout(() => {
         this.store.initialDataConstruct()
         this.store.setLatestSavedData(this.collections)

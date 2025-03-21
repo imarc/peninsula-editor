@@ -1,42 +1,47 @@
 import { toRaw } from 'vue'
+import { useMainStore } from '../index.js'
 
 /**
  * @function destroyEditors
  */
 
-export default function destroyEditors () {
+export default async function destroyEditors () {
   /**
      * Scans DOM for all simple editor instances
      */
   const simpleEditors = [...document.querySelectorAll('[data-editor="simpletext"]')]
   const richTextNodes = [...document.querySelectorAll('[data-editor="richtext"]')]
 
+  const store = useMainStore()
+
   /**
      * Destory Everything
      */
 
-  this.CKEditors.forEach(async editor => {
-    editor = toRaw(editor)
+  console.log('trying to destroy', store.CKEditors)
 
-    await editor.destroy()
+  if (Array.isArray(store.CKEditors)) {
+    for (const ckeditor of store.CKEditors) {
+      const editor = toRaw(ckeditor)
+      await editor.destroy()
 
-    if (typeof editor.appliedAttributes !== 'undefined') {
-      setTimeout(() => {
-        Object.keys(editor.appliedAttributes).forEach(key => {
-          const node = document.querySelector(`a[href="${key}"]`)
-          if (node) {
-            node.download = editor.appliedAttributes[key]
-          }
-        })
-      }, 100)
+      if (typeof editor.appliedAttributes !== 'undefined') {
+        setTimeout(() => {
+          Object.keys(editor.appliedAttributes).forEach(key => {
+            const node = document.querySelector(`a[href="${key}"]`)
+            if (node) {
+              node.download = editor.appliedAttributes[key]
+            }
+          })
+        }, 100)
+      }
     }
-  })
+  }
 
-  this.CKEditors = []
+  store.CKEditors = []
 
-  this.HTMLEditors.forEach(editor => {
+  store.HTMLEditors.forEach(editor => {
     const newCode = editor.getCode() // HTML that was rendered INCLUDING html rendered by the scripts
-
     editor.editorRoot.dataset.editing = false
 
     if ('dynamicContent' in editor.editorRoot.dataset) {
@@ -44,7 +49,10 @@ export default function destroyEditors () {
     } else {
       editor.editorRoot.innerHTML = newCode
     }
+    
+    editor.destroy()
   })
+  store.HTMLEditors = []
 
   richTextNodes.forEach(node => {
     node.dataset.editing = false

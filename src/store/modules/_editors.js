@@ -29,8 +29,6 @@ const editors = {
         e.preventDefault()
       })
 
-      store.destroyEditors()
-
       // eslint-disable-next-line no-param-reassign
       node.contentEditable = true
       node.focus()
@@ -54,12 +52,6 @@ const editors = {
     }
 
     const store = useMainStore()
-    
-    // Only initialize if we're in editing mode
-    //if (!store.adminBarIsOpen) {
-    //  console.log("skipping because adminBar is not open")
-    //  return true
-    //}
 
     const appliedAttributes = {}
     const downloadNodes = [...node.querySelectorAll('a[download]')]
@@ -73,28 +65,32 @@ const editors = {
     }
 
     console.log('initializing inlineeditor', node)
-    InlineEditor.create(node, {
-      plugins: CKPlugins,
-      updateSourceElementOnDestroy: true,
-      licenseKey: 'GPL',
-      ...ckconfig
-    })
-      .then(editor => {
-        store.CKEditors.push(editor)
-        editor.appliedAttributes = appliedAttributes
-        
-        // Focus if this is the node being edited
-        if (store.editingNode === node) {
-          //editor.editing.view.focus()
-        }
-      })
-      .catch(error => {
-        console.error(error.stack)
-      })
 
-    node.dataset.editing = true
-    store.setIsEditing(true)
-    store.setEditingNode(node)
+    if (!node.ckeditorInstance) {
+      InlineEditor.create(node, {
+        plugins: CKPlugins,
+        updateSourceElementOnDestroy: true,
+        licenseKey: 'GPL',
+        ...ckconfig
+      })
+        .then(editor => {
+          store.CKEditors.push(editor)
+          editor.appliedAttributes = appliedAttributes
+          
+          // Focus if this is the node being edited
+          if (store.editingNode === node) {
+            //editor.editing.view.focus()
+          }
+        })
+        .catch(error => {
+          console.error(error.stack)
+        })
+      node.dataset.editing = true
+
+      store.setIsEditing(true)
+      store.setEditingNode(node)
+    }
+
 
     return true
   },
