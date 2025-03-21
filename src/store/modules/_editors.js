@@ -64,8 +64,6 @@ const editors = {
       })
     }
 
-    console.log('initializing inlineeditor', node)
-
     if (!node.ckeditorInstance) {
       InlineEditor.create(node, {
         plugins: CKPlugins,

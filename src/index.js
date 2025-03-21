@@ -45,7 +45,6 @@ if (adminBar) {
     },
     data: () => adminBarData,
     setup() {
-      console.log('setting up adminBar')
       const store = useMainStore()
       return { store }
     },
@@ -66,23 +65,14 @@ if (adminBar) {
       ])
     },
     mounted() {
-      console.log('starting')
       const updateLink = document.querySelector('link[rel="update"]')
-      console.log('getting validation')
       this.store.getValidation()
-      console.log('getting modules')
       this.store.getModules()
-      console.log('initializing data')
       this.store.initialDataConstruct()
-      console.log('setting latest saved data')
       this.store.setLatestSavedData(this.store.collections)
-      console.log('applying editors')
       this.store.editorApply()
-      console.log('collecting modules')
       this.store.moduleCollect()
-      console.log('setting vue instance')
       this.store.setVueInstance(this)
-      console.log('setting admin bar is open')
       if (window.location.hash.indexOf('#edit') !== -1) {
         this.store.setAdminBarIsOpen(true)
       }

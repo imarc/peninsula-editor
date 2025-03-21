@@ -5,7 +5,6 @@
  */
 
 export default function setContext (module) {
-  console.log('setContext', module)
   this.context = module
   this.setIsModuleMode(true)
 }

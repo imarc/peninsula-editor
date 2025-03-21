@@ -15,11 +15,8 @@ export default async function destroyEditors () {
   const store = useMainStore()
 
   /**
-     * Destory Everything
-     */
-
-  console.log('trying to destroy', store.CKEditors)
-
+   * Destory Everything
+   */
   if (Array.isArray(store.CKEditors)) {
     for (const ckeditor of store.CKEditors) {
       const editor = toRaw(ckeditor)
