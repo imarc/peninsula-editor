@@ -1,4 +1,4 @@
-// import FileUploadInline from './store/modules/plugins/inlineFileUpload.js'
+import FileUploadInline from './store/modules/plugins/inlineFileUpload.js'
 
 import {
 	Alignment,
@@ -36,5 +36,5 @@ export default [
 		TableToolbar,
 		TextTransformation,
 
-    // FileUploadInline,
+    FileUploadInline,
 ]
