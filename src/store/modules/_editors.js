@@ -65,7 +65,11 @@ const editors = {
     }
 
     node.addEventListener('click', () => {
-      console.log('click')
+      const store = useMainStore()
+      if (!store.adminBarIsOpen) {
+        return true
+      }
+
       if (!node.ckeditorInstance) {
         console.log('initializing CKEditor')
         InlineEditor.create(node, {
