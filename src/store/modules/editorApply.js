@@ -6,7 +6,7 @@
 // Dependencies
 import editorOptions from './_editors.js'
 
-export default function initialDataConstruct () {
+export default function editorApply () {
   // Creates array of availible editors in content instance.
   this.editors = [...document.querySelectorAll('[data-editor]')]
 
