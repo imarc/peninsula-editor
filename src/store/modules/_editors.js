@@ -6,7 +6,7 @@
 
 import CodeFlask from 'codeflask'
 import loadScripts from './_loadScripts.js'
-import { InlineEditor } from 'ckeditor5'
+import { BalloonPanelView, InlineEditor } from 'ckeditor5'
 import CKPlugins from '../../ckplugins.js'
 import { useMainStore } from '../index.js'
 
@@ -64,33 +64,46 @@ const editors = {
       })
     }
 
-    if (!node.ckeditorInstance) {
-      InlineEditor.create(node, {
-        plugins: CKPlugins,
-        updateSourceElementOnDestroy: true,
-        licenseKey: 'GPL',
-        ...ckconfig
-      })
-        .then(editor => {
-          store.CKEditors.push(editor)
-          editor.appliedAttributes = appliedAttributes
-          
-          // Focus if this is the node being edited
-          if (store.editingNode === node) {
-            //editor.editing.view.focus()
-          }
+    node.addEventListener('click', () => {
+      console.log('click')
+      if (!node.ckeditorInstance) {
+        console.log('initializing CKEditor')
+        InlineEditor.create(node, {
+          plugins: CKPlugins,
+          updateSourceElementOnDestroy: true,
+          licenseKey: 'GPL',
+          ...ckconfig
         })
-        .catch(error => {
-          console.error(error.stack)
-        })
-      node.dataset.editing = true
+          .then(editor => {
+            console.log('CKEditor initialized', editor, store.editingNode)
+            store.CKEditors.push(editor)
+            editor.appliedAttributes = appliedAttributes
 
-      store.setIsEditing(true)
-      store.setEditingNode(node)
-    }
+            if (editor.sourceElement === store.editingNode) {
+              editor.ui.view.panel.attachTo({
+                target: node,
+                positions: [
+                  (targetRect, balloonRect) => ({
+                    top: targetRect.top - balloonRect.height,
+                    left: targetRect.left,
+                    name: 'toolbar',
+                    withArrow: false,
+                  }),
+                ],
+              })
 
+              editor.editing.view.focus()
+            }
+          })
+          .catch(error => {
+            console.error(error.stack)
+          })
+        node.dataset.editing = true
 
-    return true
+        store.setIsEditing(true)
+        store.setEditingNode(node)
+      }
+    })
   },
 
   /**
