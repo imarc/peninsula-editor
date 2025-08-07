@@ -32,6 +32,7 @@
   },
   "dependencies": {
     "@ckeditor/ckeditor5-dev-utils": "^43.0.1",
+    "@edsdk/flmngr-ckeditor5": "^1.1.1",
     "@fortawesome/fontawesome-pro": "^6.7.2",
     "@shopify/draggable": "^1.0.0-beta.8",
     "ckeditor5": "^44.2.1",

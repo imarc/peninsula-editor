@@ -1,4 +1,5 @@
 import FileUploadInline from './store/modules/plugins/inlineFileUpload.js'
+import Flmngr from "@edsdk/flmngr-ckeditor5/src/flmngr"
 
 import {
 	Alignment,
@@ -22,19 +23,20 @@ import 'ckeditor5/ckeditor5.css';
 export default [
 
     Alignment,
-		Autoformat,
-		BlockQuote,
-		Bold,
-		Essentials,
-		Heading,
-		Italic,
-		Link,
-		List,
-		Paragraph,
-		Table,
-		TableColumnResize,
-		TableToolbar,
-		TextTransformation,
+	Autoformat,
+	BlockQuote,
+	Bold,
+	Essentials,
+	Heading,
+	Italic,
+	Link,
+	List,
+	Paragraph,
+	Table,
+	TableColumnResize,
+	TableToolbar,
+	TextTransformation,
 
+	Flmngr,
     FileUploadInline,
 ]
