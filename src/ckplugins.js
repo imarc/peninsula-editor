@@ -1,5 +1,5 @@
 import FileUploadInline from './store/modules/plugins/inlineFileUpload.js'
-import Flmngr from "@edsdk/flmngr-ckeditor5/src/flmngr"
+import Flmngr from "@edsdk/flmngr-ckeditor5/src/flmngr.js"
 
 import {
 	Alignment,
