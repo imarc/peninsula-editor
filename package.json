@@ -82,7 +82,7 @@
     "docs": "docsify serve docs",
     "XXXprepare": "webpack --config webpack.config.js"
   },
-  "version": "0.6.0-alpha.4",
+  "version": "0.6.0-alpha.5",
   "peerDependencies": {
     "axios": "^1.7.9",
     "pinia": "^2.1.7",
