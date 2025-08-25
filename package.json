@@ -37,6 +37,7 @@
     "@shopify/draggable": "^1.0.0-beta.8",
     "ckeditor5": "^44.2.1",
     "codeflask": "^1.4.1",
+    "flmngr": "^2.0.19",
     "lodash": "^4.17.21",
     "query-string": "^6.14.1",
     "slim-select": "^1.27.1",

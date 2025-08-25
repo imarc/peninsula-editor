@@ -9,6 +9,7 @@ import loadScripts from './_loadScripts.js'
 import { BalloonPanelView, InlineEditor } from 'ckeditor5'
 import CKPlugins from '../../ckplugins.js'
 import { useMainStore } from '../index.js'
+import { Flmngr } from 'flmngr'
 
 const editors = {
   /**
@@ -175,6 +176,41 @@ const editors = {
         isSelecting: true,
         node
       })
+
+      store.setIsEditing(true)
+      store.setEditingNode(node)
+
+      return true
+    })
+  },
+
+  asset (node) {
+    node.addEventListener('click', event => {
+      const store = useMainStore()
+      if (!store.adminBarIsOpen) {
+        return true
+      }
+
+      flmngrconfig = window.flmngrconfig || {}
+
+      Flmngr.open({
+        apiKey: flmngrconfig.apiKey,
+        isMultiple: false,
+        urlFileManager: '/assets',
+        urlFiles: '/storage/assets',
+        urlFileManager__CSRF: onSuccess => {
+          onSuccess({
+              headers: {
+                  'X-CSRF-TOKEN': store.token
+              },
+          });
+        },
+        onFinish: file => {
+            node.src = file[0].url
+        },
+      });
+
+      event.preventDefault()
 
       store.setIsEditing(true)
       store.setEditingNode(node)
