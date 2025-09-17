@@ -47,7 +47,15 @@ export default async function destroyEditors () {
       editor.editorRoot.innerHTML = newCode
     }
     
-    editor.destroy()
+    if (editor.root && editor.root.parentNode) {
+      editor.root.parentNode.removeChild(editor.root);
+    }
+
+    if (editor._eventListeners) {
+      editor._eventListeners = [];
+    }
+
+    editor = null;
   })
   store.HTMLEditors = []
 
