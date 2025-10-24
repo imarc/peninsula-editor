@@ -17,12 +17,12 @@ import {
 	TableColumnResize,
 	TableToolbar,
 	TextTransformation,
+    Underline,
 } from 'ckeditor5';
 
 import 'ckeditor5/ckeditor5.css';
 
 export default [
-
     Alignment,
 	Autoformat,
 	BlockQuote,
@@ -38,6 +38,7 @@ export default [
 	TableColumnResize,
 	TableToolbar,
 	TextTransformation,
+    Underline,
 
 	Flmngr,
     FileUploadInline,
