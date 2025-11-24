@@ -4,14 +4,21 @@
  * based on attribute
  */
 
-import CodeFlask from 'codeflask'
+import { basicSetup } from 'codemirror'
+import { EditorView, gutter, lineNumbers } from '@codemirror/view'
 import loadScripts from './_loadScripts.js'
 import { BalloonPanelView, InlineEditor } from 'ckeditor5'
 import CKPlugins from '../../ckplugins.js'
 import { useMainStore } from '../index.js'
 import { Flmngr } from 'flmngr'
 
+const minHeightEditor = EditorView.theme({
+  ".cm-content, .cm-gutter": {minHeight: "6lh"}
+})
+
 const editors = {
+
+
   /**
      * Apply Simple Text Editing
      */
@@ -121,34 +128,57 @@ const editors = {
         return true
       }
 
-      const flask = new CodeFlask(node, {
-        language: 'html'
+      const rawHTML = 'dynamicContent' in node.dataset
+        ? node.dataset.dynamicContent
+        : node.innerHTML
+
+    /*
+      const initialCode = rawHTML
+        ? rawHTML.replace(/<script(\b|>)/gi, '&lt;script$1').replace(/<\/script>/gi, '&lt;/script>')
+        : ''
+        */
+      const initialCode = rawHTML;
+
+      node.replaceChildren()
+
+      const view = new EditorView({
+        doc: initialCode,
+        parent: node,
+        contentHeight: 8,
+        extensions: [ basicSetup, minHeightEditor, lineNumbers(), gutter({ class: 'cm-gutter' }) ]
       })
 
-      if ('dynamicContent' in node.dataset) {
-        flask.updateCode(node.dataset.dynamicContent)
-      }
+      view.focus()
 
-      store.HTMLEditors.push(flask)
+      store.HTMLEditors.push(view)
 
-      const editorTextArea = node.querySelector('textarea')
+      const teardown = () => {
+        // Ignore blur if focus remains inside the editor (e.g., scrollbar clicks)
+        const newCode = view.state.doc.toString()
+        view.destroy()
+        node.dataset.editing = false
+        node.innerHTML = newCode
 
-      editorTextArea.focus()
-
-      editorTextArea.addEventListener('blur', () => {
-        const newCode = flask.getCode()
-        flask.editorRoot.dataset.editing = false
-        flask.editorRoot.innerHTML = newCode
-
-        const scripts = [...flask.editorRoot.querySelectorAll('script')]
+        node.dataset.dynamicContent = newCode
+        const scripts = [...node.querySelectorAll('script')]
 
         if (scripts.length) {
-          node.dataset.dynamicContent = newCode
           loadScripts(scripts)
-        } else {
-          delete node.dataset.dynamicContent
         }
-      })
+
+        document.body.dispatchEvent(new Event('peninsula-html-teardown'))
+      }
+
+      const handlePointerDown = event => {
+        if (view.dom.contains(event.target)) {
+          return
+        }
+
+        document.removeEventListener('pointerdown', handlePointerDown)
+        teardown()
+      }
+
+      document.addEventListener('pointerdown', handlePointerDown)
 
       // eslint-disable-next-line no-param-reassign
       node.dataset.editing = true
