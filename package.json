@@ -36,15 +36,15 @@
     "@fortawesome/fontawesome-pro": "^6.7.2",
     "@shopify/draggable": "^1.0.0-beta.8",
     "ckeditor5": "^44.2.1",
-    "codeflask": "^1.4.1",
+    "codemirror": "^6.0.2",
     "flmngr": "^2.0.19",
     "lodash": "^4.17.21",
     "query-string": "^6.14.1",
     "slim-select": "^1.27.1",
     "twig": "^1.15.4",
     "uuid": "^3.3.3",
-    "vue-loader": "^17.4.2",
-    "vue-demi": "latest"
+    "vue-demi": "latest",
+    "vue-loader": "^17.4.2"
   },
   "deprecated": false,
   "description": "A wysiwyg, module-based content editor using vue and ckeditor.",

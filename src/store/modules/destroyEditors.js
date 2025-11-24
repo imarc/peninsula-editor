@@ -7,8 +7,8 @@ import { useMainStore } from '../index.js'
 
 export default async function destroyEditors () {
   /**
-     * Scans DOM for all simple editor instances
-     */
+    * Scans DOM for all simple editor instances
+    */
   const simpleEditors = [...document.querySelectorAll('[data-editor="simpletext"]')]
   const richTextNodes = [...document.querySelectorAll('[data-editor="richtext"]')]
 
@@ -37,25 +37,21 @@ export default async function destroyEditors () {
 
   store.CKEditors = []
 
-  store.HTMLEditors.forEach(editor => {
-    const newCode = editor.getCode() // HTML that was rendered INCLUDING html rendered by the scripts
-    editor.editorRoot.dataset.editing = false
+  store.HTMLEditors.forEach(rawEditor => {
+    const editor = toRaw(rawEditor)
+    const container = editor && editor.dom ? editor.dom.parentNode : null
 
-    if ('dynamicContent' in editor.editorRoot.dataset) {
-      editor.editorRoot.innerHTML = editor.editorRoot.dataset.dynamicContent // Original HTML with scripts that HAVE NOT RUN
-    } else {
-      editor.editorRoot.innerHTML = newCode
-    }
-    
-    if (editor.root && editor.root.parentNode) {
-      editor.root.parentNode.removeChild(editor.root);
+    if (!container) {
+      return
     }
 
-    if (editor._eventListeners) {
-      editor._eventListeners = [];
-    }
+    const newCode = editor.state.doc.toString()
+    editor.destroy()
 
-    editor = null;
+    container.dataset.editing = false
+    const restored = 'dynamicContent' in container.dataset ? container.dataset.dynamicContent : newCode
+    container.dataset.dynamicContent = restored
+    container.innerHTML = restored
   })
   store.HTMLEditors = []
 
