@@ -8,16 +8,18 @@ import {
 	Bold,
 	Essentials,
 	Heading,
-    Image,
+	Image,
 	Italic,
 	Link,
 	List,
 	Paragraph,
+	Subscript,
+	Superscript,
 	Table,
 	TableColumnResize,
 	TableToolbar,
 	TextTransformation,
-    Underline,
+	Underline,
 } from 'ckeditor5';
 
 import 'ckeditor5/ckeditor5.css';
@@ -38,8 +40,9 @@ export default [
 	TableColumnResize,
 	TableToolbar,
 	TextTransformation,
-    Underline,
-
+	Underline,
+	Superscript,
+	Subscript,
 	Flmngr,
     FileUploadInline,
 ]
