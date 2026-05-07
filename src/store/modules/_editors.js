@@ -7,40 +7,54 @@
 import { basicSetup } from 'codemirror'
 import { EditorView, gutter, lineNumbers } from '@codemirror/view'
 import loadScripts from './_loadScripts.js'
-import { BalloonPanelView, InlineEditor } from 'ckeditor5'
+import { InlineEditor } from 'ckeditor5'
 import CKPlugins from '../../ckplugins.js'
 import { useMainStore } from '../index.js'
 import { Flmngr } from 'flmngr'
 
+const BOUND_EDITOR_EVENTS = Symbol('peninsula.boundEditorEvents')
+
 const minHeightEditor = EditorView.theme({
-  ".cm-content, .cm-gutter": {minHeight: "6lh"}
+  '.cm-content, .cm-gutter': { minHeight: '6lh' }
 })
 
+function bindEditorEventOnce (node, editorType, eventName, handler) {
+  if (!node[BOUND_EDITOR_EVENTS]) {
+    node[BOUND_EDITOR_EVENTS] = new Set()
+  }
+
+  const bindingKey = `${editorType}:${eventName}`
+
+  if (node[BOUND_EDITOR_EVENTS].has(bindingKey)) {
+    return
+  }
+
+  node.addEventListener(eventName, handler)
+  node[BOUND_EDITOR_EVENTS].add(bindingKey)
+}
+
 const editors = {
-
-
   /**
-     * Apply Simple Text Editing
-     */
+   * Apply Simple Text Editing
+   */
   simpletext (node) {
-    node.addEventListener('click', () => {
+    bindEditorEventOnce(node, 'simpletext', 'click', () => {
       const store = useMainStore()
       if (!store.adminBarIsOpen) {
         return true
       }
 
-      node.addEventListener('dragstart', (e) => {
-        e.preventDefault()
+      node.addEventListener('dragstart', event => {
+        event.preventDefault()
       })
 
-      node.addEventListener('drop', (e) => {
-        e.preventDefault()
+      node.addEventListener('drop', event => {
+        event.preventDefault()
       })
 
       // eslint-disable-next-line no-param-reassign
       node.contentEditable = true
       node.focus()
-
 
       store.setIsEditing(true)
       store.setEditingNode(node)
@@ -50,8 +64,8 @@ const editors = {
   },
 
   /**
-     * Apply Rich Text Editing
-     */
+   * Apply Rich Text Editing
+   */
   richtext (node) {
     // Gracefully fall back to simple if IE
     if (window.document.documentMode) {
@@ -60,21 +74,20 @@ const editors = {
     }
 
     const store = useMainStore()
-
     const appliedAttributes = {}
     const downloadNodes = [...node.querySelectorAll('a[download]')]
     const ckconfig = window.ckconfig || {}
 
     if (downloadNodes.length) {
-      downloadNodes.forEach(node => {
-        const path = node.getAttribute('href')
-        appliedAttributes[path] = node.download
+      downloadNodes.forEach(downloadNode => {
+        const path = downloadNode.getAttribute('href')
+        appliedAttributes[path] = downloadNode.download
       })
     }
 
-    node.addEventListener('click', () => {
-      const store = useMainStore()
-      if (!store.adminBarIsOpen) {
+    bindEditorEventOnce(node, 'richtext', 'click', () => {
+      const currentStore = useMainStore()
+      if (!currentStore.adminBarIsOpen) {
         return true
       }
 
@@ -99,9 +112,9 @@ const editors = {
                     top: targetRect.top - balloonRect.height,
                     left: targetRect.left,
                     name: 'toolbar',
-                    withArrow: false,
-                  }),
-                ],
+                    withArrow: false
+                  })
+                ]
               })
 
               editor.editing.view.focus()
@@ -110,6 +123,7 @@ const editors = {
           .catch(error => {
             console.error(error.stack)
           })
+
         node.dataset.editing = true
 
         store.setIsEditing(true)
@@ -119,10 +133,10 @@ const editors = {
   },
 
   /**
-     * Apply HTML Editing
-     */
+   * Apply HTML Editing
+   */
   html (node) {
-    node.addEventListener('click', () => {
+    bindEditorEventOnce(node, 'html', 'click', () => {
       const store = useMainStore()
       if (node.dataset.editing === 'true' || !store.adminBarIsOpen) {
         return true
@@ -132,12 +146,12 @@ const editors = {
         ? node.dataset.dynamicContent
         : node.innerHTML
 
-    /*
+      /*
       const initialCode = rawHTML
         ? rawHTML.replace(/<script(\b|>)/gi, '&lt;script$1').replace(/<\/script>/gi, '&lt;/script>')
         : ''
-        */
-      const initialCode = rawHTML;
+      */
+      const initialCode = rawHTML
 
       node.replaceChildren()
 
@@ -145,7 +159,12 @@ const editors = {
         doc: initialCode,
         parent: node,
         contentHeight: 8,
-        extensions: [ basicSetup, minHeightEditor, lineNumbers(), gutter({ class: 'cm-gutter' }) ]
+        extensions: [
+          basicSetup,
+          minHeightEditor,
+          lineNumbers(),
+          gutter({ class: 'cm-gutter' })
+        ]
       })
 
       view.focus()
@@ -153,7 +172,6 @@ const editors = {
       store.HTMLEditors.push(view)
 
       const teardown = () => {
-        // Ignore blur if focus remains inside the editor (e.g., scrollbar clicks)
         const newCode = view.state.doc.toString()
         view.destroy()
         node.dataset.editing = false
@@ -191,10 +209,10 @@ const editors = {
   },
 
   /**
-     * Image Upload
-     */
+   * Image Upload
+   */
   image (node) {
-    node.addEventListener('click', event => {
+    bindEditorEventOnce(node, 'image', 'click', event => {
       const store = useMainStore()
       if (!store.adminBarIsOpen) {
         return true
@@ -215,13 +233,13 @@ const editors = {
   },
 
   asset (node) {
-    node.addEventListener('click', event => {
+    bindEditorEventOnce(node, 'asset', 'click', event => {
       const store = useMainStore()
       if (!store.adminBarIsOpen) {
         return true
       }
 
-      flmngrconfig = window.flmngrconfig || {}
+      const flmngrconfig = window.flmngrconfig || {}
 
       Flmngr.open({
         apiKey: flmngrconfig.apiKey,
@@ -230,15 +248,15 @@ const editors = {
         urlFiles: '/storage/assets',
         urlFileManager__CSRF: onSuccess => {
           onSuccess({
-              headers: {
-                  'X-CSRF-TOKEN': store.token
-              },
-          });
+            headers: {
+              'X-CSRF-TOKEN': store.token
+            }
+          })
         },
         onFinish: file => {
-            node.src = file[0].url
-        },
-      });
+          node.src = file[0].url
+        }
+      })
 
       event.preventDefault()
 
