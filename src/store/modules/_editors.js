@@ -76,7 +76,6 @@ const editors = {
     const store = useMainStore()
     const appliedAttributes = {}
     const downloadNodes = [...node.querySelectorAll('a[download]')]
-    const ckconfig = window.ckconfig || {}
 
     if (downloadNodes.length) {
       downloadNodes.forEach(downloadNode => {
@@ -86,13 +85,14 @@ const editors = {
     }
 
     bindEditorEventOnce(node, 'richtext', 'click', () => {
+      const ckconfig = window.ckconfig || {}
       const currentStore = useMainStore()
       if (!currentStore.adminBarIsOpen) {
         return true
       }
 
       if (!node.ckeditorInstance) {
-        console.log('initializing CKEditor')
+        //console.log('initializing CKEditor')
         InlineEditor.create(node, {
           plugins: CKPlugins,
           updateSourceElementOnDestroy: true,
@@ -100,7 +100,7 @@ const editors = {
           ...ckconfig
         })
           .then(editor => {
-            console.log('CKEditor initialized', editor, store.editingNode)
+            //console.log('CKEditor initialized', editor, store.editingNode)
             store.CKEditors.push(editor)
             editor.appliedAttributes = appliedAttributes
 
