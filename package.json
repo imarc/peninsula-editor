@@ -31,7 +31,7 @@
     "url": "https://github.com/imarc/peninsula/issues"
   },
   "dependencies": {
-    "@ckeditor/ckeditor5-dev-utils": "^43.0.1",
+    "@ckeditor/ckeditor5-dev-utils": "^55.0.0",
     "@edsdk/flmngr-ckeditor5": "^1.1.1",
     "@fortawesome/fontawesome-pro": "^6.7.2",
     "@shopify/draggable": "^1.0.0-beta.8",
@@ -41,7 +41,7 @@
     "lodash": "^4.17.21",
     "query-string": "^6.14.1",
     "slim-select": "^1.27.1",
-    "twig": "^1.15.4",
+    "twig": "^2.0.0",
     "uuid": "^3.3.3",
     "vue-demi": "latest",
     "vue-loader": "^17.4.2"
